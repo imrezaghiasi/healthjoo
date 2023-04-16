@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    direction: rtl;
+}
+
 @font-face {
     font-family: Kanit;
     src: url("../fonts/Kanit/Kanit-Medium.ttf");
@@ -18,3 +22,25 @@
     font-family: Kanit-ExtraBold;
     src: url("../fonts/Kanit/Kanit-ExtraBold.ttf");
 }
+
+@font-face {
+    font-family: Vazir;
+    src: url("../fonts/Vazir/Vazir.ttf");
+}
+
+@font-face {
+    font-family: Vazir-Thin;
+    src: url("../fonts/Vazir/Vazir-Thin.ttf");
+}
+
+@font-face {
+    font-family: Vazir-Medium;
+    src: url("../fonts/Vazir/Vazir-Medium.ttf");
+}
+
+@font-face {
+    font-family: Vazir-Bold;
+    src: url("../fonts/Vazir/Vazir-Bold.ttf");
+}
+
+

@@ -1,10 +1,17 @@
 import {useState} from 'react';
-import Navbar from "@/Components/Navbar";
 import Sidebar from "@/Components/Sidebar";
-import {Context} from "@/context";
+import {Context} from "@/assets/context";
+import Navbar from "@/Components/Navbar";
+import 'flowbite-react'
 
-export default function Authenticated({user, children}) {
+export default function Authenticated({auth, header, children}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
 
     function dropdown() {
         document.querySelector('#submenu').classList.toggle('hidden');
@@ -13,20 +20,20 @@ export default function Authenticated({user, children}) {
 
     function openSidebar() {
         document.querySelector('.sidebar').classList.toggle('hidden');
+        document.querySelector('.main').classList.toggle('mr-64')
     }
-
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <Context.Provider value={{showingNavigationDropdown,setShowingNavigationDropdown,dropdown,openSidebar,user}}>
-                <Navbar />
+            <Context.Provider
+                value={{showingNavigationDropdown, setShowingNavigationDropdown, dropdown, openSidebar, auth}}>
+                <Navbar/>
                 <Sidebar/>
             </Context.Provider>
-            <div className="p-4 mt-10">
+            <div className="main p-4 mt-10">
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
                     <main>{children}</main>
                 </div>
             </div>
-
         </div>
     );
 }
