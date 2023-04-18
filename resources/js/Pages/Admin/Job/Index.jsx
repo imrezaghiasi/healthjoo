@@ -7,8 +7,6 @@ const Index = (props) => {
 
     const {jobs} = usePage().props;
 
-    console.log(jobs.links)
-
     function destroy(e) {
         if (confirm("آیا از حذف این مورد مطمئن هستید؟")) {
             router.delete(route("admin.jobs.destroy", e.currentTarget.id));
@@ -60,7 +58,7 @@ const Index = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {jobs.data.map(({id, name,  deleted_at}) => (
+                                {jobs.data.map(({id, name, deleted_at}) => (
                                     <tr key={id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -89,7 +87,16 @@ const Index = (props) => {
                                         </td>
                                     </tr>
                                 ))}
-
+                                {jobs.data.length === 0 && (
+                                    <tr>
+                                        <td
+                                            className="px-6 py-4 border-t"
+                                            colSpan="4"
+                                        >
+                                            هیچ موردی یافت نشد.
+                                        </td>
+                                    </tr>
+                                )}
                                 </tbody>
                             </table>
                             <Pagination links={jobs.links} class="mt-5"/>

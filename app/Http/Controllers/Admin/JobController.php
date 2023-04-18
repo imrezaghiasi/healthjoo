@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\JobRequest;
 use App\Models\Job;
 use Inertia\Inertia;
-use Symfony\Component\HttpFoundation\Request;
 
 class JobController extends Controller
 {

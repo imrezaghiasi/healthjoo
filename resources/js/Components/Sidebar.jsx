@@ -38,7 +38,7 @@ const Sidebar = () => {
                 <div
                     className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
                     <i className="bi bi-person-workspace"></i>
-                    <span className="text-[15px] mr-4 dark:text-gray-200">کارمندان</span>
+                    <Link href={route('admin.employees.index')} className="text-[15px] mr-4 dark:text-gray-200">کارمندان</Link>
                 </div>
 
                 <div

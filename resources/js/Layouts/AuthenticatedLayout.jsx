@@ -22,8 +22,8 @@ export default function Authenticated({auth, header, children}) {
                 <Navbar/>
                 <Sidebar/>
             </Context.Provider>
-            <div className="main p-4 mt-10">
-                <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+            <div className="main p-1 mt-10">
+                <div className="p-1 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
                     <main>{children}</main>
                 </div>
             </div>

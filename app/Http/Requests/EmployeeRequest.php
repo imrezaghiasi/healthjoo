@@ -6,7 +6,7 @@ use Iamfarhad\Validation\Rules\Address;
 use Iamfarhad\Validation\Rules\Mobile;
 use Iamfarhad\Validation\Rules\NationalCode;
 use Iamfarhad\Validation\Rules\PersianAlpha;
-use Iamfarhad\Validation\Rules\Phone;
+use Iamfarhad\Validation\Rules\PersianNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EmployeeRequest extends FormRequest
@@ -32,10 +32,11 @@ class EmployeeRequest extends FormRequest
             'phone' => ['required',new Mobile()],
             'national_code' => ['required',new NationalCode()],
             'gender' => ['required','min:1','max:2'],
-            'email' => ['email'],
+            'email' => ['nullable','email'],
             'address' => ['required',new Address()],
-            'photo' => ['mimes:jpeg,png,jpg','size:1024'],
+            'photo' => ['nullable','image','mimes:jpeg,png,jpg','max:2048'],
             'job_id' => ['required'],
+            'salary' => ['numeric','nullable']
         ];
     }
 }
