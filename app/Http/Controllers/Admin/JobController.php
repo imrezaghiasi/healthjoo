@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobRequest;
 use App\Models\Job;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Request;
 
 class JobController extends Controller
 {
@@ -54,15 +54,19 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        //
+        return Inertia::render('Admin/Job/Edit',compact('job'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Job $job)
+    public function update(JobRequest $request, Job $job)
     {
-        //
+       $job->name = $request->name;
+
+       $job->update();
+
+       return redirect()->route('admin.jobs.index');
     }
 
     /**

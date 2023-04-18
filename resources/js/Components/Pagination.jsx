@@ -22,7 +22,7 @@ export default function Pagination({ links }) {
                 <div className="flex flex-wrap mt-8">
                     {links.map((link, key) => (
                         link.url === null ?
-                            (<div
+                            (<div key={key}
                                 className="mr-1 mb-1 px-4 py-3 text-sm leading-4 text-gray-400 border rounded"
                             >{link.label}</div>) :
 
