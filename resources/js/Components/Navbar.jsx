@@ -5,7 +5,7 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import {Context} from "@/assets/context";
 
 const Navbar = () => {
-    const {openSidebar, auth, showingNavigationDropdown, setShowingNavigationDropdown} = useContext(Context);
+    const {openSidebar,auth, showingNavigationDropdown, setShowingNavigationDropdown} = useContext(Context);
 
     return (
         <div>

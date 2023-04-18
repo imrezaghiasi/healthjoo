@@ -2,16 +2,9 @@ import {useState} from 'react';
 import Sidebar from "@/Components/Sidebar";
 import {Context} from "@/assets/context";
 import Navbar from "@/Components/Navbar";
-import 'flowbite-react'
 
 export default function Authenticated({auth, header, children}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark')
-    }
 
     function dropdown() {
         document.querySelector('#submenu').classList.toggle('hidden');

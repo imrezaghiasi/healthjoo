@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JobRequest;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +15,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::withTrashed()->paginate(5);
+        $jobs = Job::withTrashed()->latest()->paginate(10);
         return Inertia::render('Admin/Job/Index',compact('jobs'));
     }
 
@@ -29,9 +30,15 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(JobRequest $request)
     {
+        $job = Job::create(
+            [
+                'name' => $request->name,
+            ]
+        );
 
+        return redirect()->route('admin.jobs.index');
     }
 
     /**

@@ -12,7 +12,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Vazir-Bold', ...defaultTheme.fontFamily.sans]
+                sans: ['vazir-bold', ...defaultTheme.fontFamily.sans]
             },
         },
     },
