@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Repositories\EmployeeRepository;
+use App\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Repositories\Interfaces\JobRepositoryInterface;
+use App\Repositories\JobRepository;
+use App\Services\EmployeeService;
+use App\Services\Interfaces\EmployeeServiceInterface;
+use App\Services\Interfaces\JobServiceInterface;
+use App\Services\JobService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->bindRepository();
+        $this->bindService();
     }
 
     /**
@@ -21,5 +30,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useTailwind();
+    }
+
+    public function bindRepository()
+    {
+        $this->app->bind(JobRepositoryInterface::class,JobRepository::class);
+        $this->app->bind(EmployeeRepositoryInterface::class,EmployeeRepository::class);
+    }
+
+    public function bindService()
+    {
+        $this->app->bind(JobServiceInterface::class,JobService::class);
+        $this->app->bind(EmployeeServiceInterface::class,EmployeeService::class);
     }
 }

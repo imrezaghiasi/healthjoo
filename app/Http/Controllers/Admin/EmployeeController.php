@@ -6,18 +6,31 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Models\Job;
+use App\Repositories\EmployeeRepository;
+use App\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Services\Interfaces\EmployeeServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
 {
+
+    private EmployeeRepositoryInterface $employeeRepository;
+    private EmployeeServiceInterface $employeeService;
+
+    public function __construct(EmployeeRepositoryInterface $employeeRepository, EmployeeServiceInterface $employeeService)
+    {
+        $this->employeeRepository = $employeeRepository;
+        $this->employeeService = $employeeService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $employees = Employee::withTrashed()->with('job')->paginate(10);
+        $employees = $this->employeeRepository->getWithTrashedLatest()->paginate(10);
         return Inertia::render('Admin/Employee/Index', compact('employees'));
     }
 
@@ -26,7 +39,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $jobs = Job::select('id', 'name')->get();
+        $jobs = $this->employeeRepository->getJobForEmployees();
         return Inertia::render('Admin/Employee/Create', compact('jobs'));
     }
 
@@ -35,33 +48,8 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-        $employee = Employee::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'gender' => $request->gender,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'salary' => $request->salary,
-            'job_id' => $request->job_id,
-            'address' => $request->address,
-            'photo_path' => $this->storeImage($request->file('photo')),
-            'national_code' => $request->national_code
-        ]);
-
+        $this->employeeService->store($request);
         return redirect()->route('admin.employees.index');
-    }
-
-    public function storeImage(UploadedFile $photo)
-    {
-        if (!$photo) {
-            return null;
-        }
-
-        $photoName = $photo->getClientOriginalName();
-
-        $photo_path = $photo->storeAs('employeeImages', $photoName);
-
-        return $photo_path;
     }
 
 
@@ -78,15 +66,16 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        $jobs = $this->employeeRepository->getJobForEmployees();
+        return Inertia::render('Admin/Employee/Edit',compact(['employee','jobs']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employee $employee)
+    public function update(EmployeeRequest $request, Employee $employee)
     {
-        //
+        $this->employeeService->update($request,$employee);
     }
 
     /**
@@ -94,8 +83,7 @@ class EmployeeController extends Controller
      */
     public function destroy(string $id)
     {
-        $singer = Employee::FindOrFail($id);
-        $singer->delete();
+        $this->employeeService->destroy($id);
     }
 
     /**
@@ -103,8 +91,6 @@ class EmployeeController extends Controller
      */
     public function restore(string $id)
     {
-        $singer = Employee::withTrashed()->FindOrFail($id);
-
-        $singer->restore();
+       $this->employeeService->restore($id);
     }
 }

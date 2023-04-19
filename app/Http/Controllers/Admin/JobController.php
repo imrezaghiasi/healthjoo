@@ -5,16 +5,31 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobRequest;
 use App\Models\Job;
+use App\Repositories\Interfaces\JobRepositoryInterface;
+use App\Services\Interfaces\JobServiceInterface;
 use Inertia\Inertia;
 
 class JobController extends Controller
 {
+
+    private string $redirectRoute = 'admin.employees.index';
+
+    private JobRepositoryInterface $jobRepository;
+    private JobServiceInterface $jobService;
+
+    public function __construct(JobRepositoryInterface $jobRepository, JobServiceInterface $jobService)
+    {
+        $this->jobRepository = $jobRepository;
+        $this->jobService = $jobService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $jobs = Job::withTrashed()->latest()->paginate(10);
+//        $jobs = Job::withTrashed()->latest()->paginate(5);
+        $jobs = $this->jobRepository->getAllLatest()->paginate(5);
         return Inertia::render('Admin/Job/Index',compact('jobs'));
     }
 
@@ -31,13 +46,8 @@ class JobController extends Controller
      */
     public function store(JobRequest $request)
     {
-        $job = Job::create(
-            [
-                'name' => $request->name,
-            ]
-        );
-
-        return redirect()->route('admin.jobs.index');
+        $this->jobService->store($request);
+        return redirect()->route($this->redirectRoute);
     }
 
     /**
@@ -61,11 +71,9 @@ class JobController extends Controller
      */
     public function update(JobRequest $request, Job $job)
     {
-       $job->name = $request->name;
+       $this->jobService->update($request,$job);
 
-       $job->update();
-
-       return redirect()->route('admin.jobs.index');
+       return redirect()->route($this->redirectRoute);
     }
 
     /**
@@ -73,8 +81,7 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
-        $singer = Job::FindOrFail($id);
-        $singer->delete();
+        $this->jobService->destroy($id);
     }
 
     /**
@@ -82,8 +89,6 @@ class JobController extends Controller
      */
     public function restore(string $id)
     {
-        $singer = Job::withTrashed()->FindOrFail($id);
-
-        $singer->restore();
+        $this->jobService->restore($id);
     }
 }
