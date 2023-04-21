@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('address');
             $table->double('salary')->nullable();
             $table->foreignId('job_id')->references('id')->on('jobs')->cascadeOnUpdate();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

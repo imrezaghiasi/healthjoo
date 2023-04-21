@@ -154,7 +154,7 @@ return [
     |
     */
 
-    'providers' => [
+    'providers' => array(
 
         /*
          * Laravel Framework Service Providers...
@@ -182,9 +182,12 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
+
+        Ybazli\Faker\FakerServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -195,7 +198,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-    ],
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -210,6 +213,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Faker' => Ybazli\Faker\Facades\Faker::class,
     ])->toArray(),
 
 ];

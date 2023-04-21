@@ -7,7 +7,9 @@ use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Repositories\Interfaces\JobRepositoryInterface;
 use App\Repositories\JobRepository;
 use App\Services\EmployeeService;
+use App\Services\ImageUploaderService;
 use App\Services\Interfaces\EmployeeServiceInterface;
+use App\Services\Interfaces\ImageUploaderServiceInterface;
 use App\Services\Interfaces\JobServiceInterface;
 use App\Services\JobService;
 use Illuminate\Pagination\Paginator;
@@ -42,5 +44,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(JobServiceInterface::class,JobService::class);
         $this->app->bind(EmployeeServiceInterface::class,EmployeeService::class);
+        $this->app->bind(ImageUploaderServiceInterface::class,ImageUploaderService::class);
     }
 }

@@ -36,7 +36,7 @@ const Index = (props) => {
 
                             <div className="flex items-center justify-between mb-6">
                                 <Link
-                                    className="px-6 py-2 text-gray-300 bg-blue-900 rounded-md focus:outline-none"
+                                    className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
                                     href={route("admin.jobs.create")}
                                 >
                                     ایجاد شغل
@@ -70,7 +70,7 @@ const Index = (props) => {
                                         <td className="px-6 py-4">
                                             <Link
                                                 tabIndex="1"
-                                                className="px-4 py-2 text-sm text-gray-300 bg-blue-700 rounded"
+                                                className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
                                                 href={route("admin.jobs.edit", id)}
                                             >
                                                 ویرایش
@@ -80,7 +80,7 @@ const Index = (props) => {
                                                 id={id}
                                                 tabIndex="-1"
                                                 type="button"
-                                                className={`${deleted_at == null ? 'bg-red-700' : 'bg-green-700'} mx-1 px-4 py-2 text-sm text-gray-300 rounded`}
+                                                className={`${deleted_at == null ? 'bg-red-500 dark:bg-red-700' : 'bg-green-500 dark:bg-green-700'} mx-1 px-4 py-2 text-sm text-white rounded`}
                                             >
                                                 {deleted_at == null ? "حذف" : "برگرداندن"}
                                             </button>

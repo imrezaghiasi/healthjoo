@@ -8,10 +8,10 @@ const Sidebar = () => {
 
     return (
         <div>
-            <div className="sidebar fixed top-10 bottom-0 shadow-gray-700 shadow-2xl hidden right-0 p-2 w-[250px] overflow-y-auto
-            text-center bg-gray-200 text-xl dark:bg-gray-800">
+            <div className="sidebar fixed top-10 bottom-0 shadow-sm hidden right-0 p-2 w-[250px] overflow-y-auto
+            text-center bg-gradient-to-b from-gray-100 to-gray-200 text-xl dark:bg-gradient-to-b dark:from-gray-800 dark:to-gray-900">
 
-                <div className="text-gray-100 text-xl">
+                <div className="text-gray-100 text-xl mt-5">
                     <div className="p-2.5 mt-1 flex items-center">
                         <i className="bi bi-app-indicator px-2 py-1 text-black bg-blue-400 dark:bg-green-600 rounded-md"></i>
                         <h1 className="text-black dark:text-gray-200 text-[15px] mr-3">سیستم مدیریت بیمارستانی</h1>

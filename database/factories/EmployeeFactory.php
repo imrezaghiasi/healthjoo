@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Job;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Ybazli\Faker\Facades\Faker;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employee>
@@ -19,15 +20,15 @@ class EmployeeFactory extends Factory
     {
         $jobs = Job::pluck('id')->toArray();
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'phone' => $this->faker->phoneNumber,
-            'national_code' => $this->faker->randomNumber(9),
+            'first_name' => Faker::firstName(),
+            'last_name' => Faker::lastName(),
+            'phone' => Faker::mobile(),
+            'national_code' => Faker::melliCode(),
             'gender' =>rand(1,2),
-            'email' => $this->faker->email,
-            'address' => $this->faker->address,
+            'email' => $this->faker->email(),
+            'address' => Faker::address(),
             'photo_path' => $this->faker->imageUrl(113.39,151.18),
-            'salary' => $this->faker->numberBetween(1000000,15000000),
+            'salary' => $this->faker->numberBetween(100000000,150000000),
             'job_id' => $this->faker->randomElement($jobs)
         ];
     }

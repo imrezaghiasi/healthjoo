@@ -3,7 +3,7 @@ import {Link, Head, useForm, usePage, router} from "@inertiajs/react";
 
 function Create({auth, errors}) {
 
-    const {employee,jobs} = usePage().props
+    const {employee, jobs} = usePage().props
 
     const {data, setData} = useForm({
         first_name: employee.first_name || "",
@@ -15,24 +15,13 @@ function Create({auth, errors}) {
         photo: null,
         address: employee.address || '',
         salary: employee.salary || '',
-        job_id: employee.job_id || ''
+        job_id: employee.job_id || '',
+        _method: 'PUT'
     })
 
     function handleSubmit(e) {
-        var values = new FormData();
-        values.append('first_name',data.first_name);
-        values.append('last_name',data.last_name);
-        values.append('photo',data.photo);
-        values.append('address',data.address);
-        values.append('salary',data.salary);
-        values.append('phone',data.phone);
-        values.append('email',data.email);
-        values.append('job_id',data.job_id);
-        values.append('gender',data.gender);
-        values.append('national_code',data.national_code);
-
-        values.append('_method','PUT');
-        router.post(route("admin.employees.update", employee.id),values);
+        e.preventDefault();
+        router.post(route("admin.employees.update", employee.id), data);
     }
 
     return (
@@ -51,10 +40,10 @@ function Create({auth, errors}) {
 
                             <div className="flex items-center justify-between mb-6">
                                 <Link
-                                    className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
+                                    className="px-6 py-2 text-white bg-blue-700 dark:bg-blue-900 rounded-md focus:outline-none"
                                     href={route("admin.employees.index")}
                                 >
-                                    Back
+                                    برگشت
                                 </Link>
                             </div>
 
@@ -64,7 +53,7 @@ function Create({auth, errors}) {
                                         <label className="ml-5">نام</label>
                                         <input
                                             type="text"
-                                            className="w-full rounded shadow-2xl shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             value={data.first_name}
                                             onChange={(e) =>
                                                 setData("first_name", e.target.value)
@@ -78,7 +67,7 @@ function Create({auth, errors}) {
                                         <label className="ml-5">نام خانوادگی</label>
                                         <input
                                             type="text"
-                                            className="w-full rounded shadow-2xl shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             value={data.last_name}
                                             onChange={(e) =>
                                                 setData("last_name", e.target.value)
@@ -93,7 +82,7 @@ function Create({auth, errors}) {
                                         <label className="ml-5">تصویر کارمند</label>
                                         <input
                                             type="file"
-                                            className="w-full rounded shadow-2xl shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             onChange={(e) =>
                                                 setData("photo", e.target.files[0])
                                             }
@@ -108,7 +97,8 @@ function Create({auth, errors}) {
                                         <label className="ml-5">کد ملی</label>
                                         <input
                                             type="text"
-                                            className="w-full rounded shadow-2xl shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            maxLength={10}
+                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             value={data.national_code}
                                             onChange={(e) =>
                                                 setData("national_code", e.target.value)
@@ -120,7 +110,9 @@ function Create({auth, errors}) {
                                     </div>
                                     <div className="mb-4 w-1/3">
                                         <label className="ml-5">شغل کارمند</label>
-                                        <select className="w-full rounded shadow-2xl shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800" value={data.job_id} onChange={(e) => setData("job_id", e.target.value)}>
+                                        <select
+                                            className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            value={data.job_id} onChange={(e) => setData("job_id", e.target.value)}>
                                             <option value="">شغل را انتخاب کنید</option>
                                             {jobs.map(job => (
                                                 <option key={job.id} value={job.id}>{job.name}</option>
@@ -132,17 +124,16 @@ function Create({auth, errors}) {
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
-                                        <label className="ml-5">شماره همراه</label>
-                                        <input
-                                            type="text"
-                                            className="w-full rounded shadow-2xl shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.phone}
-                                            onChange={(e) =>
-                                                setData("phone", e.target.value)
-                                            }
-                                        />
+                                        <label className="">جنسیت</label>
+                                        <select className="text-center w-full px-4 py-2 dark:bg-gray-600"
+                                                value={data.gender}
+                                                onChange={(e) => setData("gender", e.target.value)}>
+                                            <option value="">جنسیت را انتخاب کنید</option>
+                                            <option value="1">مرد</option>
+                                            <option value="2">زن</option>
+                                        </select>
                                         <span className="text-red-600">
-                                            {errors.phone}
+                                            {errors.gender}
                                         </span>
                                     </div>
                                 </div>
@@ -162,15 +153,17 @@ function Create({auth, errors}) {
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/2">
-                                        <label className="">جنسیت</label>
-                                        <select className="w-full px-4 py-2 dark:bg-gray-600" value={data.gender}
-                                                onChange={(e) => setData("gender", e.target.value)}>
-                                            <option value="">جنسیت را انتخاب کنید</option>
-                                            <option value="1">مرد</option>
-                                            <option value="2">زن</option>
-                                        </select>
+                                        <label className="ml-5">شماره همراه</label>
+                                        <input
+                                            type="text"
+                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            value={data.phone}
+                                            onChange={(e) =>
+                                                setData("phone", e.target.value)
+                                            }
+                                        />
                                         <span className="text-red-600">
-                                            {errors.gender}
+                                            {errors.phone}
                                         </span>
                                     </div>
                                 </div>

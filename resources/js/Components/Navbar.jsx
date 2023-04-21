@@ -16,7 +16,7 @@ const Navbar = () => {
                         <div className="">
                             <span className="text-black dark:text-white text-3xl cursor-pointer"
                                   onClick={openSidebar}><i
-                                className="bi bi-filter-left px-2 hover:bg-blue-600 bg-blue-500 dark:bg-gray-900 rounded-md transition duration-500"></i>
+                                className="bi bi-filter-left px-2 hover:bg-blue-400 dark:hover:bg-gray-700 bg-blue-500 dark:bg-gray-900 rounded-md transition duration-500"></i>
                             </span>
                         </div>
                         <div className="flex items-center">

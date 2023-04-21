@@ -32,7 +32,7 @@ const Edit = ({auth,errors}) => {
                                     className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
                                     href={route("admin.jobs.index")}
                                 >
-                                    Back
+                                    برگشت
                                 </Link>
                             </div>
 

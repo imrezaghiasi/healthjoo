@@ -5,9 +5,9 @@ export default function Pagination({ links }) {
 
     function getClassName(active) {
         if(active) {
-            return "mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white focus:border-primary focus:text-primary bg-blue-700 dark:hover:text-gray-900 dark:text-gray-300";
+            return "mr-1 mb-1 px-4 py-3 text-sm text-white leading-4 border rounded hover:bg-blue-400 hover:text-black focus:border-primary focus:text-primary bg-blue-700 dark:hover:text-gray-900 dark:text-gray-300";
         } else{
-            return "mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-white dark:hover:text-gray-900 focus:border-primary focus:text-primary dark:text-gray-400";
+            return "mr-1 mb-1 px-4 py-3 text-sm leading-4 border rounded hover:bg-blue-300 dark:hover:text-gray-900 focus:border-primary focus:text-primary dark:text-gray-400";
         }
     }
 

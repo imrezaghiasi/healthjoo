@@ -5,30 +5,34 @@ namespace App\Services;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Services\Interfaces\EmployeeServiceInterface;
-use Illuminate\Http\UploadedFile;
+use App\Services\Interfaces\ImageUploaderServiceInterface;
 
 class EmployeeService implements EmployeeServiceInterface
 {
     private Employee $employee;
-    public function __construct(Employee $employee)
+    private ImageUploaderServiceInterface $imageUploaderService;
+
+    public function __construct(Employee $employee, Interfaces\ImageUploaderServiceInterface $imageUploaderService)
     {
         $this->employee = $employee;
+        $this->imageUploaderService = $imageUploaderService;
     }
 
     public function store(EmployeeRequest $request)
     {
-        return $this->employee->create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'gender' => $request->gender,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'salary' => $request->salary,
-            'job_id' => $request->job_id,
-            'address' => $request->address,
-            'photo_path' => $this->storeImage($request->file('photo')),
-            'national_code' => $request->national_code
-        ]);
+        $this->employee->first_name = $request->first_name;
+        $this->employee->last_name = $request->last_name;
+        $this->employee->gender = $request->gender;
+        $this->employee->phone = $request->phone;
+        $this->employee->email = $request->email;
+        $this->employee->salary = $request->salary;
+        $this->employee->job_id = $request->job_id;
+        $this->employee->address = $request->address;
+        $this->employee->national_code = $request->national_code;
+        if ($request->file('photo')) {
+            $this->employee->photo_path = $this->imageUploaderService->storeImage($request->file('photo'), 'employeesPhoto');
+        }
+        $this->employee->save();
     }
 
     public function update(EmployeeRequest $request, Employee $employee)
@@ -41,24 +45,14 @@ class EmployeeService implements EmployeeServiceInterface
         $employee->salary = $request->salary;
         $employee->job_id = $request->job_id;
         $employee->address = $request->address;
-        $employee->photo_path = $this->storeImage($request->file('photo'));
         $employee->national_code = $request->national_code;
+        if ($request->file('photo')) {
+            $this->imageUploaderService->updateImage($request->file('photo'), $employee,'employeesPhoto');
+        }
 
         $employee->update();
     }
 
-    public function storeImage(UploadedFile $photo)
-    {
-        if (!$photo) {
-            return null;
-        }
-
-        $photoName = $photo->getClientOriginalName();
-
-        $photo_path = $photo->storeAs('employeeImages', $photoName);
-
-        return $photo_path;
-    }
 
     public function destroy(string $id)
     {

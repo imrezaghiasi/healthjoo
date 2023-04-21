@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "36191937bec8c6b63dbd647ad8fbb2c9",
+    "content-hash": "5fd908a6e125e8d89db87f99a8d482c9",
     "packages": [
         {
             "name": "brick/math",
@@ -980,77 +980,6 @@
                 }
             ],
             "time": "2021-10-07T12:57:01+00:00"
-        },
-        {
-            "name": "iamfarhad/validation",
-            "version": "v3.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/iamfarhad/validation.git",
-                "reference": "1e203350777db9cc60038feff1f645d35f6f4c77"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/iamfarhad/validation/zipball/1e203350777db9cc60038feff1f645d35f6f4c77",
-                "reference": "1e203350777db9cc60038feff1f645d35f6f4c77",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^9.0|^10.0",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.6",
-                "orchestra/testbench": "^7.0|^8.0.4",
-                "phpunit/phpunit": "^9.6.4",
-                "rector/rector": "^0.15.18"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Iamfarhad\\Validation\\ValidationRulesServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Iamfarhad\\Validation\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Farhad Zand",
-                    "email": "farhad.pd@gmail.com"
-                }
-            ],
-            "description": "laravel persian validation package",
-            "keywords": [
-                "custom",
-                "farsi",
-                "iran",
-                "laravel",
-                "lumen",
-                "persian",
-                "rule",
-                "validation",
-                "validator"
-            ],
-            "support": {
-                "issues": "https://github.com/iamfarhad/validation/issues",
-                "source": "https://github.com/iamfarhad/validation/tree/v3.1.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/iamfarhad",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-02-27T21:38:48+00:00"
         },
         {
             "name": "inertiajs/inertia-laravel",
@@ -3147,6 +3076,65 @@
                 }
             ],
             "time": "2023-01-12T18:13:24+00:00"
+        },
+        {
+            "name": "sadegh19b/laravel-persian-validation",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sadegh19b/laravel-persian-validation.git",
+                "reference": "9121469e5c472e90c01795d53453defa55c006f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sadegh19b/laravel-persian-validation/zipball/9121469e5c472e90c01795d53453defa55c006f3",
+                "reference": "9121469e5c472e90c01795d53453defa55c006f3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6|^7|^8|^9|^10",
+                "php": "~7.4|| ^8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8|^9|^10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Sadegh19b\\LaravelPersianValidation\\PersianValidationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sadegh19b\\LaravelPersianValidation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sadegh Barzegar",
+                    "email": "sadegh19b@gmail.com"
+                }
+            ],
+            "description": "A persian alphabet, number and etc. validation package for laravel",
+            "keywords": [
+                "farsi",
+                "laravel",
+                "persian",
+                "validate",
+                "validation",
+                "validator"
+            ],
+            "support": {
+                "issues": "https://github.com/sadegh19b/laravel-persian-validation/issues",
+                "source": "https://github.com/sadegh19b/laravel-persian-validation/tree/1.4.0"
+            },
+            "time": "2023-02-18T21:07:13+00:00"
         },
         {
             "name": "symfony/console",
@@ -5678,6 +5666,43 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "ybazli/faker",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ybazli/faker.git",
+                "reference": "8ed1b8a5a658e2bb028f62eb6186e534a7972448"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ybazli/faker/zipball/8ed1b8a5a658e2bb028f62eb6186e534a7972448",
+                "reference": "8ed1b8a5a658e2bb028f62eb6186e534a7972448",
+                "shasum": ""
+            },
+            "type": "laravel",
+            "autoload": {
+                "psr-4": {
+                    "Ybazli\\Faker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ybazli",
+                    "email": "Yashar.bazli@gmail.com"
+                }
+            ],
+            "description": "Persian fake data package for laravel",
+            "support": {
+                "issues": "https://github.com/Ybazli/faker/issues",
+                "source": "https://github.com/Ybazli/faker/tree/v1.0.1"
+            },
+            "time": "2018-02-22T14:29:51+00:00"
         }
     ],
     "packages-dev": [
