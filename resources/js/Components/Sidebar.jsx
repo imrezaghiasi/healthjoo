@@ -29,29 +29,32 @@ const Sidebar = () => {
                            className=" text-[15px] mr-4 w-full border-gray-700 border-dashed rounded-md bg-transparent focus:outline-none"/>
                 </div>
 
-                <div
-                    className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-400 dark:hover:bg-green-600 dark:text-white">
-                    <i className="bi bi-house-door-fill"></i>
-                    <span className="text-[15px] mr-4  dark:text-gray-200">داشبورد</span>
-                </div>
+                <Link
+                    href={route('dashboard')}
+                    className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                    <i className="bi bi-person-workspace ml-4"></i>
+                    <p>داشبورد</p>
+                </Link>
 
-                <div
-                    className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
-                    <i className="bi bi-person-workspace"></i>
-                    <Link href={route('admin.employees.index')} className="text-[15px] mr-4 dark:text-gray-200">کارمندان</Link>
-                </div>
+                <Link
+                    href={route('admin.employees.index')}
+                    className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                    <i className="bi bi-person-workspace ml-4"></i>
+                    <p>کارمندان</p>
+                </Link>
 
-                <div
-                    className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
-                    <i className="bi bi-person-workspace"></i>
-                    <Link href={route('admin.jobs.index')} className="text-[15px] mr-4 dark:text-gray-200">شغل ها</Link>
-                </div>
+                <Link
+                    href={route('admin.jobs.index')}
+                    className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                    <i className="bi bi-person-workspace ml-4"></i>
+                    <p>شغل ها</p>
+                </Link>
 
                 <hr className="my-2 text-gray-600"/>
 
                 <div onClick={dropdown}
                      className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
-                    <i className="bi bi-chat-right-text-fill"></i>
+                    <i className="bi bi-file-medical"></i>
                     <div className="flex justify-between w-full items-center">
                         <span className="text-[15px] mr-4 dark:text-gray-200">مدیریت داروخانه</span>
                         <span className="text-sm rotate-180" id="arrow">
@@ -61,15 +64,26 @@ const Sidebar = () => {
                 </div>
 
                 <div className="text-right text-sm font-thin mt-2 w-4/5 mx-auto dark:text-gray-200" id="submenu">
-                    <h1 className="cursor-pointer p-2 hover:bg-blue-400 dark:hover:bg-gray-600 rounded-md mt-1">داروسازان</h1>
-                    <h1 className="cursor-pointer p-2 hover:bg-blue-400 dark:hover:bg-gray-600 rounded-md mt-1">دارو ها</h1>
+                    <Link
+                        href={route('admin.jobs.index')}
+                        className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                        <i className="bi bi-person-check ml-4"></i>
+                        <p>داروسازان</p>
+                    </Link>
+                    <Link
+                        href={route('admin.jobs.index')}
+                        className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                        <i className="bi bi-journal-medical ml-4"></i>
+                        <p>داروها</p>
+                    </Link>
                 </div>
 
-                <div
-                    className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
-                    <i className="bi bi-box-arrow-in-right"></i>
-                    <span className="text-[15px] mr-4 dark:text-gray-200">خروج</span>
-                </div>
+                <Link
+                    href={route('dashboard')}
+                    className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                    <i className="bi bi-box-arrow-in-right ml-4"></i>
+                    <p>خروج</p>
+                </Link>
 
             </div>
         </div>
