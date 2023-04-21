@@ -48,6 +48,8 @@ class EmployeeService implements EmployeeServiceInterface
         $employee->national_code = $request->national_code;
         if ($request->file('photo')) {
             $this->imageUploaderService->updateImage($request->file('photo'), $employee,'employeesPhoto');
+        }elseif ($request->userRemoveImage){
+            $employee->photo_path =null;
         }
 
         $employee->update();

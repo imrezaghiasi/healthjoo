@@ -1,11 +1,12 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {Link, Head, useForm, usePage} from "@inertiajs/react";
+import {useEffect, useState} from "react";
 
 function Create({auth, errors}) {
 
     const {jobs} = usePage().props
 
-    const {data, setData,post,progress} = useForm({
+    const {data, setData, post, progress} = useForm({
         first_name: "",
         last_name: "",
         gender: '',
@@ -17,6 +18,22 @@ function Create({auth, errors}) {
         salary: '',
         job_id: ''
     })
+
+    const [imgUrl, setImgUrl] = useState('');
+
+    const onChangeImageUpload = (e) => {
+        const file = e.target.files[0];
+        setData("photo", file);
+        if (file) {
+            setImgUrl(URL.createObjectURL(e.target.files[0]))
+        } else
+            setImgUrl('');
+    }
+
+    const removeImage = () => {
+        setData("photo", null)
+        setImgUrl(null)
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -49,7 +66,7 @@ function Create({auth, errors}) {
                             <form onSubmit={handleSubmit} className="dark:text-gray-300">
                                 <div className="flex flex-row justify-center gap-5 mb-5">
                                     <div className="mb-4 w-1/3">
-                                        <label className="ml-5">نام</label>
+                                        <label className="ml-5">نام<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
                                             className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
@@ -63,7 +80,7 @@ function Create({auth, errors}) {
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
-                                        <label className="ml-5">نام خانوادگی</label>
+                                        <label className="ml-5">نام خانوادگی<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
                                             className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
@@ -75,25 +92,8 @@ function Create({auth, errors}) {
                                             {errors.last_name}
                                         </span>
                                     </div>
-
                                     <div className="mb-4 w-1/3">
-                                        <label className="ml-5">تصویر کارمند</label>
-                                        <input
-                                            type="file"
-                                            name="photo"
-                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            onChange={(e) =>
-                                                setData("photo", e.target.files[0])
-                                            }
-                                        />
-                                        <span className="text-red-600">
-                                            {errors.photo}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="flex flex-row justify-center gap-5">
-                                    <div className="mb-4 w-1/3">
-                                        <label className="ml-5">کد ملی</label>
+                                        <label className="ml-5">کد ملی<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
                                             maxLength={10}
@@ -106,21 +106,23 @@ function Create({auth, errors}) {
                                             {errors.national_code}
                                         </span>
                                     </div>
+                                </div>
+                                <div className="flex flex-row justify-center gap-5">
                                     <div className="mb-4 w-1/3">
-                                        <label className="ml-5">شغل کارمند</label>
-                                        <select className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800" onChange={(e) => setData("job_id", e.target.value)}>
-                                            <option value="">شغل را انتخاب کنید</option>
-                                            {jobs.map(job => (
-                                                <option key={job.id} value={job.id}>{job.name}</option>
-                                            ))
+                                        <label className="ml-5">شماره همراه<span className="text-red-600 mr-2">*</span></label>
+                                        <input
+                                            type="text"
+                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            onChange={(e) =>
+                                                setData("phone", e.target.value)
                                             }
-                                        </select>
+                                        />
                                         <span className="text-red-600">
-                                            {errors.job_id}
+                                            {errors.phone}
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
-                                        <label className="">جنسیت</label>
+                                        <label className="">جنسیت<span className="text-red-600 mr-2">*</span></label>
                                         <select className="text-center w-full px-4 py-2 dark:bg-gray-600"
                                                 onChange={(e) => setData("gender", e.target.value)}>
                                             <option value="">جنسیت را انتخاب کنید</option>
@@ -131,9 +133,7 @@ function Create({auth, errors}) {
                                             {errors.gender}
                                         </span>
                                     </div>
-                                </div>
-                                <div className="flex flex-row justify-center gap-5">
-                                    <div className="mb-4 w-1/2">
+                                    <div className="mb-4 w-1/3">
                                         <label className="">ایمیل</label>
                                         <input
                                             type="text"
@@ -146,22 +146,24 @@ function Create({auth, errors}) {
                                             {errors.email}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/2">
-                                        <label className="ml-5">شماره همراه</label>
-                                        <input
-                                            type="text"
-                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            onChange={(e) =>
-                                                setData("phone", e.target.value)
-                                            }
-                                        />
-                                        <span className="text-red-600">
-                                            {errors.phone}
-                                        </span>
-                                    </div>
                                 </div>
                                 <div className="flex flex-row justify-center gap-5">
-                                    <div className="mb-4 w-1/2">
+                                    <div className="mb-4 w-1/3">
+                                        <label className="ml-5">شغل کارمند<span className="text-red-600 mr-2">*</span></label>
+                                        <select
+                                            className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            onChange={(e) => setData("job_id", e.target.value)}>
+                                            <option value="">شغل را انتخاب کنید</option>
+                                            {jobs.map(job => (
+                                                <option key={job.id} value={job.id}>{job.name}</option>
+                                            ))
+                                            }
+                                        </select>
+                                        <span className="text-red-600">
+                                            {errors.job_id}
+                                        </span>
+                                    </div>
+                                    <div className="mb-4 w-1/3">
                                         <label className="">حقوق</label>
                                         <input
                                             type="text"
@@ -174,10 +176,10 @@ function Create({auth, errors}) {
                                             {errors.salary}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/2">
-                                        <label className="">آدرس</label>
+                                    <div className="mb-4 w-1/3">
+                                        <label className="">آدرس<span className="text-red-600 mr-2">*</span></label>
                                         <textarea
-                                            className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800 resize-y"
+                                            className="w-full text-sm px-4 py-2 dark:bg-gray-700 dark:border-gray-800 resize-none"
                                             onChange={(e) =>
                                                 setData("address", e.target.value)
                                             }
@@ -187,9 +189,45 @@ function Create({auth, errors}) {
                                         </span>
                                     </div>
                                 </div>
+                                <div className="flex flex-row justify-start gap-5">
+                                    <div className="w-1/4">
+                                        <label className="ml-5">تصویر کارمند</label>
+                                        <div className="relative">
+                                            <div
+                                                className="relative flex justify-center w-44 h-56 border-gray-500 border-2 p-2 rounded bg-gray-50">
+                                                <div className="p-1 flex flex-col justify-center ">
+                                                    {imgUrl &&
+                                                        <img src={imgUrl} className="rounded transition duration-1000"/>
+                                                    }
+                                                    {!imgUrl &&
+                                                        <h6 className="text-center text-sm">برای آپلود تصویر کلیک
+                                                            کنید</h6>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="file"
+                                                name="photo"
+                                                id="photo"
+                                                className="cursor-pointer absolute inset-0 opacity-0 w-44 bg-gray-100 rounded shadow-sm dark:shadow-gray-900 dark:bg-gray-700 dark:border-gray-800"
+                                                onChange={onChangeImageUpload}
+                                            />
+                                        </div>
+                                        {imgUrl &&
+                                            <i onClick={removeImage}
+                                               className="bi bi-x-lg text-red-700 cursor-pointer"></i>
+                                        }
+                                        <span className="text-red-600">
+                                               {errors.photo}
+                                        </span>
+                                    </div>
+                                </div>
                                 {progress && (
                                     <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                                        <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" width={progress.percentage}> {progress.percentage}%</div>
+                                        <div
+                                            className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                            width={progress.percentage}> {progress.percentage}%
+                                        </div>
                                     </div>
                                 )}
                                 <div className="mt-4">
