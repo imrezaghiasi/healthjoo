@@ -1,6 +1,7 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {Link, Head, useForm, usePage, router} from "@inertiajs/react";
 import {useEffect, useState} from "react";
+import {DatePicker} from "zaman";
 
 function Create({auth, errors}) {
 
@@ -17,9 +18,20 @@ function Create({auth, errors}) {
         address: employee.address || '',
         salary: employee.salary || '',
         job_id: employee.job_id || '',
+        date_of_birth: employee.date_of_birth || '',
         userRemoveImage: null,
         _method: 'PUT'
     })
+
+
+    const changeDatePicker = (e) => {
+        const date = new Date(e.value);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const dateString = `${year}-${month}-${day}`;
+        setData("date_of_birth",dateString)
+    }
 
     const [imgUrl, setImgUrl] = useState(null);
 
@@ -75,7 +87,7 @@ function Create({auth, errors}) {
 
                             <form onSubmit={handleSubmit} className="dark:text-gray-300">
                                 <div className="flex flex-row justify-center gap-5 mb-5">
-                                    <div className="mb-4 w-1/3">
+                                    <div className="mb-4 w-1/4">
                                         <label className="ml-5">نام<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
@@ -89,7 +101,7 @@ function Create({auth, errors}) {
                                             {errors.first_name}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/3">
+                                    <div className="mb-4 w-1/4">
                                         <label className="ml-5">نام خانوادگی<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
@@ -103,7 +115,7 @@ function Create({auth, errors}) {
                                             {errors.last_name}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/3">
+                                    <div className="mb-4 w-1/4">
                                         <label className="ml-5">کد ملی<span
                                             className="text-red-600 mr-2">*</span></label>
                                         <input
@@ -119,7 +131,23 @@ function Create({auth, errors}) {
                                             {errors.national_code}
                                         </span>
                                     </div>
-
+                                    <div className="mb-4 w-1/4">
+                                        <label className="ml-5">تاریخ تولد<span
+                                            className="text-red-600 mr-2">*</span>
+                                        </label>
+                                        <DatePicker
+                                            round="x3"
+                                            locale="fa"
+                                            direction="rtl"
+                                            weekends={[6]}
+                                            defaultValue={data.date_of_birth}
+                                            inputClass="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            onChange={changeDatePicker}
+                                        />
+                                        <span className="text-red-600">
+                                            {errors.date_of_birth}
+                                        </span>
+                                    </div>
                                 </div>
                                 <div className="flex flex-row justify-center gap-5">
                                     <div className="mb-4 w-1/3">

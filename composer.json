@@ -12,6 +12,7 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "morilog/jalali": "3.*",
         "sadegh19b/laravel-persian-validation": "^1.4",
         "tightenco/ziggy": "^1.0",
         "ybazli/faker": "^1.0"

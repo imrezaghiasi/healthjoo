@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Employee;
 use App\Models\Job;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
+use Morilog\Jalali\Jalalian;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -15,9 +16,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     public function getWithTrashedLatest()
     {
-        return $this->query()->with(['job' => function($q){
+        $query = $this->query()->with(['job' => function($q){
             $q->withTrashed();
         }])->withTrashed()->latest();
+        return $query;
     }
 
     public function getJobForEmployees()

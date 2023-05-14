@@ -29,6 +29,7 @@ class EmployeeService implements EmployeeServiceInterface
         $this->employee->job_id = $request->job_id;
         $this->employee->address = $request->address;
         $this->employee->national_code = $request->national_code;
+        $this->employee->date_of_birth = $request->date_of_birth;
         if ($request->file('photo')) {
             $this->employee->photo_path = $this->imageUploaderService->storeImage($request->file('photo'), 'employeesPhoto');
         }
@@ -45,6 +46,7 @@ class EmployeeService implements EmployeeServiceInterface
         $employee->salary = $request->salary;
         $employee->job_id = $request->job_id;
         $employee->address = $request->address;
+        $employee->date_of_birth = $request->date_of_birth;
         $employee->national_code = $request->national_code;
         if ($request->file('photo')) {
             $this->imageUploaderService->updateImage($request->file('photo'), $employee,'employeesPhoto');

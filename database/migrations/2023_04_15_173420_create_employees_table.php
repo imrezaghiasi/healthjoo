@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('national_code');
             $table->integer('gender');
+            $table->date('date_of_birth')->default(Carbon::now());
             $table->string('phone');
             $table->string('email')->nullable();
             $table->string('photo_path')->nullable();

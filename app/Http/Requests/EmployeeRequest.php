@@ -32,7 +32,8 @@ class EmployeeRequest extends FormRequest
             'email' => ['nullable','email'],
             'address' => ['required','persian_alpha'],
             'job_id' => ['required'],
-            'salary' => ['numeric','nullable']
+            'salary' => ['numeric','nullable'],
+            'date_of_birth' => ['required']
         ];
         if (request()->isMethod('put')){
             $rules['national_code'] = ['required','digits:10','numeric'];

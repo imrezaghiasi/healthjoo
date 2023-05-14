@@ -25,6 +25,7 @@ class EmployeeFactory extends Factory
             'phone' => Faker::mobile(),
             'national_code' => Faker::melliCode(),
             'gender' =>rand(1,2),
+            'date_of_birth' => $this->faker->date(),
             'email' => $this->faker->email(),
             'address' => Faker::address(),
             'photo_path' => $this->faker->imageUrl(113.39,151.18),

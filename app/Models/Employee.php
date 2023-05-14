@@ -21,6 +21,7 @@ class Employee extends Model
         'email',
         'address',
         'salary',
+        'date_of_birth',
         'job_id'
     ];
 

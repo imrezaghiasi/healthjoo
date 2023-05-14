@@ -19,6 +19,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "bootstrap-icons": "^1.10.4"
+        "bootstrap-icons": "^1.10.4",
+        "zaman": "^2.0.7"
     }
 }
