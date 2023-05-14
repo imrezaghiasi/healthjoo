@@ -1,10 +1,15 @@
 import React, {useContext} from 'react';
 import {Context} from "@/assets/context";
-import {Link} from "@inertiajs/react";
+import {Link, router} from "@inertiajs/react";
 
 const Sidebar = () => {
 
     const {openSidebar,dropdown} = useContext(Context)
+
+    const handleLogout = (e) => {
+        e.preventDefault()
+        router.post(route('logout'))
+    }
 
     return (
         <div>
@@ -78,12 +83,11 @@ const Sidebar = () => {
                     </Link>
                 </div>
 
-                <Link
-                    href={route('dashboard')}
+                <form onSubmit={handleLogout}
                     className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
                     <i className="bi bi-box-arrow-in-right ml-4"></i>
-                    <p>خروج</p>
-                </Link>
+                    <button type={'submit'}>خروج</button>
+                </form>
 
             </div>
         </div>
