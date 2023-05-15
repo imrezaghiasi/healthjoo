@@ -5,20 +5,18 @@ import {DatePicker} from "zaman";
 
 function Edit({auth, errors}) {
 
-    const {employee, jobs} = usePage().props
+    const {patient} = usePage().props
 
     const {data, setData} = useForm({
-        first_name: employee.first_name || "",
-        last_name: employee.last_name || "",
-        gender: employee.gender || "",
-        national_code: employee.national_code || '',
-        phone: employee.phone || '',
-        email: employee.email || '',
+        first_name: patient.first_name || "",
+        last_name: patient.last_name || "",
+        gender: patient.gender || "",
+        national_code: patient.national_code || '',
+        mobile: patient.mobile || '',
+        blood_group: patient.blood_group || '',
         photo: null,
-        address: employee.address || '',
-        salary: employee.salary || '',
-        job_id: employee.job_id || '',
-        date_of_birth: employee.date_of_birth || '',
+        address: patient.address || '',
+        date_of_birth: patient.date_of_birth || '',
         userRemoveImage: null,
         _method: 'PUT'
     })
@@ -36,8 +34,8 @@ function Edit({auth, errors}) {
     const [imgUrl, setImgUrl] = useState(null);
 
     useEffect(() => {
-        if (employee.photo_path) {
-            setImgUrl(window.location.origin + '/app/' + employee.photo_path);
+        if (patient.photo_path) {
+            setImgUrl(window.location.origin + '/app/' + patient.photo_path);
         }
     }, [])
 
@@ -59,17 +57,17 @@ function Edit({auth, errors}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        router.post(route("admin.employees.update", employee.id), data);
+        router.post(route("admin.patients.update", patient.id), data);
     }
 
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={<h2 className="font-semibold text-xl leading-tight">ویرایش کارمند</h2>}
+            header={<h2 className="font-semibold text-xl leading-tight">ویرایش بیمار</h2>}
         >
 
-            <Head title="Employees"/>
+            <Head title="Patients"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -79,7 +77,7 @@ function Edit({auth, errors}) {
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-700 dark:bg-blue-900 rounded-md focus:outline-none"
-                                    href={route("admin.employees.index")}
+                                    href={route("admin.patients.index")}
                                 >
                                     برگشت
                                 </Link>
@@ -155,13 +153,13 @@ function Edit({auth, errors}) {
                                         <input
                                             type="text"
                                             className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.phone}
+                                            value={data.mobile}
                                             onChange={(e) =>
                                                 setData("phone", e.target.value)
                                             }
                                         />
                                         <span className="text-red-600">
-                                            {errors.phone}
+                                            {errors.mobile}
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
@@ -179,51 +177,21 @@ function Edit({auth, errors}) {
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
-                                        <label className="">ایمیل</label>
+                                        <label className="">گروه خونی<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
                                             className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.email}
+                                            value={data.blood_group}
                                             onChange={(e) =>
-                                                setData("email", e.target.value)
+                                                setData("blood_group", e.target.value)
                                             }
                                         />
                                         <span className="text-red-600">
-                                            {errors.email}
+                                            {errors.blood_group}
                                         </span>
                                     </div>
                                 </div>
-                                <div className="flex flex-row justify-center gap-5">
-                                    <div className="mb-4 w-1/3">
-                                        <label className="ml-5">شغل کارمند<span
-                                            className="text-red-600 mr-2">*</span></label>
-                                        <select
-                                            className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.job_id} onChange={(e) => setData("job_id", e.target.value)}>
-                                            <option value="">شغل را انتخاب کنید</option>
-                                            {jobs.map(job => (
-                                                <option key={job.id} value={job.id}>{job.name}</option>
-                                            ))
-                                            }
-                                        </select>
-                                        <span className="text-red-600">
-                                            {errors.job_id}
-                                        </span>
-                                    </div>
-                                    <div className="mb-4 w-1/3">
-                                        <label className="">حقوق</label>
-                                        <input
-                                            type="text"
-                                            className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.salary}
-                                            onChange={(e) =>
-                                                setData("salary", e.target.value)
-                                            }
-                                        />
-                                        <span className="text-red-600">
-                                            {errors.salary}
-                                        </span>
-                                    </div>
+                                <div className="flex flex-row justify-start gap-5">
                                     <div className="mb-4 w-1/3">
                                         <label className="">آدرس<span className="text-red-600 mr-2">*</span></label>
                                         <textarea

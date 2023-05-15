@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('jobs', JobController::class);
         Route::get('employees/restore/{employee}', [EmployeeController::class,'restore'])->name('employees.restore');
         Route::resource('employees', EmployeeController::class);
+        Route::get('patients/restore/{patient}', [PatientController::class,'restore'])->name('patients.restore');
+        Route::resource('patients', PatientController::class);
     });
 });
 
