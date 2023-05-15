@@ -23,7 +23,7 @@ class JobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','unique:jobs','max:50',new PersianAlpha()]
+            'name' => ['required','unique:jobs','max:50','persian_alpha']
         ];
     }
 }

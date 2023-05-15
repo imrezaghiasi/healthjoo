@@ -243,7 +243,7 @@ function Edit({auth, errors}) {
                                         <label className="ml-5">تصویر کارمند</label>
                                         <div className="relative">
                                             <div
-                                                className="relative flex justify-center w-44 h-56 border-gray-500 border-2 p-2 rounded bg-gray-50">
+                                                className="relative flex justify-center w-44 h-56 border-gray-500 border-2 p-2 rounded bg-gray-50 dark:bg-gray-700">
                                                 <div className="p-1 flex flex-col justify-center ">
                                                     {imgUrl &&
                                                         <img src={imgUrl} className="rounded transition duration-1000"/>

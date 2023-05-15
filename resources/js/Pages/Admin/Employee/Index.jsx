@@ -53,7 +53,6 @@ export default function Index(props) {
                                     <th className="px-4 py-2">جنسیت</th>
                                     <th className="px-4 py-2">کد ملی</th>
                                     <th className="px-4 py-2">شماره همراه</th>
-                                    <th className="px-4 py-2">ایمیل</th>
                                     <th className="px-4 py-2">آدرس</th>
                                     <th className="px-4 py-2">حقوق</th>
                                     <th className="px-4 py-2">شغل</th>
@@ -61,15 +60,14 @@ export default function Index(props) {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {employees.data.map(({ id, first_name,last_name,gender,national_code,phone,email,photo_path,address,salary,job,deleted_at }) => (
+                                {employees.data.map(({ id, first_name,last_name,gender,national_code,phone,photo_path,address,salary,job,deleted_at }) => (
                                     <tr key={id} className="border dark:border-gray-700 dark:text-gray-300">
                                         <td className="px-4 py-2">{ id }</td>
-                                        <td className="px-4 py-2"><img src={window.location.origin + '/app/' + photo_path} alt=""/></td>
+                                        <td className="px-4 py-2"><img src={window.location.origin + '/app/' + photo_path} alt="" className="rounded shadow-2xl shadow-gray-600"/></td>
                                         <td className="px-4 py-2">{ first_name + ' ' + last_name }</td>
                                         <td className="px-4 py-2">{ gender==1 ? 'مرد' : 'زن'}</td>
                                         <td className="px-4 py-2">{ national_code }</td>
                                         <td className="px-4 py-2">{ phone }</td>
-                                        <td className="px-4 py-2">{ email }</td>
                                         <td className="px-4 py-2">{ address }</td>
                                         <td className="px-4 py-2">{ salary }</td>
                                         <td className="px-4 py-2">{ job.name }</td>
