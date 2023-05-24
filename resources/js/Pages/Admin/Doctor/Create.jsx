@@ -1,26 +1,22 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import {Link, Head, useForm, usePage, router} from "@inertiajs/react";
-import {useEffect, useState} from "react";
+import {Link, Head, useForm} from "@inertiajs/react";
+import {useState} from "react";
 import {DatePicker} from "zaman";
 
-function Edit({auth, errors}) {
+function Create({auth, errors}) {
 
-    const {patient} = usePage().props
-
-    const {data, setData} = useForm({
-        first_name: patient.first_name || "",
-        last_name: patient.last_name || "",
-        gender: patient.gender || "",
-        national_code: patient.national_code || '',
-        mobile: patient.mobile || '',
-        blood_group: patient.blood_group || '',
+    const {data, setData, post, progress} = useForm({
+        first_name: "",
+        last_name: "",
+        gender: '',
+        national_code: '',
+        date_of_birth: '',
+        email: '',
+        mobile: '',
+        specialization: '',
         photo: null,
-        address: patient.address || '',
-        date_of_birth: patient.date_of_birth || '',
-        userRemoveImage: null,
-        _method: 'PUT'
+        address: '',
     })
-
 
     const changeDatePicker = (e) => {
         const date = new Date(e.value);
@@ -31,14 +27,7 @@ function Edit({auth, errors}) {
         setData("date_of_birth",dateString)
     }
 
-    const [imgUrl, setImgUrl] = useState(null);
-
-    useEffect(() => {
-        if (patient.photo_path) {
-            setImgUrl(window.location.origin + '/app/' + patient.photo_path);
-        }
-    }, [])
-
+    const [imgUrl, setImgUrl] = useState('');
 
     const onChangeImageUpload = (e) => {
         const file = e.target.files[0];
@@ -51,23 +40,22 @@ function Edit({auth, errors}) {
 
     const removeImage = () => {
         setData("photo", null)
-        setData("userRemoveImage", true)
         setImgUrl(null)
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        router.post(route("admin.patients.update", patient.id), data);
+        post(route("admin.doctors.store"));
     }
 
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={<h2 className="font-semibold text-xl leading-tight">ویرایش بیمار</h2>}
+            header={<h2 className="font-semibold text-xl leading-tight">ایجاد پزشک</h2>}
         >
 
-            <Head title="Patients"/>
+            <Head title="Doctors"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -76,8 +64,8 @@ function Edit({auth, errors}) {
 
                             <div className="flex items-center justify-between mb-6">
                                 <Link
-                                    className="px-6 py-2 text-white bg-blue-700 dark:bg-blue-900 rounded-md focus:outline-none"
-                                    href={route("admin.patients.index")}
+                                    className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
+                                    href={route("admin.doctors.index")}
                                 >
                                     برگشت
                                 </Link>
@@ -104,7 +92,6 @@ function Edit({auth, errors}) {
                                         <input
                                             type="text"
                                             className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.last_name}
                                             onChange={(e) =>
                                                 setData("last_name", e.target.value)
                                             }
@@ -120,7 +107,6 @@ function Edit({auth, errors}) {
                                             type="text"
                                             maxLength={10}
                                             className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.national_code}
                                             onChange={(e) =>
                                                 setData("national_code", e.target.value)
                                             }
@@ -138,7 +124,6 @@ function Edit({auth, errors}) {
                                             locale="fa"
                                             direction="rtl"
                                             weekends={[6]}
-                                            defaultValue={data.date_of_birth}
                                             inputClass="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             onChange={changeDatePicker}
                                         />
@@ -148,12 +133,24 @@ function Edit({auth, errors}) {
                                     </div>
                                 </div>
                                 <div className="flex flex-row justify-center gap-5">
-                                    <div className="mb-4 w-1/3">
+                                    <div className="mb-4 w-1/4">
+                                        <label className="ml-5">ایمیل<span className="text-red-600 mr-2">*</span></label>
+                                        <input
+                                            type="email"
+                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            onChange={(e) =>
+                                                setData("email", e.target.value)
+                                            }
+                                        />
+                                        <span className="text-red-600">
+                                            {errors.email}
+                                        </span>
+                                    </div>
+                                    <div className="mb-4 w-1/4">
                                         <label className="ml-5">شماره همراه<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
                                             className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.mobile}
                                             onChange={(e) =>
                                                 setData("mobile", e.target.value)
                                             }
@@ -162,13 +159,11 @@ function Edit({auth, errors}) {
                                             {errors.mobile}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/3">
-                                        <label className="">جنسیت</label>
+                                    <div className="mb-4 w-1/4">
+                                        <label className="">جنسیت<span className="text-red-600 mr-2">*</span></label>
                                         <select className="text-center w-full px-4 py-2 dark:bg-gray-600"
-                                                value={data.gender}
                                                 onChange={(e) => setData("gender", e.target.value)}>
-                                            <option value="">جنسیت را انتخاب کنید<span
-                                                className="text-red-600 mr-2">*</span></option>
+                                            <option value="">جنسیت را انتخاب کنید</option>
                                             <option value="1">مرد</option>
                                             <option value="2">زن</option>
                                         </select>
@@ -176,18 +171,17 @@ function Edit({auth, errors}) {
                                             {errors.gender}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/3">
-                                        <label className="">گروه خونی<span className="text-red-600 mr-2">*</span></label>
+                                    <div className="mb-4 w-1/4">
+                                        <label className="">تخصص<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
                                             className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.blood_group}
                                             onChange={(e) =>
-                                                setData("blood_group", e.target.value)
+                                                setData("specialization", e.target.value)
                                             }
                                         />
                                         <span className="text-red-600">
-                                            {errors.blood_group}
+                                            {errors.specialization}
                                         </span>
                                     </div>
                                 </div>
@@ -195,11 +189,10 @@ function Edit({auth, errors}) {
                                     <div className="mb-4 w-1/3">
                                         <label className="">آدرس<span className="text-red-600 mr-2">*</span></label>
                                         <textarea
-                                            className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800 resize-none"
+                                            className="w-full text-sm px-4 py-2 dark:bg-gray-700 dark:border-gray-800 resize-none"
                                             onChange={(e) =>
                                                 setData("address", e.target.value)
                                             }
-                                            value={data.address}
                                         />
                                         <span className="text-red-600">
                                             {errors.address}
@@ -207,7 +200,7 @@ function Edit({auth, errors}) {
                                     </div>
                                 </div>
                                 <div className="flex flex-row justify-start gap-5">
-                                    <div className="mb-4 w-1/4">
+                                    <div className="w-1/4">
                                         <label className="ml-5">تصویر کارمند</label>
                                         <div className="relative">
                                             <div
@@ -239,13 +232,20 @@ function Edit({auth, errors}) {
                                         </span>
                                     </div>
                                 </div>
-
+                                {progress && (
+                                    <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                                        <div
+                                            className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                            width={progress.percentage}> {progress.percentage}%
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="mt-4">
                                     <button
                                         type="submit"
                                         className="px-6 py-2 font-bold text-white bg-green-500 rounded"
                                     >
-                                        ویرایش
+                                        ایجاد
                                     </button>
                                 </div>
                             </form>
@@ -260,4 +260,4 @@ function Edit({auth, errors}) {
     )
 }
 
-export default Edit;
+export default Create;

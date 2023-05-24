@@ -5,18 +5,19 @@ import {DatePicker} from "zaman";
 
 function Edit({auth, errors}) {
 
-    const {patient} = usePage().props
+    const {doctor} = usePage().props
 
     const {data, setData} = useForm({
-        first_name: patient.first_name || "",
-        last_name: patient.last_name || "",
-        gender: patient.gender || "",
-        national_code: patient.national_code || '',
-        mobile: patient.mobile || '',
-        blood_group: patient.blood_group || '',
+        first_name: doctor.first_name || "",
+        last_name: doctor.last_name || "",
+        gender: doctor.gender || "",
+        national_code: doctor.national_code || '',
+        email: doctor.email || '',
+        mobile: doctor.mobile || '',
+        specialization: doctor.specialization || '',
         photo: null,
-        address: patient.address || '',
-        date_of_birth: patient.date_of_birth || '',
+        address: doctor.address || '',
+        date_of_birth: doctor.date_of_birth || '',
         userRemoveImage: null,
         _method: 'PUT'
     })
@@ -34,8 +35,8 @@ function Edit({auth, errors}) {
     const [imgUrl, setImgUrl] = useState(null);
 
     useEffect(() => {
-        if (patient.photo_path) {
-            setImgUrl(window.location.origin + '/app/' + patient.photo_path);
+        if (doctor.photo_path) {
+            setImgUrl(window.location.origin + '/app/' + doctor.photo_path);
         }
     }, [])
 
@@ -57,17 +58,17 @@ function Edit({auth, errors}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        router.post(route("admin.patients.update", patient.id), data);
+        router.post(route("admin.doctors.update", doctor.id), data);
     }
 
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={<h2 className="font-semibold text-xl leading-tight">ویرایش بیمار</h2>}
+            header={<h2 className="font-semibold text-xl leading-tight">ویرایش پزشک</h2>}
         >
 
-            <Head title="Patients"/>
+            <Head title="Doctors"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -77,7 +78,7 @@ function Edit({auth, errors}) {
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-700 dark:bg-blue-900 rounded-md focus:outline-none"
-                                    href={route("admin.patients.index")}
+                                    href={route("admin.doctors.index")}
                                 >
                                     برگشت
                                 </Link>
@@ -149,6 +150,20 @@ function Edit({auth, errors}) {
                                 </div>
                                 <div className="flex flex-row justify-center gap-5">
                                     <div className="mb-4 w-1/3">
+                                        <label className="ml-5">ایمیل<span className="text-red-600 mr-2">*</span></label>
+                                        <input
+                                            type="text"
+                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            value={data.email}
+                                            onChange={(e) =>
+                                                setData("email", e.target.value)
+                                            }
+                                        />
+                                        <span className="text-red-600">
+                                            {errors.email}
+                                        </span>
+                                    </div>
+                                    <div className="mb-4 w-1/3">
                                         <label className="ml-5">شماره همراه<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
@@ -177,17 +192,17 @@ function Edit({auth, errors}) {
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
-                                        <label className="">گروه خونی<span className="text-red-600 mr-2">*</span></label>
+                                        <label className="">تخصص<span className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
                                             className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.blood_group}
+                                            value={data.specialization}
                                             onChange={(e) =>
-                                                setData("blood_group", e.target.value)
+                                                setData("specialization", e.target.value)
                                             }
                                         />
                                         <span className="text-red-600">
-                                            {errors.blood_group}
+                                            {errors.specialization}
                                         </span>
                                     </div>
                                 </div>

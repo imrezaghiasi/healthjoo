@@ -23,7 +23,7 @@ function Create({auth, errors}) {
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         const dateString = `${year}-${month}-${day}`;
-        setData("date_of_birth",dateString)
+        setData("date_of_birth", dateString)
     }
 
     const [imgUrl, setImgUrl] = useState('');
@@ -43,7 +43,6 @@ function Create({auth, errors}) {
     }
 
     function handleSubmit(e) {
-        console.log(data.date_of_birth)
         e.preventDefault();
         post(route("admin.patients.store"));
     }
@@ -159,7 +158,8 @@ function Create({auth, errors}) {
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
-                                        <label className="">گروه خونی<span className="text-red-600 mr-2">*</span></label>
+                                        <label className="">گروه خونی<span
+                                            className="text-red-600 mr-2">*</span></label>
                                         <input
                                             type="text"
                                             className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\PatientController;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('employees', EmployeeController::class);
         Route::get('patients/restore/{patient}', [PatientController::class,'restore'])->name('patients.restore');
         Route::resource('patients', PatientController::class);
+        Route::get('doctors/restore/{doctor}', [DoctorController::class,'restore'])->name('doctors.restore');
+        Route::resource('doctors', DoctorController::class);
     });
 });
 
