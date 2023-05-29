@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
 //            JobSeeder::class,
 //             EmployeeSeeder::class,
 //            PatientSeeder::class,
-            DoctorSeeder::class,
+//            DoctorSeeder::class,
+            MedicineSeeder::class,
         ]);
     }
 }

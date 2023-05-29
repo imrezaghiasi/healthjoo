@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Employee;
 use App\Models\Job;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
+use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
@@ -14,11 +15,11 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         return Employee::query();
     }
 
-    public function getWithTrashedLatest()
+    public function getWithTrashedLatest(Request $request)
     {
         $query = $this->query()->with(['job' => function($q){
             $q->withTrashed();
-        }])->withTrashed()->latest();
+        }])->where('first_name', 'like','%'.$request->term.'%')->orWhere('last_name', 'like','%'.$request->term.'%')->withTrashed()->latest();
         return $query;
     }
 

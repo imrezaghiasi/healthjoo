@@ -23,10 +23,9 @@ class PatientController extends Controller
         $this->patientRepository = $patientRepository;
     }
 
-
-    public function index()
+    public function index(Request $request)
     {
-        $patients = $this->patientRepository->getWithTrashedLatest()->paginate(10);
+        $patients = $this->patientRepository->getWithTrashedLatest($request)->paginate(10);
         return Inertia::render('Admin/Patient/Index',compact('patients'));
     }
 

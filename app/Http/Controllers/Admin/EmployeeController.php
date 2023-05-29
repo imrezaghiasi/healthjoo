@@ -7,6 +7,7 @@ use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Services\Interfaces\EmployeeServiceInterface;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -23,9 +24,9 @@ class EmployeeController extends Controller
         $this->employeeService = $employeeService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $employees = $this->employeeRepository->getWithTrashedLatest()->paginate(10);
+        $employees = $this->employeeRepository->getWithTrashedLatest($request)->paginate(10);
         return Inertia::render('Admin/Employee/Index', compact('employees'));
     }
 

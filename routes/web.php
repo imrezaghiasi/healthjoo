@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('patients', PatientController::class);
         Route::get('doctors/restore/{doctor}', [DoctorController::class,'restore'])->name('doctors.restore');
         Route::resource('doctors', DoctorController::class);
+        Route::get('medicines/restore/{medicine}', [MedicineController::class,'restore'])->name('medicines.restore');
+        Route::resource('medicines', MedicineController::class);
     });
 });
 

@@ -15,7 +15,8 @@
         "morilog/jalali": "3.*",
         "sadegh19b/laravel-persian-validation": "^1.4",
         "tightenco/ziggy": "^1.0",
-        "ybazli/faker": "^1.0"
+        "ybazli/faker": "^1.0",
+      "ext-http": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

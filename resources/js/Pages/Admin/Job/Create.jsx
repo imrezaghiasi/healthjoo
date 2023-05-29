@@ -41,7 +41,7 @@ function Create({auth,errors}) {
                                         <label className="">عنوان شغل</label>
                                         <input
                                             type="text"
-                                            className="w-full mt-5 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            className="w-full mt-5 px-4 py-2 rounded dark:bg-gray-700 dark:border-gray-800"
                                             value={data.name}
                                             onChange={(e) =>
                                                 setData("name", e.target.value)

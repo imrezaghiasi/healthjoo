@@ -4,7 +4,7 @@ namespace App\Repositories\Interfaces;
 
 use Illuminate\Http\Request;
 
-interface PatientRepositoryInterface
+interface MedicineRepositoryInterface
 {
     public function getWithTrashedLatest(Request $request);
 }

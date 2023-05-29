@@ -1,5 +1,5 @@
 import React from "react";
-import {usePage, Head, Link, router} from "@inertiajs/react";
+import {usePage, Head, Link, router, useForm} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import Pagination from "@/Components/Pagination";
 
@@ -7,6 +7,10 @@ import Pagination from "@/Components/Pagination";
 export default function Index(props) {
 
     const {patients} = usePage().props;
+
+    const {data,setData,get} = useForm({
+        term:''
+    })
 
     function destroy(e) {
         if (confirm("آیا از حذف این مورد مطمئن هستید؟")) {
@@ -19,6 +23,11 @@ export default function Index(props) {
         if (confirm("آیا از برگرداندن این مورد مطمئن هستید؟")) {
             router.get(route("admin.patients.restore", e.currentTarget.id));
         }
+    }
+
+    function handleSearch(e) {
+        e.preventDefault()
+        get(route("admin.patients.index"))
     }
 
     return (
@@ -42,6 +51,15 @@ export default function Index(props) {
                                 >
                                     ایجاد بیمار
                                 </Link>
+                                <form method="GET" onSubmit={handleSearch}>
+                                    <input type={"text"} className={"rounded"} placeholder={"جست و جو کنید..."} value={data.term} onChange={(e)=>{
+                                        setData("term",e.target.value)
+                                    }}/>
+                                    <button type={"submit"}
+                                            className={"rounded-lg px-6 py-2 focus:outline bg-yellow-300 mr-3 hover:bg-yellow-200 duration-300"}>جست
+                                        و جو
+                                    </button>
+                                </form>
                             </div>
 
                             <table className="w-full dark:bg-gray-800 table-auto text-xs">

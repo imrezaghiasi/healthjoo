@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Patient;
 use App\Repositories\Interfaces\PatientRepositoryInterface;
+use Illuminate\Http\Request;
 
 class PatientRepository implements PatientRepositoryInterface
 {
@@ -12,9 +13,9 @@ class PatientRepository implements PatientRepositoryInterface
         return Patient::query();
     }
 
-    public function getWithTrashedLatest()
+    public function getWithTrashedLatest(Request $request)
     {
-        return $this->query()->withTrashed()->latest();
+        return $this->query()->withTrashed()->where('first_name', 'like','%'.$request->term.'%')->orWhere('last_name', 'like','%'.$request->term.'%')->latest();
 
     }
 }

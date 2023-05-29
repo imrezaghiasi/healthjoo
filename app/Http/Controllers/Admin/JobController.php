@@ -7,6 +7,7 @@ use App\Http\Requests\JobRequest;
 use App\Models\Job;
 use App\Repositories\Interfaces\JobRepositoryInterface;
 use App\Services\Interfaces\JobServiceInterface;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class JobController extends Controller
@@ -23,10 +24,9 @@ class JobController extends Controller
         $this->jobService = $jobService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-//        $jobs = Job::withTrashed()->latest()->paginate(5);
-        $jobs = $this->jobRepository->getAllLatest()->paginate(5);
+        $jobs = $this->jobRepository->getWithTrashedLatest($request)->paginate(10);
         return Inertia::render('Admin/Job/Index',compact('jobs'));
     }
 
