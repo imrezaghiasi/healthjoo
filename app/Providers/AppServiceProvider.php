@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\DepartmentRepository;
 use App\Repositories\DoctorRepository;
 use App\Repositories\EmployeeRepository;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Repositories\Interfaces\DoctorRepositoryInterface;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Repositories\Interfaces\JobRepositoryInterface;
@@ -12,9 +14,11 @@ use App\Repositories\Interfaces\PatientRepositoryInterface;
 use App\Repositories\JobRepository;
 use App\Repositories\MedicineRepository;
 use App\Repositories\PatientRepository;
+use App\Services\DepartmentService;
 use App\Services\DoctorService;
 use App\Services\EmployeeService;
 use App\Services\ImageUploaderService;
+use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\DoctorServiceInterface;
 use App\Services\Interfaces\EmployeeServiceInterface;
 use App\Services\Interfaces\ImageUploaderServiceInterface;
@@ -53,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PatientRepositoryInterface::class,PatientRepository::class);
         $this->app->bind(DoctorRepositoryInterface::class,DoctorRepository::class);
         $this->app->bind(MedicineRepositoryInterface::class,MedicineRepository::class);
+        $this->app->bind(DepartmentRepositoryInterface::class,DepartmentRepository::class);
     }
 
     public function bindService()
@@ -63,5 +68,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PatientServiceInterface::class,PatientService::class);
         $this->app->bind(DoctorServiceInterface::class,DoctorService::class);
         $this->app->bind(MedicineServiceInterface::class,MedicineService::class);
+        $this->app->bind(DepartmentServiceInterface::class,DepartmentService::class);
     }
 }

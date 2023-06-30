@@ -16,6 +16,5 @@ class DoctorRepository implements DoctorRepositoryInterface
     public function getWithTrashedLatest(Request $request)
     {
         return $this->query()->where('first_name','like','%'.$request->term.'%')->orWhere('last_name','like','%'.$request->term.'%')->withTrashed()->latest();
-
     }
 }

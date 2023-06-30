@@ -3,24 +3,25 @@ import {Link, Head, useForm, usePage, router} from "@inertiajs/react";
 
 const Edit = ({auth,errors}) => {
 
-    const {job} = usePage().props;
+    const {department} = usePage().props;
     const {data, setData,put} = useForm({
-        name: job.name || '',
+        name: department.name || '',
+        description: department.description || '',
     })
 
     function handleSubmit(e) {
         e.preventDefault()
-        put(route('admin.jobs.update',job.id));
+        put(route('admin.departments.update',department.id));
     }
 
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={<h2 className="font-semibold text-xl leading-tight">ویرایش شغل</h2>}
+            header={<h2 className="font-semibold text-xl leading-tight">ویرایش بخش</h2>}
         >
 
-            <Head title="Jobs"/>
+            <Head title="Departments"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -30,7 +31,7 @@ const Edit = ({auth,errors}) => {
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
-                                    href={route("admin.jobs.index")}
+                                    href={route("admin.departments.index")}
                                 >
                                     برگشت
                                 </Link>
@@ -39,7 +40,7 @@ const Edit = ({auth,errors}) => {
                             <form onSubmit={handleSubmit} className="dark:text-gray-300">
                                 <div className="flex flex-col">
                                     <div className="mb-4">
-                                        <label className="">عنوان شغل</label>
+                                        <label className="">عنوان بخش</label>
                                         <input
                                             type="text"
                                             className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
@@ -50,6 +51,20 @@ const Edit = ({auth,errors}) => {
                                         />
                                         <span className="text-red-600">
                                             {errors.name}
+                                        </span>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="">توضیحات بخش</label>
+                                        <input
+                                            type="text"
+                                            className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            value={data.description}
+                                            onChange={(e) =>{
+                                                setData('description',e.target.value)
+                                            }}
+                                        />
+                                        <span className="text-red-600">
+                                            {errors.description}
                                         </span>
                                     </div>
                                 </div>

@@ -14,18 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//        User::factory()->create([
-//            'name' => 'رضا غیاثی',
-//            'email' => 'imrezaghiasi@gmail.com',
-//            'password' => bcrypt('reza12345678')
-//        ]);
+        User::factory()->create([
+            'name' => 'رضا غیاثی',
+            'email' => 'imrezaghiasi@gmail.com',
+            'password' => bcrypt('reza12345678')
+        ]);
 
         $this->call([
-//            JobSeeder::class,
-//             EmployeeSeeder::class,
-//            PatientSeeder::class,
-//            DoctorSeeder::class,
+            JobSeeder::class,
+             EmployeeSeeder::class,
+            PatientSeeder::class,
+            DoctorSeeder::class,
             MedicineSeeder::class,
+            DepartmentSeeder::class,
+            RoomSeeder::class
         ]);
     }
 }

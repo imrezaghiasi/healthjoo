@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\PatientController;
+use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +51,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('doctors', DoctorController::class);
         Route::get('medicines/restore/{medicine}', [MedicineController::class,'restore'])->name('medicines.restore');
         Route::resource('medicines', MedicineController::class);
+        Route::get('departments/restore/{department}', [DepartmentController::class,'restore'])->name('departments.restore');
+        Route::resource('departments', DepartmentController::class);
+        Route::get('rooms/restore/{room}', [RoomController::class,'restore'])->name('rooms.restore');
+        Route::resource('rooms', RoomController::class);
     });
 });
 
