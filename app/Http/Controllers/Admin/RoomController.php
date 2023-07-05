@@ -26,13 +26,14 @@ class RoomController extends Controller
 
     public function index(Request $request)
     {
-        $rooms = $this->roomRepository->getWithTrashedLatest($request);
+        $rooms = $this->roomRepository->getWithTrashedLatest($request)->paginate(10);
         return Inertia::render('Admin/Room/Index',compact('rooms'));
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Room/Create');
+        $departments = $this->roomRepository->getJobForEmployees();
+        return Inertia::render('Admin/Room/Create',compact('departments'));
     }
 
     public function store(RoomRequest $request)
@@ -48,7 +49,8 @@ class RoomController extends Controller
 
     public function edit(Room $room)
     {
-        return Inertia::render('Admin/Room/Edit', compact('room'));
+        $departments = $this->roomRepository->getJobForEmployees();
+        return Inertia::render('Admin/Room/Edit', compact('room','departments'));
     }
 
     public function update(RoomRequest $request, Room $room)

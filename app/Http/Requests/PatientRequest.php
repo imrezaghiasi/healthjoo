@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PatientRequest extends FormRequest
 {
@@ -25,15 +26,14 @@ class PatientRequest extends FormRequest
             'first_name' => ['required','persian_alpha'],
             'last_name' => ['required','persian_alpha'],
             'mobile' => ['required','ir_mobile'],
-            'national_code' => ['required','unique:patients','numeric','digits:10'],
+            'national_code' => ['required',Rule::unique('patients')->ignore($this->request->get('id')),'numeric','digits:10'],
             'gender' => ['required','min:1','max:2'],
             'photo' => ['nullable','image','mimes:jpg,png,jpeg','max:2048'],
             'blood_group' => ['required'],
-            'address' => ['required','persian_alpha'],
+            'address' => ['required'],
             'date_of_birth' => ['required']
         ];
         if (request()->isMethod('put')){
-            $rules['national_code'] = ['required','digits:10','numeric'];
             $rules['photo'] = [''];
         }
 

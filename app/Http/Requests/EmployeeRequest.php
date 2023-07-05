@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\Nationalcode;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmployeeRequest extends FormRequest
 {
@@ -26,17 +27,16 @@ class EmployeeRequest extends FormRequest
             'first_name' => ['required','persian_alpha'],
             'last_name' => ['required','persian_alpha'],
             'phone' => ['required','ir_mobile'],
-            'national_code' => ['required','unique:employees','numeric','digits:10'],
+            'national_code' => ['required',Rule::unique('employees')->ignore($this->request->get('id')),'numeric','digits:10'],
             'gender' => ['required','min:1','max:2'],
             'photo' => ['nullable','image','mimes:jpg,png,jpeg','max:2048'],
             'email' => ['nullable','email'],
-            'address' => ['required','persian_alpha'],
+            'address' => ['required'],
             'job_id' => ['required'],
             'salary' => ['numeric','nullable'],
             'date_of_birth' => ['required']
         ];
         if (request()->isMethod('put')){
-            $rules['national_code'] = ['required','digits:10','numeric'];
             $rules['photo'] = [''];
         }
 

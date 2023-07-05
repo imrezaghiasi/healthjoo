@@ -47,7 +47,6 @@ function Create({auth, errors}) {
     }
 
     function handleSubmit(e) {
-        console.log(data.date_of_birth)
         e.preventDefault();
         post(route("admin.employees.store"));
     }

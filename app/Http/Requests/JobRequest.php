@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Iamfarhad\Validation\Rules\PersianAlpha;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class JobRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class JobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','unique:jobs','max:50','persian_alpha']
+            'name' => ['required',Rule::unique('jobs')->ignore($this->request->get('id')),'max:50','persian_alpha']
         ];
     }
 }

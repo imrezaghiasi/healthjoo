@@ -5,6 +5,7 @@ const Edit = ({auth,errors}) => {
 
     const {department} = usePage().props;
     const {data, setData,put} = useForm({
+        id : department.id || '',
         name: department.name || '',
         description: department.description || '',
     })

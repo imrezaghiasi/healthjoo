@@ -8,6 +8,7 @@ function Edit({auth, errors}) {
     const {patient} = usePage().props
 
     const {data, setData} = useForm({
+        id : patient.id || "",
         first_name: patient.first_name || "",
         last_name: patient.last_name || "",
         gender: patient.gender || "",

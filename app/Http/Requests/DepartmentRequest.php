@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
 {
@@ -15,13 +16,9 @@ class DepartmentRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'name' => ['required','persian_alpha','unique:departments','max:50'],
-            'description' => ['nullable','persian_alpha']
+            'name' => ['required','persian_alpha',Rule::unique('departments')->ignore($this->request->get('id')),'max:50'],
+            'description' => ['nullable']
         ];
-
-        if (request()->isMethod('put')){
-            $rules['name'] = ['required','persian_alpha','max:50'];
-        }
 
         return $rules;
     }

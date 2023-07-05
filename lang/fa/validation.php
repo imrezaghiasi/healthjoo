@@ -180,11 +180,14 @@ return [
         "excerpt" => "گلچین کردن",
         "date" => "تاریخ",
         "time" => "زمان",
-        "available" => "موجود",
+        "available" => "وضعیت",
         "size" => "اندازه",
 		"file" => "فایل",
 		"fullname" => "نام کامل",
         "job_id" => "شغل",
-        "photo" => "فایل"
+        "photo" => "فایل",
+        "room_type" => "نوع اتاق",
+        "room_number" => "شماره اتاق",
+        "department_id" => "بخش"
     ],
 ];
