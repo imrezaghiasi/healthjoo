@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('national_code');
             $table->string('address');
             $table->integer('gender');
-            $table->date('date_of_birth')->default(Carbon::now());;
+            $table->date('date_of_birth')->default(Carbon::now());
             $table->string('blood_group');
             $table->string('photo_path')->nullable();
             $table->softDeletes();

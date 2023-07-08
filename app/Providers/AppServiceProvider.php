@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\DoctorRepository;
 use App\Repositories\EmployeeRepository;
+use App\Repositories\HospitalizationRepository;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Repositories\Interfaces\DoctorRepositoryInterface;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Repositories\Interfaces\HospitalizationRepositoryInterface;
 use App\Repositories\Interfaces\JobRepositoryInterface;
 use App\Repositories\Interfaces\MedicineRepositoryInterface;
 use App\Repositories\Interfaces\PatientRepositoryInterface;
@@ -19,10 +21,12 @@ use App\Repositories\RoomRepository;
 use App\Services\DepartmentService;
 use App\Services\DoctorService;
 use App\Services\EmployeeService;
+use App\Services\HospitalizationService;
 use App\Services\ImageUploaderService;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\DoctorServiceInterface;
 use App\Services\Interfaces\EmployeeServiceInterface;
+use App\Services\Interfaces\HospitalizationServiceInterface;
 use App\Services\Interfaces\ImageUploaderServiceInterface;
 use App\Services\Interfaces\JobServiceInterface;
 use App\Services\Interfaces\MedicineServiceInterface;
@@ -63,6 +67,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MedicineRepositoryInterface::class,MedicineRepository::class);
         $this->app->bind(DepartmentRepositoryInterface::class,DepartmentRepository::class);
         $this->app->bind(RoomRepositoryInterface::class,RoomRepository::class);
+        $this->app->bind(HospitalizationRepositoryInterface::class,HospitalizationRepository::class);
     }
 
     public function bindService()
@@ -75,5 +80,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MedicineServiceInterface::class,MedicineService::class);
         $this->app->bind(DepartmentServiceInterface::class,DepartmentService::class);
         $this->app->bind(RoomServiceInterface::class,RoomService::class);
+        $this->app->bind(HospitalizationServiceInterface::class,HospitalizationService::class);
     }
 }

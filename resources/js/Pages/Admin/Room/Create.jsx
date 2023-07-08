@@ -13,7 +13,6 @@ const Create = ({auth, errors}) => {
         department_id: "",
     })
 
-    console.log(data.available)
     function handleRadio(e){
         setData("available",e.target.value)
     }

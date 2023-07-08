@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\HospitalizationController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\PatientController;
@@ -55,6 +56,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('departments', DepartmentController::class);
         Route::get('rooms/restore/{room}', [RoomController::class,'restore'])->name('rooms.restore');
         Route::resource('rooms', RoomController::class);
+        Route::get('hospitalizations/restore/{hospitalization}', [HospitalizationController::class,'restore'])->name('hospitalizations.restore');
+        Route::resource('hospitalizations', HospitalizationController::class);
     });
 });
 

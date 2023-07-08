@@ -32,7 +32,7 @@ class EmployeeRequest extends FormRequest
             'photo' => ['nullable','image','mimes:jpg,png,jpeg','max:2048'],
             'email' => ['nullable','email'],
             'address' => ['required'],
-            'job_id' => ['required'],
+            'job_id' => ['required','exists:jobs,id'],
             'salary' => ['numeric','nullable'],
             'date_of_birth' => ['required']
         ];
