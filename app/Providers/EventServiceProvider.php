@@ -28,16 +28,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        parent::boot();
-
-        Hospitalization::updated(function ($hospitalization) {
-            if ($hospitalization->end_time !== null && $hospitalization->date_of_hospitalization <= Carbon::now() && $hospitalization->end_time < Carbon::now()) {
-                $room = Room::find($hospitalization->room_id);
-                if ($room) {
-                    $room->update(['available' => true]);
-                }
-            }
-        });
+        //
     }
 
     /**
