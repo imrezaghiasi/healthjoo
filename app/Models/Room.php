@@ -19,8 +19,13 @@ class Room extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function hospitalization(): HasMany
+    public function hospitalizations(): HasMany
     {
         return $this->hasMany(Hospitalization::class);
+    }
+
+    public function beds(): HasMany
+    {
+        return $this->hasMany(Bed::class);
     }
 }

@@ -17,4 +17,9 @@ class Department extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    public function beds(): HasMany
+    {
+        return $this->hasMany(Bed::class);
+    }
 }
