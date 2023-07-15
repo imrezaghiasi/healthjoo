@@ -18,9 +18,8 @@ return new class extends Migration
             $table->foreignId('room_id')->references('id')->on('rooms')->noActionOnDelete();
             $table->foreignId('doctor_id')->references('id')->on('doctors')->noActionOnDelete();
             $table->string('disease');
-            $table->date('date_of_hospitalization')->default(Carbon::now());
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->timestamp('started_at');
+            $table->timestamp('finished_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

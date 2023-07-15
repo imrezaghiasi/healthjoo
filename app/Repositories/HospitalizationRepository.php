@@ -17,7 +17,7 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
     }
 
 
-    public function getWithTrashedLatest(Request $request)
+    public function getWithTrashedLatest(Request $request = null)
     {
         $query = $this->query()->with(['patient' => function ($q) {
             $q->withTrashed();
@@ -37,11 +37,19 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
 
     public function getRoomForHospitalization()
     {
-        return Room::select('id', 'room_type', 'room_number')->get();
+        return Room::select('id', 'room_type', 'room_number')->where('available', '=', 1)->get();
     }
 
     public function getDoctorForHospitalization()
     {
         return Doctor::select('id', 'first_name', 'last_name')->get();
+    }
+
+    public function getHospitalizationForEdit(Request $request = null)
+    {
+        if ($request) {
+            return Hospitalization::findOrFail($request->id);
+        }
+        return null;
     }
 }

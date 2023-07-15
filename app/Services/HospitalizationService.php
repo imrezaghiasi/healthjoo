@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Http\Requests\HospitalizationRequest;
 use App\Models\Hospitalization;
+use App\Models\Room;
 use App\Services\Interfaces\HospitalizationServiceInterface;
+use Carbon\Carbon;
 
 class HospitalizationService implements HospitalizationServiceInterface
 {
@@ -21,11 +23,13 @@ class HospitalizationService implements HospitalizationServiceInterface
         $this->hospitalization->room_id = $request->room_id;
         $this->hospitalization->doctor_id = $request->doctor_id;
         $this->hospitalization->disease = $request->disease;
-        $this->hospitalization->date_of_hospitalization = $request->date_of_hospitalization;
-        $this->hospitalization->start_time = $request->start_time;
-        $this->hospitalization->end_time = $request->end_time;
+        $this->hospitalization->started_at = Carbon::parse("$request->date_started_at $request->time_started_at");
 
         $this->hospitalization->save();
+
+        $room = Room::findOrFail($this->hospitalization->room_id);
+        $room->available = 0;
+        $room->update();
     }
 
     public function update(HospitalizationRequest $request, Hospitalization $hospitalization)
@@ -34,16 +38,13 @@ class HospitalizationService implements HospitalizationServiceInterface
         $hospitalization->room_id = $request->room_id;
         $hospitalization->doctor_id = $request->doctor_id;
         $hospitalization->disease = $request->disease;
-        $hospitalization->date_of_hospitalization = $request->date_of_hospitalization;
-        $hospitalization->start_time = $request->start_time;
-        $hospitalization->end_time = $request->end_time;
+        $hospitalization->started_at = Carbon::parse("$request->date_started_at $request->time_started_at");
 
         $hospitalization->update();
     }
 
-    public function destroy(string $id)
+    public function destroy(Hospitalization $hospitalization)
     {
-        $hospitalization = $this->hospitalization->FindOrFail($id);
         $hospitalization->delete();
     }
 
@@ -51,5 +52,16 @@ class HospitalizationService implements HospitalizationServiceInterface
     {
         $hospitalization = $this->hospitalization->withTrashed()->FindOrFail($id);
         $hospitalization->restore();
+    }
+
+    public function update_finished_at(HospitalizationRequest $request, Hospitalization $hospitalization)
+    {
+        $hospitalization->finished_at = Carbon::parse("$request->date_finished_at $request->time_finished_at");
+
+        $hospitalization->update();
+
+        $room = Room::findOrFail($hospitalization->room_id);
+        $room->available = 1;
+        $room->update();
     }
 }

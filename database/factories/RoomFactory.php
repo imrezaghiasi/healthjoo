@@ -19,7 +19,7 @@ class RoomFactory extends Factory
         return [
             'room_type' => Faker::word(),
             'room_number' => $this->faker->numberBetween(1,500),
-            'available' => rand(0,1),
+            'available' => 1,
             'department_id' => $this->faker->randomElement($departments)
         ];
     }

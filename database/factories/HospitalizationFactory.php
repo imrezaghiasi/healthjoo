@@ -6,6 +6,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Room;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 use Ybazli\Faker\Facades\Faker;
 
 /**
@@ -29,9 +30,8 @@ class HospitalizationFactory extends Factory
             'room_id' => $this->faker->randomElement($room),
             'doctor_id' => $this->faker->randomElement($doctor),
             'disease' => Faker::word(),
-            'date_of_hospitalization' => $this->faker->date(),
-            'start_time' => $this->faker->time(),
-            'end_time' => $this->faker->time(),
+            'started_at' => Carbon::instance($this->faker->dateTimeBetween('-1 year', 'now')),
+            'finished_at' => Carbon::instance($this->faker->dateTimeBetween('now', '+1 year')),
         ];
     }
 }

@@ -24,9 +24,9 @@ class HospitalizationController extends Controller
         $this->hospitalizationService = $hospitalizationService;
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $hospitalizations = $this->hospitalizationRepository->getWithTrashedLatest($request)->paginate(10);
+        $hospitalizations = $this->hospitalizationRepository->getWithTrashedLatest()->paginate(10);
         return Inertia::render('Admin/Hospitalization/Index', compact('hospitalizations'));
     }
 
@@ -36,7 +36,7 @@ class HospitalizationController extends Controller
         $patients = $this->hospitalizationRepository->getPatientForHospitalization();
         $rooms = $this->hospitalizationRepository->getRoomForHospitalization();
         $doctors = $this->hospitalizationRepository->getDoctorForHospitalization();
-        return Inertia::render('Admin/Hospitalization/Create', compact('patients','rooms','doctors'));
+        return Inertia::render('Admin/Hospitalization/Create', compact('patients', 'rooms', 'doctors'));
     }
 
 
@@ -58,22 +58,33 @@ class HospitalizationController extends Controller
         $patients = $this->hospitalizationRepository->getPatientForHospitalization();
         $rooms = $this->hospitalizationRepository->getRoomForHospitalization();
         $doctors = $this->hospitalizationRepository->getDoctorForHospitalization();
-        return Inertia::render('Admin/Hospitalization/Edit', compact('hospitalization','patients','rooms','doctors'));
+        return Inertia::render('Admin/Hospitalization/Edit', compact('hospitalization', 'patients', 'rooms', 'doctors'));
     }
 
     public function update(HospitalizationRequest $request, Hospitalization $hospitalization)
     {
-        $this->hospitalizationService->update($request,$hospitalization);
+        $this->hospitalizationService->update($request, $hospitalization);
         return redirect()->route($this->redirectRoute);
     }
 
-    public function destroy(string $id)
+    public function destroy(Hospitalization $hospitalization)
     {
-        $this->hospitalizationService->destroy($id);
+        $this->hospitalizationService->destroy($hospitalization);
     }
 
     public function restore(string $id)
     {
         $this->hospitalizationService->restore($id);
+    }
+
+    public function edit_finished_at(Hospitalization $hospitalization)
+    {
+        return Inertia::render('Admin/Hospitalization/EditFinishedAt', compact('hospitalization'));
+    }
+
+    public function update_finished_at(HospitalizationRequest $request, Hospitalization $hospitalization)
+    {
+        $this->hospitalizationService->update_finished_at($request, $hospitalization);
+        return redirect()->route($this->redirectRoute);
     }
 }

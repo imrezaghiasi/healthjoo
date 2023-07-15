@@ -22,7 +22,6 @@ function Edit({auth, errors}) {
         _method: 'PUT'
     })
 
-
     const changeDatePicker = (e) => {
         const date = new Date(e.value);
         const year = date.getFullYear();

@@ -21,14 +21,22 @@ class HospitalizationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'patient_id' => ['required','exists:patients,id'],
-            'room_id' => ['required','exists:rooms,id'],
-            'doctor_id' => ['required','exists:doctors,id'],
-            'disease' => ['required'],
-            'date_of_hospitalization' => ['required'],
-            'start_time' => ['required'],
-            'end_time' => ['required'],
-        ];
+        $rules = [];
+        if (request()->isMethod('put')){
+           $rules = [
+               'date_finished_at' => ['required'],
+               'time_finished_at' => ['required'],
+           ];
+        }else{
+            $rules = [
+                'patient_id' => ['required','exists:patients,id'],
+                'room_id' => ['required','exists:rooms,id'],
+                'doctor_id' => ['required','exists:doctors,id'],
+                'disease' => ['required'],
+                'date_started_at' => ['required'],
+                'time_started_at' => ['required'],
+            ];
+        }
+         return $rules;
     }
 }

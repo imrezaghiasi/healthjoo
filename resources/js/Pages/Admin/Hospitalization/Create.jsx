@@ -12,10 +12,8 @@ const Create = ({auth, errors}) => {
         room_id: "",
         doctor_id: '',
         disease: '',
-        date_of_hospitalization: '',
-        start_time: '',
-        end_time: '',
-
+        date_started_at: '',
+        time_started_at: '',
     })
 
     const changeDatePicker = (e) => {
@@ -24,7 +22,7 @@ const Create = ({auth, errors}) => {
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         const dateString = `${year}-${month}-${day}`;
-        setData("date_of_hospitalization", dateString)
+        setData("date_started_at", dateString)
     }
 
     function handleSubmit(e) {
@@ -112,8 +110,8 @@ const Create = ({auth, errors}) => {
                                     </div>
                                 </div>
                                 <div className="flex flex-row justify-center gap-5">
-                                    <div className="mb-4 w-1/4">
-                                        <label className="ml-5">تاریخ بستری<span
+                                    <div className="mb-4 w-1/3">
+                                        <label className="ml-5">تاریخ شروع بستری<span
                                             className="text-red-600 mr-2">*</span>
                                         </label>
                                         <DatePicker
@@ -125,36 +123,19 @@ const Create = ({auth, errors}) => {
                                             onChange={changeDatePicker}
                                         />
                                         <span className="text-red-600">
-                                            {errors.date_of_hospitalization}
+                                            {errors.date_started_at}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/4">
-                                        <label className="ml-5">شروع بستری<span className="text-red-600 mr-2">*</span></label>
-                                        <input
-                                            type="time"
-                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            onChange={(e) =>
-                                                setData("start_time", e.target.value)
-                                            }
-                                        />
+                                    <div className="mb-4 w-1/3">
+                                        <label className="ml-5">زمان شروع بستری<span
+                                            className="text-red-600 mr-2">*</span>
+                                        </label>
+                                        <input type="time" className={"w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"} value={data.time_started_at} onChange={(e) => setData('time_started_at',e.target.value)}/>
                                         <span className="text-red-600">
-                                            {errors.start_time}
+                                            {errors.time_started_at}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/4">
-                                        <label className="">پایان بستری</label>
-                                        <input
-                                            type="time"
-                                            className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            onChange={(e) =>
-                                                setData("end_time", e.target.value)
-                                            }
-                                        />
-                                        <span className="text-red-600">
-                                            {errors.end_time}
-                                        </span>
-                                    </div>
-                                    <div className="mb-4 w-1/4">
+                                    <div className="mb-4 w-1/3">
                                         <label className="">بیماری</label>
                                         <input
                                             type="text"

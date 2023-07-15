@@ -12,9 +12,8 @@ const Edit = ({auth, errors}) => {
         room_id: hospitalization.room_id || "",
         doctor_id: hospitalization.doctor_id || '',
         disease: hospitalization.disease || '',
-        date_of_hospitalization: hospitalization.date_of_hospitalization || '',
-        start_time: hospitalization.start_time || '',
-        end_time: hospitalization.end_time || '',
+        date_started_at: hospitalization.date_started_at || '',
+        time_started_at: hospitalization.time_started_at || '',
         _method: 'PUT'
     })
 
@@ -24,7 +23,7 @@ const Edit = ({auth, errors}) => {
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         const dateString = `${year}-${month}-${day}`;
-        setData("date_of_hospitalization", dateString)
+        setData("date_started_at", dateString)
     }
 
     function handleSubmit(e) {
@@ -99,7 +98,7 @@ const Edit = ({auth, errors}) => {
                                             className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             value={data.doctor_id}
                                             onChange={(e) => setData("doctor_id", e.target.value)}>
-                                            <option value="">اتاق را انتخاب کنید</option>
+                                            <option value="">پزشک را انتخاب کنید</option>
                                             {doctors.map(doctor => (
                                                 <option key={doctor.id}
                                                         value={doctor.id}>{doctor.first_name + ' - ' + doctor.last_name}</option>
@@ -112,52 +111,31 @@ const Edit = ({auth, errors}) => {
                                     </div>
                                 </div>
                                 <div className="flex flex-row justify-center gap-5">
-                                    <div className="mb-4 w-1/4">
-                                        <label className="ml-5">تاریخ بستری<span
-                                            className="text-red-600 mr-2">*</span>
-                                        </label>
+                                    <div className="mb-4 w-1/3">
+                                        <label className="ml-5">تاریخ شروع بستری<span className="text-red-600 mr-2">*</span></label>
                                         <DatePicker
                                             round="x3"
                                             locale="fa"
                                             direction="rtl"
                                             weekends={[6]}
-                                            defaultValue={data.date_of_hospitalization}
+                                            defaultValue={data.date_started_at}
                                             inputClass="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             onChange={changeDatePicker}
                                         />
                                         <span className="text-red-600">
-                                            {errors.date_of_hospitalization}
+                                            {errors.date_started_at}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/4">
-                                        <label className="ml-5">شروع بستری<span className="text-red-600 mr-2">*</span></label>
-                                        <input
-                                            type="time"
-                                            value={data.start_time}
-                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            onChange={(e) =>
-                                                setData("start_time", e.target.value)
-                                            }
-                                        />
+                                    <div className="mb-4 w-1/3">
+                                        <label className="ml-5">زمان شروع بستری<span
+                                            className="text-red-600 mr-2">*</span>
+                                        </label>
+                                        <input type="time" className={"w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"} value={data.time_started_at} onChange={(e) => setData('time_started_at',e.target.value)}/>
                                         <span className="text-red-600">
-                                            {errors.start_time}
+                                            {errors.time_started_at}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/4">
-                                        <label className="">پایان بستری</label>
-                                        <input
-                                            type="time"
-                                            value={data.end_time}
-                                            className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            onChange={(e) =>
-                                                setData("end_time", e.target.value)
-                                            }
-                                        />
-                                        <span className="text-red-600">
-                                            {errors.end_time}
-                                        </span>
-                                    </div>
-                                    <div className="mb-4 w-1/4">
+                                    <div className="mb-4 w-1/3">
                                         <label className="">بیماری</label>
                                         <input
                                             type="text"

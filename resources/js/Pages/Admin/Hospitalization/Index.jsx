@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import Modal from "@/Components/Modal";
+import InputLabel from "@/Components/InputLabel";
+import TextInput from "@/Components/TextInput";
+import InputError from "@/Components/InputError";
+import SecondaryButton from "@/Components/SecondaryButton";
+import DangerButton from "@/Components/DangerButton";
+import {DatePicker} from "zaman";
 
 const Index = (props) => {
 
     const {hospitalizations} = usePage().props;
-
-    const {data,setData,get} = useForm({
-        term:''
-    })
 
     function destroy(e) {
         if (confirm("آیا از حذف این مورد مطمئن هستید؟")) {
@@ -22,11 +25,6 @@ const Index = (props) => {
         if (confirm("آیا از برگرداندن این مورد مطمئن هستید؟")) {
             router.get(route("admin.hospitalizations.restore", e.currentTarget.id));
         }
-    }
-
-    function handleSearch(e) {
-        e.preventDefault()
-        get(route("admin.hospitalizations.index"))
     }
 
     return (
@@ -46,19 +44,10 @@ const Index = (props) => {
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
-                                    href={ route("admin.hospitalizations.create") }
+                                    href={route("admin.hospitalizations.create")}
                                 >
                                     ایجاد بستری
                                 </Link>
-                                <form method="GET" onSubmit={handleSearch}>
-                                    <input type={"text"} className={"rounded"} placeholder={"جست و جو کنید..."} value={data.term} onChange={(e)=>{
-                                        setData("term",e.target.value)
-                                    }}/>
-                                    <button type={"submit"}
-                                            className={"rounded-lg px-6 py-2 focus:outline bg-yellow-300 mr-3 hover:bg-yellow-200 duration-300"}>جست
-                                        و جو
-                                    </button>
-                                </form>
                             </div>
 
                             <table className="w-full dark:bg-gray-800 table-auto text-xs">
@@ -70,24 +59,31 @@ const Index = (props) => {
                                     <th className="px-4 py-2">نام پزشک</th>
                                     <th className="px-4 py-2">کد ملی بیمار</th>
                                     <th className="px-4 py-2">بیماری</th>
-                                    <th className="px-4 py-2">تاریخ بستری</th>
                                     <th className="px-4 py-2">شروع بستری</th>
                                     <th className="px-4 py-2">پایان بستری</th>
                                     <th className="px-4 py-2">عملیات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {hospitalizations.data.map(({ id, patient,room,doctor,disease,date_of_hospitalization,start_time,end_time,deleted_at }) => (
+                                {hospitalizations.data.map(({
+                                                                id,
+                                                                patient,
+                                                                room,
+                                                                doctor,
+                                                                disease,
+                                                                started_at,
+                                                                finished_at,
+                                                                deleted_at
+                                                            }) => (
                                     <tr key={id} className="text-center border dark:border-gray-700 dark:text-gray-300">
-                                        <td className="px-4 py-2">{ id }</td>
-                                        <td className="px-4 py-2">{ patient.first_name + ' ' + patient.last_name }</td>
-                                        <td className="px-4 py-2">{ room.room_type + ' - ' + room.room_number }</td>
-                                        <td className="px-4 py-2">{ doctor.first_name + ' ' + doctor.last_name }</td>
-                                        <td className="px-4 py-2">{ patient.national_code }</td>
-                                        <td className="px-4 py-2">{ disease }</td>
-                                        <td className="px-4 py-2">{ new Date(date_of_hospitalization).toLocaleDateString('fa-IR') }</td>
-                                        <td className="px-4 py-2">{ start_time }</td>
-                                        <td className="px-4 py-2">{ end_time }</td>
+                                        <td className="px-4 py-2">{id}</td>
+                                        <td className="px-4 py-2">{patient.first_name + ' ' + patient.last_name}</td>
+                                        <td className="px-4 py-2">{room.room_type + ' - ' + room.room_number}</td>
+                                        <td className="px-4 py-2">{doctor.first_name + ' ' + doctor.last_name}</td>
+                                        <td className="px-4 py-2">{patient.national_code}</td>
+                                        <td className="px-4 py-2">{disease}</td>
+                                        <td className="px-4 py-2">{started_at}</td>
+                                        <td className="px-4 py-2">{finished_at}</td>
                                         <td className="px-4 py-2">
                                             <div className="flex flex-row">
                                                 <Link
@@ -98,14 +94,22 @@ const Index = (props) => {
                                                     ویرایش
                                                 </Link>
 
+                                                <Link
+                                                    tabIndex="1"
+                                                    href={route("admin.hospitalizations.edit_finished_at", id)}
+                                                    className="px-4 py-2 text-sm text-white bg-yellow-500 dark:bg-yellow-600 rounded"
+                                                >
+                                                    پایان بستری
+                                                </Link>
+
                                                 <button
-                                                    onClick={deleted_at==null ? destroy : restore}
+                                                    onClick={deleted_at == null ? destroy : restore}
                                                     id={id}
                                                     tabIndex="-1"
                                                     type="button"
-                                                    className={`${deleted_at==null ? 'bg-red-500 dark:bg-red-700' : 'bg-green-500 dark:bg-green-700'} mx-1 px-4 py-2 text-sm text-white rounded`}
+                                                    className={`${deleted_at == null ? 'bg-red-500 dark:bg-red-700' : 'bg-green-500 dark:bg-green-700'} mx-1 px-4 py-2 text-sm text-white rounded`}
                                                 >
-                                                    {deleted_at==null ? "حذف" : "برگرداندن"}
+                                                    {deleted_at == null ? "حذف" : "برگرداندن"}
                                                 </button>
                                             </div>
                                         </td>
