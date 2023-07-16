@@ -15,8 +15,6 @@ const Edit = ({auth, errors}) => {
         _method: 'PUT'
     })
 
-    console.log(data.available)
-
     function handleRadio(e) {
         setData("available", e.target.value)
     }
@@ -30,7 +28,7 @@ const Edit = ({auth, errors}) => {
         <Authenticated
             auth={auth}
             errors={errors}
-            header={<h2 className="font-semibold text-xl leading-tight">ایجاد اتاق</h2>}
+            header={<h2 className="font-semibold text-xl leading-tight">ویرایش اتاق</h2>}
         >
 
             <Head title="Rooms"/>
@@ -146,7 +144,7 @@ const Edit = ({auth, errors}) => {
                                         type="submit"
                                         className="px-6 py-2 font-bold text-white bg-green-500 rounded"
                                     >
-                                        ایجاد
+                                        ویرایش
                                     </button>
                                 </div>
                             </form>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BedController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\EmployeeController;
@@ -60,6 +61,8 @@ Route::middleware('auth')->group(function () {
         Route::get('hospitalizations/{hospitalization}/edit_finished_at', [HospitalizationController::class,'edit_finished_at'])->name('hospitalizations.edit_finished_at');
         Route::put('hospitalizations/update_finished_at/{hospitalization}', [HospitalizationController::class,'update_finished_at'])->name('hospitalizations.update_finished_at');
         Route::resource('hospitalizations', HospitalizationController::class);
+        Route::get('beds/restore/{bed}', [BedController::class,'restore'])->name('beds.restore');
+        Route::resource('beds', BedController::class);
     });
 });
 

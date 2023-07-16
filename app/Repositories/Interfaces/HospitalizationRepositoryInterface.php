@@ -14,5 +14,4 @@ interface HospitalizationRepositoryInterface
 
     public function getDoctorForHospitalization();
 
-    public function getHospitalizationForEdit(Request $request = null);
 }

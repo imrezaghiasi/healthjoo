@@ -23,7 +23,7 @@ class RoomRepository implements RoomRepositoryInterface
         return $query;
     }
 
-    public function getJobForEmployees()
+    public function getDepartmentForRooms()
     {
         return Department::select('id', 'name')->get();
     }

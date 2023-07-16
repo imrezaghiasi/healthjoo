@@ -44,12 +44,4 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
     {
         return Doctor::select('id', 'first_name', 'last_name')->get();
     }
-
-    public function getHospitalizationForEdit(Request $request = null)
-    {
-        if ($request) {
-            return Hospitalization::findOrFail($request->id);
-        }
-        return null;
-    }
 }

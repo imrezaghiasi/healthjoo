@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\BedRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\DoctorRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\HospitalizationRepository;
+use App\Repositories\Interfaces\BedRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Repositories\Interfaces\DoctorRepositoryInterface;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
@@ -18,11 +20,13 @@ use App\Repositories\JobRepository;
 use App\Repositories\MedicineRepository;
 use App\Repositories\PatientRepository;
 use App\Repositories\RoomRepository;
+use App\Services\BedService;
 use App\Services\DepartmentService;
 use App\Services\DoctorService;
 use App\Services\EmployeeService;
 use App\Services\HospitalizationService;
 use App\Services\ImageUploaderService;
+use App\Services\Interfaces\BedServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\DoctorServiceInterface;
 use App\Services\Interfaces\EmployeeServiceInterface;
@@ -68,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DepartmentRepositoryInterface::class,DepartmentRepository::class);
         $this->app->bind(RoomRepositoryInterface::class,RoomRepository::class);
         $this->app->bind(HospitalizationRepositoryInterface::class,HospitalizationRepository::class);
+        $this->app->bind(BedRepositoryInterface::class,BedRepository::class);
     }
 
     public function bindService()
@@ -81,5 +86,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DepartmentServiceInterface::class,DepartmentService::class);
         $this->app->bind(RoomServiceInterface::class,RoomService::class);
         $this->app->bind(HospitalizationServiceInterface::class,HospitalizationService::class);
+        $this->app->bind(BedServiceInterface::class,BedService::class);
     }
 }

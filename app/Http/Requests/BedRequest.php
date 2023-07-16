@@ -23,7 +23,7 @@ class BedRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'bed_number' => ['required','digits_between:1,4','numeric',Rule::unique('rooms')->ignore($this->request->get('id'))],
+            'bed_number' => ['required','digits_between:1,4','numeric',Rule::unique('beds')->ignore($this->request->get('id'))],
             'available' => ['required','max:1'],
             'room_id' => ['required','exists:rooms,id'],
             'department_id' => ['required','exists:departments,id']

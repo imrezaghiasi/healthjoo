@@ -19,7 +19,6 @@ class RoomController extends Controller
 
     public function __construct(RoomRepositoryInterface $roomRepository, RoomServiceInterface $roomService)
     {
-
         $this->roomRepository = $roomRepository;
         $this->roomService = $roomService;
     }
@@ -32,7 +31,7 @@ class RoomController extends Controller
 
     public function create()
     {
-        $departments = $this->roomRepository->getJobForEmployees();
+        $departments = $this->roomRepository->getDepartmentForRooms();
         return Inertia::render('Admin/Room/Create',compact('departments'));
     }
 
@@ -49,7 +48,7 @@ class RoomController extends Controller
 
     public function edit(Room $room)
     {
-        $departments = $this->roomRepository->getJobForEmployees();
+        $departments = $this->roomRepository->getDepartmentForRooms();
         return Inertia::render('Admin/Room/Edit', compact('room','departments'));
     }
 
