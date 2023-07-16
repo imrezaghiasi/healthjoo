@@ -56,6 +56,7 @@ const Index = (props) => {
                                     <th className="px-4 py-2 w-20">ردیف</th>
                                     <th className="px-4 py-2 w-20">نام بیمار</th>
                                     <th className="px-4 py-2">اتاق</th>
+                                    <th className="px-4 py-2">تخت</th>
                                     <th className="px-4 py-2">نام پزشک</th>
                                     <th className="px-4 py-2">کد ملی بیمار</th>
                                     <th className="px-4 py-2">بیماری</th>
@@ -70,6 +71,7 @@ const Index = (props) => {
                                                                 patient,
                                                                 room,
                                                                 doctor,
+                                                                bed,
                                                                 disease,
                                                                 started_at,
                                                                 finished_at,
@@ -79,28 +81,36 @@ const Index = (props) => {
                                         <td className="px-4 py-2">{id}</td>
                                         <td className="px-4 py-2">{patient.first_name + ' ' + patient.last_name}</td>
                                         <td className="px-4 py-2">{room.room_type + ' - ' + room.room_number}</td>
+                                        <td className="px-4 py-2">{bed.bed_number}</td>
                                         <td className="px-4 py-2">{doctor.first_name + ' ' + doctor.last_name}</td>
                                         <td className="px-4 py-2">{patient.national_code}</td>
                                         <td className="px-4 py-2">{disease}</td>
                                         <td className="px-4 py-2">{started_at}</td>
                                         <td className="px-4 py-2">{finished_at}</td>
                                         <td className="px-4 py-2">
-                                            <div className="flex flex-row">
-                                                <Link
-                                                    tabIndex="1"
-                                                    className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
-                                                    href={route("admin.hospitalizations.edit", id)}
-                                                >
-                                                    ویرایش
-                                                </Link>
+                                            <div className="flex flex-row justify-center">
 
-                                                <Link
-                                                    tabIndex="1"
-                                                    href={route("admin.hospitalizations.edit_finished_at", id)}
-                                                    className="px-4 py-2 text-sm text-white bg-yellow-500 dark:bg-yellow-600 rounded"
-                                                >
-                                                    پایان بستری
-                                                </Link>
+                                                {finished_at != null || (
+                                                    <>
+                                                        <Link
+                                                            tabIndex="1"
+                                                            className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
+                                                            href={route("admin.hospitalizations.edit", id)}
+                                                        >
+                                                            ویرایش
+                                                        </Link>
+
+                                                        <Link
+                                                            tabIndex="1"
+                                                            href={route("admin.hospitalizations.edit_finished_at", id)}
+                                                            className="px-4 py-2 text-sm text-white bg-yellow-500 dark:bg-yellow-600 rounded"
+                                                        >
+                                                            پایان بستری
+                                                        </Link>
+                                                    </>
+                                                )
+                                                }
+
 
                                                 <button
                                                     onClick={deleted_at == null ? destroy : restore}

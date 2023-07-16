@@ -14,4 +14,6 @@ interface HospitalizationRepositoryInterface
 
     public function getDoctorForHospitalization();
 
+    public function getBedForHospitalization();
+
 }

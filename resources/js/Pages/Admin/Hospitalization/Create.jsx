@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Head, Link, useForm, usePage} from "@inertiajs/react";
 import {DatePicker} from "zaman";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 
 const Create = ({auth, errors}) => {
 
-    const {patients, rooms, doctors} = usePage().props
+    const {patients, rooms, doctors, beds} = usePage().props
+
+    const [bedsFiltered, setBedsFiltered] = useState(beds);
 
     const {data, setData, post} = useForm({
         patient_id: "",
         room_id: "",
         doctor_id: '',
+        bed_id: '',
         disease: '',
         date_started_at: '',
         time_started_at: '',
@@ -29,6 +32,14 @@ const Create = ({auth, errors}) => {
         e.preventDefault();
         post(route("admin.hospitalizations.store"));
     }
+
+    function handleBeds(e) {
+        setData("room_id", e.target.value)
+        setBedsFiltered(beds.filter(bed => bed.room_id == e.target.value));
+        if (e.target.value === '')
+            setBedsFiltered(beds)
+    }
+
 
     return (
         <Authenticated
@@ -55,7 +66,7 @@ const Create = ({auth, errors}) => {
 
                             <form onSubmit={handleSubmit} className="dark:text-gray-300">
                                 <div className="flex flex-row justify-center gap-5 mb-5">
-                                    <div className="mb-4 w-1/3">
+                                    <div className="mb-4 w-1/2">
                                         <label className="ml-5">نام بیمار<span
                                             className="text-red-600 mr-2">*</span></label>
                                         <select
@@ -73,12 +84,30 @@ const Create = ({auth, errors}) => {
                                             {errors.patient_id}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/3">
+                                    <div className="mb-4 w-1/2">
+                                        <label className="ml-5">نام پزشک<span
+                                            className="text-red-600 mr-2">*</span></label>
+                                        <select
+                                            className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            value={data.doctor_id}
+                                            onChange={(e) => setData("doctor_id", e.target.value)}>
+                                            <option value="">پزشک را انتخاب کنید</option>
+                                            {doctors.map(doctor => (
+                                                <option key={doctor.id}
+                                                        value={doctor.id}>{doctor.first_name + ' - ' + doctor.last_name}</option>
+                                            ))
+                                            }
+                                        </select>
+                                        <span className="text-red-600">
+                                            {errors.doctor_id}
+                                        </span>
+                                    </div>
+                                    <div className="mb-4 w-1/2">
                                         <label className="ml-5">اتاق<span className="text-red-600 mr-2">*</span></label>
                                         <select
                                             className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             value={data.room_id}
-                                            onChange={(e) => setData("room_id", e.target.value)}>
+                                            onChange={handleBeds}>
                                             <option value="">اتاق را انتخاب کنید</option>
                                             {rooms.map(room => (
                                                 <option key={room.id}
@@ -90,22 +119,22 @@ const Create = ({auth, errors}) => {
                                             {errors.room_id}
                                         </span>
                                     </div>
-                                    <div className="mb-4 w-1/3">
-                                        <label className="ml-5">نام پزشک<span
+                                    <div className="mb-4 w-1/2">
+                                        <label className="ml-5">تخت<span
                                             className="text-red-600 mr-2">*</span></label>
                                         <select
                                             className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.doctor_id}
-                                            onChange={(e) => setData("doctor_id", e.target.value)}>
-                                            <option value="">اتاق را انتخاب کنید</option>
-                                            {doctors.map(doctor => (
-                                                <option key={doctor.id}
-                                                        value={doctor.id}>{doctor.first_name + ' - ' + doctor.last_name}</option>
+                                            value={data.bed_id}
+                                            onChange={(e) => setData("bed_id", e.target.value)}>
+                                            <option value="">تخت را انتخاب کنید</option>
+                                            {bedsFiltered.map(bed => (
+                                                <option key={bed.id}
+                                                        value={bed.id}>{bed.bed_number}</option>
                                             ))
                                             }
                                         </select>
                                         <span className="text-red-600">
-                                            {errors.doctor_id}
+                                            {errors.bed_id}
                                         </span>
                                     </div>
                                 </div>
@@ -130,7 +159,10 @@ const Create = ({auth, errors}) => {
                                         <label className="ml-5">زمان شروع بستری<span
                                             className="text-red-600 mr-2">*</span>
                                         </label>
-                                        <input type="time" className={"w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"} value={data.time_started_at} onChange={(e) => setData('time_started_at',e.target.value)}/>
+                                        <input type="time"
+                                               className={"w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"}
+                                               value={data.time_started_at}
+                                               onChange={(e) => setData('time_started_at', e.target.value)}/>
                                         <span className="text-red-600">
                                             {errors.time_started_at}
                                         </span>

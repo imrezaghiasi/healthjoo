@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Bed;
 use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Room;
@@ -24,11 +25,13 @@ class HospitalizationFactory extends Factory
         $patient = Patient::pluck('id')->toArray();
         $room = Room::pluck('id')->toArray();
         $doctor = Doctor::pluck('id')->toArray();
+        $bed = Bed::pluck('id')->toArray();
 
         return [
             'patient_id' => $this->faker->randomElement($patient),
             'room_id' => $this->faker->randomElement($room),
             'doctor_id' => $this->faker->randomElement($doctor),
+            'bed_id' => $this->faker->randomElement($bed),
             'disease' => Faker::word(),
             'started_at' => Carbon::instance($this->faker->dateTimeBetween('-1 year', 'now')),
             'finished_at' => Carbon::instance($this->faker->dateTimeBetween('now', '+1 year')),

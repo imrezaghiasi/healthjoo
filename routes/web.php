@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('rooms', RoomController::class);
         Route::get('hospitalizations/restore/{hospitalization}', [HospitalizationController::class,'restore'])->name('hospitalizations.restore');
         Route::get('hospitalizations/{hospitalization}/edit_finished_at', [HospitalizationController::class,'edit_finished_at'])->name('hospitalizations.edit_finished_at');
-        Route::put('hospitalizations/update_finished_at/{hospitalization}', [HospitalizationController::class,'update_finished_at'])->name('hospitalizations.update_finished_at');
+        Route::patch('hospitalizations/update_finished_at/{hospitalization}', [HospitalizationController::class,'update_finished_at'])->name('hospitalizations.update_finished_at');
         Route::resource('hospitalizations', HospitalizationController::class);
         Route::get('beds/restore/{bed}', [BedController::class,'restore'])->name('beds.restore');
         Route::resource('beds', BedController::class);

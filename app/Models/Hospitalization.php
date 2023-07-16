@@ -13,7 +13,7 @@ class Hospitalization extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['patient_id','room_id','doctor_id','disease','started_at','finished_at'];
+    protected $fillable = ['patient_id','room_id','doctor_id','bed_id','disease','started_at','finished_at'];
 
     protected $appends = ['date_started_at','time_started_at'];
     public function patient(): BelongsTo
@@ -27,6 +27,11 @@ class Hospitalization extends Model
     public function doctor(): BelongsTo
     {
         return $this->belongsTo(Doctor::class);
+    }
+
+    public function bed(): BelongsTo
+    {
+        return $this->belongsTo(Bed::class);
     }
 
     public function getDateStartedAtAttribute()

@@ -11,7 +11,7 @@ const EditFinishedAt = ({auth, errors}) => {
         id: hospitalization.id || '',
         date_finished_at: '',
         time_finished_at: '',
-        _method: 'PUT'
+        _method: 'PATCH'
     })
 
     const changeDatePicker = (e) => {
