@@ -45,6 +45,22 @@ class HospitalizationService implements HospitalizationServiceInterface
         $hospitalization->patient_id = $request->patient_id;
         $hospitalization->room_id = $request->room_id;
         $hospitalization->doctor_id = $request->doctor_id;
+
+        if ($request->bed_id != $hospitalization->bed_id) {
+            $bed = Bed::findOrFail($hospitalization->bed_id);
+            $bed->available = 1;
+            $bed->update();
+            $bed = Bed::findOrFail($request->bed_id);
+            $bed->available = 0;
+            $bed->update();
+            $room = Room::findOrFail($this->hospitalization->room_id);
+            $availableBedCount = $room->beds()->where('available', 1)->count();
+            if ($availableBedCount == 0) {
+                $room->available = 0;
+                $room->update();
+            }
+        }
+
         $hospitalization->bed_id = $request->bed_id;
         $hospitalization->disease = $request->disease;
         $hospitalization->started_at = Carbon::parse("$request->date_started_at $request->time_started_at");

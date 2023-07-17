@@ -92,13 +92,13 @@ const Index = (props) => {
 
                                                 {finished_at != null || (
                                                     <>
-                                                        <Link
-                                                            tabIndex="1"
-                                                            className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
-                                                            href={route("admin.hospitalizations.edit", id)}
-                                                        >
-                                                            ویرایش
-                                                        </Link>
+                                                        {/*<Link*/}
+                                                        {/*    tabIndex="1"*/}
+                                                        {/*    className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"*/}
+                                                        {/*    href={route("admin.hospitalizations.edit", id)}*/}
+                                                        {/*>*/}
+                                                        {/*    ویرایش*/}
+                                                        {/*</Link>*/}
 
                                                         <Link
                                                             tabIndex="1"

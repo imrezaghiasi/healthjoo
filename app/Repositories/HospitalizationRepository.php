@@ -40,7 +40,7 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
 
     public function getRoomForHospitalization()
     {
-        return Room::select('id', 'room_type', 'room_number')->where('available', '=', 1)->get();
+        return Room::select('id', 'room_type', 'room_number')->get();
     }
 
     public function getDoctorForHospitalization()
@@ -50,6 +50,6 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
 
     public function getBedForHospitalization()
     {
-        return Bed::select('id', 'bed_number','room_id')->where('available', '=', 1)->get();
+        return Bed::select('id', 'bed_number','room_id')->where('available', 1)->get();
     }
 }

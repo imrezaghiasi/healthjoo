@@ -21,8 +21,6 @@ const Edit = ({auth, errors}) => {
         _method: 'PUT'
     })
 
-    console.log(data.bed_id)
-
     const changeDatePicker = (e) => {
         const date = new Date(e.value);
         const year = date.getFullYear();
