@@ -13,13 +13,19 @@ use App\Repositories\Interfaces\DoctorRepositoryInterface;
 use App\Repositories\Interfaces\EmployeeRepositoryInterface;
 use App\Repositories\Interfaces\HospitalizationRepositoryInterface;
 use App\Repositories\Interfaces\JobRepositoryInterface;
+use App\Repositories\Interfaces\LaboratoryTestItemRepositoryInterface;
+use App\Repositories\Interfaces\LaboratoryTestRepositoryInterface;
 use App\Repositories\Interfaces\MedicineRepositoryInterface;
 use App\Repositories\Interfaces\PatientRepositoryInterface;
 use App\Repositories\Interfaces\RoomRepositoryInterface;
+use App\Repositories\Interfaces\TestRepositoryInterface;
 use App\Repositories\JobRepository;
+use App\Repositories\LaboratoryTestItemRepository;
+use App\Repositories\LaboratoryTestRepository;
 use App\Repositories\MedicineRepository;
 use App\Repositories\PatientRepository;
 use App\Repositories\RoomRepository;
+use App\Repositories\TestRepository;
 use App\Services\BedService;
 use App\Services\DepartmentService;
 use App\Services\DoctorService;
@@ -33,13 +39,19 @@ use App\Services\Interfaces\EmployeeServiceInterface;
 use App\Services\Interfaces\HospitalizationServiceInterface;
 use App\Services\Interfaces\ImageUploaderServiceInterface;
 use App\Services\Interfaces\JobServiceInterface;
+use App\Services\Interfaces\LaboratoryTestItemServiceInterface;
+use App\Services\Interfaces\LaboratoryTestServiceInterface;
 use App\Services\Interfaces\MedicineServiceInterface;
 use App\Services\Interfaces\PatientServiceInterface;
 use App\Services\Interfaces\RoomServiceInterface;
+use App\Services\Interfaces\TestServiceInterface;
 use App\Services\JobService;
+use App\Services\LaboratoryTestItemService;
+use App\Services\LaboratoryTestService;
 use App\Services\MedicineService;
 use App\Services\PatientService;
 use App\Services\RoomService;
+use App\Services\TestService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -73,6 +85,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(RoomRepositoryInterface::class,RoomRepository::class);
         $this->app->bind(HospitalizationRepositoryInterface::class,HospitalizationRepository::class);
         $this->app->bind(BedRepositoryInterface::class,BedRepository::class);
+        $this->app->bind(TestRepositoryInterface::class,TestRepository::class);
+        $this->app->bind(LaboratoryTestItemRepositoryInterface::class,LaboratoryTestItemRepository::class);
+        $this->app->bind(LaboratoryTestRepositoryInterface::class,LaboratoryTestRepository::class);
     }
 
     public function bindService()
@@ -87,5 +102,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(RoomServiceInterface::class,RoomService::class);
         $this->app->bind(HospitalizationServiceInterface::class,HospitalizationService::class);
         $this->app->bind(BedServiceInterface::class,BedService::class);
+        $this->app->bind(TestServiceInterface::class,TestService::class);
+        $this->app->bind(LaboratoryTestItemServiceInterface::class,LaboratoryTestItemService::class);
+        $this->app->bind(LaboratoryTestServiceInterface::class,LaboratoryTestService::class);
     }
 }

@@ -6,9 +6,11 @@ use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\HospitalizationController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\LaboratoryTestController;
 use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +65,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('hospitalizations', HospitalizationController::class);
         Route::get('beds/restore/{bed}', [BedController::class,'restore'])->name('beds.restore');
         Route::resource('beds', BedController::class);
+        Route::get('tests/restore/{test}', [TestController::class,'restore'])->name('tests.restore');
+        Route::resource('tests', TestController::class);
+        Route::get('laboratory_tests/restore/{laboratory_test}', [LaboratoryTestController::class,'restore'])->name('laboratory_tests.restore');
+        Route::get('laboratory_tests/create_laboratory_test_results/{id}', [LaboratoryTestController::class,'create_laboratory_test_results'])->name('laboratory_tests.create_laboratory_test_results');
+        Route::post('laboratory_tests/store_laboratory_test_results', [LaboratoryTestController::class,'store_laboratory_test_results'])->name('laboratory_tests.store_laboratory_test_results');
+        Route::resource('laboratory_tests', LaboratoryTestController::class);
     });
 });
 

@@ -19,4 +19,9 @@ class Patient extends Model
         return $this->hasMany(Hospitalization::class);
     }
 
+    public function laboratory_tests(): HasMany
+    {
+        return $this->hasMany(LaboratoryTest::class);
+    }
+
 }
