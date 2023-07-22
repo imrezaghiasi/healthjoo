@@ -7,6 +7,7 @@ const Index = (props) => {
 
     const {laboratory_tests} = usePage().props;
 
+    console.log(laboratory_tests);
     const {data, setData, get} = useForm({
         term: ''
     })
@@ -73,7 +74,7 @@ const Index = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {laboratory_tests.data.map(({id, patient, test_type, price, deleted_at}) => (
+                                {laboratory_tests.data.map(({id, patient,is_tested, test_type, price, deleted_at}) => (
                                     <tr key={id} className="border text-center dark:border-gray-700 dark:text-gray-300">
                                         <td className="px-4 py-2">{id}</td>
                                         <td className="px-4 py-2">{patient.first_name + ' ' + patient.last_name}</td>
@@ -81,13 +82,15 @@ const Index = (props) => {
                                         <td className="px-4 py-2">{price}</td>
                                         <td className="px-4 py-2">
                                             <div className="flex flex-row justify-center">
-                                                <Link
+                                                {is_tested == false && (
+                                                    <Link
                                                     tabIndex="1"
                                                     className="w-1/2 px-4 py-2 text-sm text-white bg-purple-500 dark:bg-purple-700 rounded"
                                                     href={route("admin.laboratory_tests.create_laboratory_test_results", id)}
                                                 >
                                                     ثبت نتیجه آزمایش
                                                 </Link>
+                                                )}
                                                 <Link
                                                     tabIndex="1"
                                                     className="w-1/2 px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded mr-2"
@@ -105,13 +108,13 @@ const Index = (props) => {
                                                 >
                                                     {deleted_at == null ? "حذف" : "برگرداندن"}
                                                 </button>
-                                                <Link
+                                                {is_tested && (<Link
                                                     tabIndex="1"
                                                     className="w-1/2 mr-2 px-4 py-2 text-sm text-white bg-green-500 dark:bg-green-700 rounded"
                                                     href={route("admin.laboratory_tests.show", id)}
                                                 >
                                                     نتیجه آزمایش
-                                                </Link>
+                                                </Link>)}
                                             </div>
                                         </td>
                                     </tr>

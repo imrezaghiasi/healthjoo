@@ -14,6 +14,8 @@ class LaboratoryTest extends Model
 
     protected $fillable = ['patient_id','test_type','price'];
 
+    protected $appends = ['is_tested'];
+
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);
@@ -22,5 +24,10 @@ class LaboratoryTest extends Model
     public function laboratory_test_items(): HasMany
     {
         return $this->hasMany(LaboratoryTestItem::class);
+    }
+
+    public function getIsTestedAttribute()
+    {
+        return LaboratoryTestItem::where('laboratory_test_id',$this->id)->exists();
     }
 }

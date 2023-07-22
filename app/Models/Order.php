@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Medicine extends Model
+class Order extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['title','price','code'];
+    protected $fillable = ['patient_id','pay_amount','is_paid'];
 
-    public function pharmacy(): HasMany
+    public function pharmacy_operations(): HasMany
     {
-        return $this->hasMany(Pharmacy::class);
+        return $this->hasMany(PharmacyOperation::class);
     }
 
     public function order_items(): HasMany
