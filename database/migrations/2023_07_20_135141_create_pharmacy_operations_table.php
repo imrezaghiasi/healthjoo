@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('pharmacy_operations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id')->nullable();
             $table->foreignId('pharmacy_id')->references('id')->on('pharmacy')->noActionOnDelete();
-            $table->foreignId('order_id')->references('id')->on('orders')->noActionOnDelete();
+            $table->foreign('order_id')->references('id')->on('orders')->noActionOnDelete();
             $table->boolean('operation');
             $table->integer('count');
             $table->text('description');

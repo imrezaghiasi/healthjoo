@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('patient_id')->references('id')->on('patients')->noActionOnDelete();
             $table->double('pay_amount');
             $table->boolean('is_paid')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

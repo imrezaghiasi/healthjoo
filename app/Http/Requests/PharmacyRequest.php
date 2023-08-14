@@ -23,8 +23,8 @@ class PharmacyRequest extends FormRequest
     {
         return [
             'medicine_id' => ['required','exists:medicines,id'],
-            'quantity' => ['required','numeric'],
-            'in_stock' => ['required','max:1']
+            'quantity' => ['nullable','numeric'],
+            'in_stock' => ['nullable','max:1']
         ];
     }
 }

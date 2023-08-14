@@ -22,9 +22,7 @@ class PharmacyOperationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'pharmacy_id' => ['required','exists:pharmacy,id'],
-            'order_id' => ['required','exists:orders,id'],
-            'operation' => ['required','max:1'],
+            'pharmacy_id' => ['required'],
             'count' => ['required','numeric'],
             'description' => ['required','persian_alpha']
         ];

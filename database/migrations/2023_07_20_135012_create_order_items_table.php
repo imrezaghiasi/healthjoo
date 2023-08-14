@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('medicine_id')->references('id')->on('medicines')->noActionOnDelete();
             $table->foreignId('order_id')->references('id')->on('orders')->noActionOnDelete();
             $table->integer('count');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

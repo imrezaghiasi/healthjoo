@@ -56,6 +56,13 @@ const Sidebar = () => {
                 </Link>
 
                 <Link
+                    href={route('admin.pharmacy.index')}
+                    className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                    <i className="bi bi-heart-pulse-fill ml-4"></i>
+                    <p>انبار دارو ها</p>
+                </Link>
+
+                <Link
                     href={route('admin.doctors.index')}
                     className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
                     <i className="bi bi-person-check ml-4"></i>

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Medicine;
 use App\Models\Pharmacy;
 use App\Repositories\Interfaces\PharmacyRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,5 +21,10 @@ class PharmacyRepository implements PharmacyRepositoryInterface
         return $this->query()->with(['medicine' => function($q){
             $q->withTrashed();
         }])->withTrashed()->latest();
+    }
+
+    public function getMedicineForPharmacy()
+    {
+        return Medicine::select('id','title')->get();
     }
 }

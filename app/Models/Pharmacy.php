@@ -14,6 +14,8 @@ class Pharmacy extends Model
 
     protected $fillable = ['medicine_id','quantity','in_stock'];
 
+    protected $table = 'pharmacy';
+
     public function medicine(): BelongsTo
     {
         return $this->belongsTo(Medicine::class);

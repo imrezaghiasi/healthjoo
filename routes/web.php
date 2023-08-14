@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\LaboratoryTestController;
 use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\PatientController;
+use App\Http\Controllers\Admin\PharmacyController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\ProfileController;
@@ -71,6 +72,12 @@ Route::middleware('auth')->group(function () {
         Route::get('laboratory_tests/create_laboratory_test_results/{id}', [LaboratoryTestController::class,'create_laboratory_test_results'])->name('laboratory_tests.create_laboratory_test_results');
         Route::post('laboratory_tests/store_laboratory_test_results', [LaboratoryTestController::class,'store_laboratory_test_results'])->name('laboratory_tests.store_laboratory_test_results');
         Route::resource('laboratory_tests', LaboratoryTestController::class);
+        Route::get('pharmacy/increase/{pharmacy}', [PharmacyController::class,'increase'])->name('pharmacy.increase');
+        Route::put('pharmacy/store_increase/{pharmacy}', [PharmacyController::class,'store_increase'])->name('pharmacy.store_increase');
+        Route::get('pharmacy/reduce/{pharmacy}', [PharmacyController::class,'reduce'])->name('pharmacy.reduce');
+        Route::put('pharmacy/store_reduce/{pharmacy}', [PharmacyController::class,'store_reduce'])->name('pharmacy.store_reduce');
+        Route::get('pharmacy/restore/{pharmacy}', [PharmacyController::class,'restore'])->name('pharmacy.restore');
+        Route::resource('pharmacy', PharmacyController::class);
     });
 });
 

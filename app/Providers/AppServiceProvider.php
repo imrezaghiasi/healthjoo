@@ -17,6 +17,7 @@ use App\Repositories\Interfaces\LaboratoryTestItemRepositoryInterface;
 use App\Repositories\Interfaces\LaboratoryTestRepositoryInterface;
 use App\Repositories\Interfaces\MedicineRepositoryInterface;
 use App\Repositories\Interfaces\PatientRepositoryInterface;
+use App\Repositories\Interfaces\PharmacyRepositoryInterface;
 use App\Repositories\Interfaces\RoomRepositoryInterface;
 use App\Repositories\Interfaces\TestRepositoryInterface;
 use App\Repositories\JobRepository;
@@ -24,6 +25,7 @@ use App\Repositories\LaboratoryTestItemRepository;
 use App\Repositories\LaboratoryTestRepository;
 use App\Repositories\MedicineRepository;
 use App\Repositories\PatientRepository;
+use App\Repositories\PharmacyRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\TestRepository;
 use App\Services\BedService;
@@ -43,6 +45,7 @@ use App\Services\Interfaces\LaboratoryTestItemServiceInterface;
 use App\Services\Interfaces\LaboratoryTestServiceInterface;
 use App\Services\Interfaces\MedicineServiceInterface;
 use App\Services\Interfaces\PatientServiceInterface;
+use App\Services\Interfaces\PharmacyServiceInterface;
 use App\Services\Interfaces\RoomServiceInterface;
 use App\Services\Interfaces\TestServiceInterface;
 use App\Services\JobService;
@@ -50,6 +53,7 @@ use App\Services\LaboratoryTestItemService;
 use App\Services\LaboratoryTestService;
 use App\Services\MedicineService;
 use App\Services\PatientService;
+use App\Services\PharmacyService;
 use App\Services\RoomService;
 use App\Services\TestService;
 use Illuminate\Pagination\Paginator;
@@ -88,6 +92,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TestRepositoryInterface::class,TestRepository::class);
         $this->app->bind(LaboratoryTestItemRepositoryInterface::class,LaboratoryTestItemRepository::class);
         $this->app->bind(LaboratoryTestRepositoryInterface::class,LaboratoryTestRepository::class);
+        $this->app->bind(PharmacyRepositoryInterface::class,PharmacyRepository::class);
     }
 
     public function bindService()
@@ -105,5 +110,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TestServiceInterface::class,TestService::class);
         $this->app->bind(LaboratoryTestItemServiceInterface::class,LaboratoryTestItemService::class);
         $this->app->bind(LaboratoryTestServiceInterface::class,LaboratoryTestService::class);
+        $this->app->bind(PharmacyServiceInterface::class,PharmacyService::class);
     }
 }
