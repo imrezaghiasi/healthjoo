@@ -1,65 +1,76 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Services\Interfaces\OrderServiceInterface;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private string $redirectRoute = 'admin.orders.index';
+
+    private readonly OrderServiceInterface $orderService;
+    private readonly OrderRepositoryInterface $orderRepository;
+
+    public function __construct(OrderServiceInterface $orderService, OrderRepositoryInterface $orderRepository)
     {
-        //
+        $this->orderService = $orderService;
+        $this->orderRepository = $orderRepository;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function index(Request $request)
+    {
+        $orders = $this->orderRepository->getWithTrashedLatest($request)->paginate(10);
+        return Inertia::render('Admin/Order/Index',compact('orders'));
+    }
+
     public function create()
     {
-        //
+        $patients = $this->orderRepository->getPatientForOrder();
+        $medicines = $this->orderRepository->getMedicineForOrder();
+        return Inertia::render('Admin/Order/Create',compact('patients','medicines'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        //
+        $this->orderService->store($request);
+        return redirect()->route($this->redirectRoute);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Order $order)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Order $order)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Order $order)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Order $order)
     {
-        //
+        $this->orderService->destroy($order);
+    }
+
+    public function restore(string $id)
+    {
+        $this->orderService->restore($id);
+    }
+
+    public function get_details_order(Order $order)
+    {
+        $details_order = OrderItem::where('order_id',$order->id)->with('medicine')->latest()->paginate(10);
+        return Inertia::render('Admin/Order/Details',compact('details_order'));
     }
 }

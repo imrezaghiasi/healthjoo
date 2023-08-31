@@ -9,6 +9,7 @@ use App\Services\Interfaces\OrderServiceInterface;
 class OrderService implements OrderServiceInterface
 {
     private Order $order;
+
     public function __construct(Order $order)
     {
         $this->order = $order;
@@ -17,11 +18,25 @@ class OrderService implements OrderServiceInterface
 
     public function store(OrderRequest $request)
     {
-        return $this->order->create([
+        $totalAmount = 0;
+        foreach ($request->selected_medicines as $selected_medicine) {
+            $totalAmount += $selected_medicine['price'] * $selected_medicine['count'];
+        }
+
+        $order = $this->order->create([
             'patient_id' => $request->patient_id,
-            'pay_amount' => $request->pay_amount,
-            'is_paid' => $request->is_paid,
+            'pay_amount' => $totalAmount,
+            'is_paid' => 1
         ]);
+
+        foreach ($request->selected_medicines as $selected_medicine) {
+            $order->order_items()->create([
+                'medicine_id' => $selected_medicine['medicine_id'],
+                'count' => $selected_medicine['count'],
+            ]);
+        }
+
+        $order->save();
     }
 
     public function update(OrderRequest $request, Order $order)

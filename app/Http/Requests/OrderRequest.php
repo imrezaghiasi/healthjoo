@@ -23,8 +23,9 @@ class OrderRequest extends FormRequest
     {
         return [
             'patient_id' => ['required','exists:patients,id'],
-            'pay_amount' => ['required','numeric'],
-            'is_paid' => ['required','max:1']
+            'selected_medicines' => ['required'],
+            'pay_amount' => ['nullable','numeric'],
+            'is_paid' => ['nullable','max:1']
         ];
     }
 }

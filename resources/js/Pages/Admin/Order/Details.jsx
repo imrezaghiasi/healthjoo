@@ -3,18 +3,19 @@ import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 
-const Operations = (props) => {
+const Details = (props) => {
 
-    const {operations} = usePage().props;
+    const {details_order} = usePage().props;
 
+    console.log(details_order)
     return (
         <Authenticated
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl leading-tight">انبار دارو</h2>}
+            header={<h2 className="font-semibold text-xl leading-tight">جزییات سفارش</h2>}
         >
 
-            <Head title="Pharmacy"/>
+            <Head title="Order"/>
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -23,7 +24,7 @@ const Operations = (props) => {
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
-                                    href={route("admin.pharmacy.index")}
+                                    href={route("admin.orders.index")}
                                 >
                                     برگشت
                                 </Link>
@@ -32,22 +33,24 @@ const Operations = (props) => {
                                 <thead>
                                 <tr className="bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                     <th className="px-4 py-2 w-20">ردیف</th>
+                                    <th className="px-4 py-2">نام دارو</th>
                                     <th className="px-4 py-2">تعداد</th>
-                                    <th className="px-4 py-2">توضیحات</th>
-                                    <th className="px-4 py-2">تاریخ</th>
+                                    <th className="px-4 py-2">قیمت واحد</th>
+                                    <th className="px-4 py-2">قیمت کل</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {operations.data.map(({id, count, description , operation,created_at}) => (
-                                    <tr key={id} className={`${operation == 1 ? 'bg-green-200' : 'bg-red-200'} border text-center dark:border-gray-700 dark:text-gray-300`}>
+                                {details_order.data.map(({id, medicine, count }) => (
+                                    <tr key={id} className='border text-center dark:border-gray-700 dark:text-gray-300'>
                                         <td className="px-4 py-2">{id}</td>
+                                        <td className="px-4 py-2">{medicine.title}</td>
                                         <td className="px-4 py-2">{count}</td>
-                                        <td className="px-4 py-2">{description}</td>
-                                        <td className="px-4 py-2">{created_at}</td>
+                                        <td className="px-4 py-2">{medicine.price}</td>
+                                        <td className="px-4 py-2">{medicine.price * count}</td>
                                     </tr>
                                 ))}
 
-                                {operations.data.length === 0 && (
+                                {details_order.data.length === 0 && (
                                     <tr>
                                         <td
                                             className="px-6 py-4 border-t dark:text-white text-center"
@@ -59,7 +62,7 @@ const Operations = (props) => {
                                 )}
                                 </tbody>
                             </table>
-                            <Pagination links={operations.links} class="mt-5"/>
+                            <Pagination links={details_order.links} class="mt-5"/>
                         </div>
                     </div>
                 </div>
@@ -70,4 +73,4 @@ const Operations = (props) => {
     );
 };
 
-export default Operations;
+export default Details;

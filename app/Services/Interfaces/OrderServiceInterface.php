@@ -4,6 +4,7 @@ namespace App\Services\Interfaces;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use Illuminate\Http\Request;
 
 interface OrderServiceInterface
 {

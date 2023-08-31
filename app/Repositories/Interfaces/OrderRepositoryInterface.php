@@ -8,4 +8,5 @@ interface OrderRepositoryInterface
 {
     public function getWithTrashedLatest(Request $request = null);
     public function getPatientForOrder();
+    public function getMedicineForOrder();
 }

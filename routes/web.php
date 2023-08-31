@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HospitalizationController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\LaboratoryTestController;
 use App\Http\Controllers\Admin\MedicineController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\PharmacyController;
 use App\Http\Controllers\Admin\RoomController;
@@ -79,6 +80,9 @@ Route::middleware('auth')->group(function () {
         Route::get('pharmacy/restore/{pharmacy}', [PharmacyController::class,'restore'])->name('pharmacy.restore');
         Route::get('pharmacy/get_operation/{pharmacy}', [PharmacyController::class,'get_operation'])->name('pharmacy.get_operation');
         Route::resource('pharmacy', PharmacyController::class);
+        Route::get('orders/get_details_order/{order}', [OrderController::class,'get_details_order'])->name('orders.get_details_order');
+        Route::get('orders/restore/{order}', [OrderController::class,'restore'])->name('orders.restore');
+        Route::resource('orders', OrderController::class);
     });
 });
 

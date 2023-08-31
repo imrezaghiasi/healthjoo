@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('patient_id')->references('id')->on('patients')->noActionOnDelete();
-            $table->double('pay_amount');
+            $table->double('pay_amount')->default(0);
             $table->boolean('is_paid')->default(0);
             $table->softDeletes();
             $table->timestamps();

@@ -24,4 +24,9 @@ class Patient extends Model
         return $this->hasMany(LaboratoryTest::class);
     }
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }

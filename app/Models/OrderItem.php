@@ -11,7 +11,7 @@ class OrderItem extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['medicine_id','order_id','count'];
+    protected $fillable = ['order_id','medicine_id','count'];
 
     public function medicine(): BelongsTo
     {
