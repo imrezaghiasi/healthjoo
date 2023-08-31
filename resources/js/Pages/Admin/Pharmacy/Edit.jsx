@@ -4,28 +4,25 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 
 const Create = ({auth, errors}) => {
 
-    const {pharmacy} = usePage().props
+    const {pharmacy,medicines} = usePage().props
 
-    const {data, setData, post} = useForm({
-        pharmacy_id: pharmacy.id || '',
-        count: '',
-        description: '',
-        _method: 'PUT'
+    const {data, setData, put} = useForm({
+        medicine_id: pharmacy.medicine_id || '',
     })
 
     function handleSubmit(e) {
         e.preventDefault();
-        post(route("admin.pharmacy.store_reduce",data.pharmacy_id),data);
+        put(route("admin.pharmacy.update",pharmacy.id));
     }
 
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={<h2 className="font-semibold text-xl leading-tight">کاهش موجودی</h2>}
+            header={<h2 className="font-semibold text-xl leading-tight">ایجاد انبار</h2>}
         >
 
-            <Head title="Reduce"/>
+            <Head title="Pharmacy"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -44,35 +41,22 @@ const Create = ({auth, errors}) => {
                             <form onSubmit={handleSubmit} className="dark:text-gray-300">
                                 <div className="flex flex-row justify-center gap-5 mb-5">
                                     <div className="mb-4 w-1/2">
-                                        <label className="ml-5">تعداد دارو<span
+                                        <label className="ml-5">نام دارو<span
                                             className="text-red-600 mr-2">*</span>
                                         </label>
-                                        <input
-                                            type="text"
-                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.count}
-                                            onChange={(e) =>
-                                                setData("count", e.target.value)
+                                        <select
+                                            className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            value={data.medicine_id}
+                                            onChange={(e) => setData("medicine_id", e.target.value)}>
+                                            <option value="">نام دارو را انتخاب کنید</option>
+                                            {medicines.map(medicine => (
+                                                <option key={medicine.id}
+                                                        value={medicine.id}>{medicine.title}</option>
+                                            ))
                                             }
-                                        />
+                                        </select>
                                         <span className="text-red-600">
-                                            {errors.count}
-                                        </span>
-                                    </div>
-                                    <div className="mb-4 w-1/2">
-                                        <label className="ml-5">توضیحات<span
-                                            className="text-red-600 mr-2">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.description}
-                                            onChange={(e) =>
-                                                setData("description", e.target.value)
-                                            }
-                                        />
-                                        <span className="text-red-600">
-                                            {errors.description}
+                                                   {errors.medicine_id}
                                         </span>
                                     </div>
                                 </div>
@@ -81,7 +65,7 @@ const Create = ({auth, errors}) => {
                                         type="submit"
                                         className="px-6 py-2 font-bold text-white bg-green-500 rounded"
                                     >
-                                        کاهش
+                                        ویرایش
                                     </button>
                                 </div>
                             </form>

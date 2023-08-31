@@ -90,4 +90,10 @@ class PharmacyController extends Controller
         $this->pharmacyService->store_reduce($request,$pharmacy);
         return redirect()->route($this->redirectRoute);
     }
+
+    public function get_operation(Pharmacy $pharmacy)
+    {
+        $operations = $this->pharmacyRepository->get_operation($pharmacy);
+        return Inertia::render('Admin/Pharmacy/Operations',compact('operations'));
+    }
 }

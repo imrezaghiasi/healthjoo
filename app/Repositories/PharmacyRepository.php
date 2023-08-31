@@ -27,4 +27,10 @@ class PharmacyRepository implements PharmacyRepositoryInterface
     {
         return Medicine::select('id','title')->get();
     }
+
+    public function get_operation(Pharmacy $pharmacy)
+    {
+
+        return $pharmacy->pharmacy_operations()->latest()->paginate(10);
+    }
 }

@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
         Route::get('pharmacy/reduce/{pharmacy}', [PharmacyController::class,'reduce'])->name('pharmacy.reduce');
         Route::put('pharmacy/store_reduce/{pharmacy}', [PharmacyController::class,'store_reduce'])->name('pharmacy.store_reduce');
         Route::get('pharmacy/restore/{pharmacy}', [PharmacyController::class,'restore'])->name('pharmacy.restore');
+        Route::get('pharmacy/get_operation/{pharmacy}', [PharmacyController::class,'get_operation'])->name('pharmacy.get_operation');
         Route::resource('pharmacy', PharmacyController::class);
     });
 });

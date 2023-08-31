@@ -30,8 +30,6 @@ class PharmacyService implements PharmacyServiceInterface
     public function update(PharmacyRequest $request, Pharmacy $pharmacy)
     {
         $pharmacy->medicine_id = $request->medicine_id;
-        $pharmacy->quantity = $request->quantity;
-        $pharmacy->in_stock = $request->in_stock;
         $pharmacy->update();
     }
 
@@ -78,4 +76,5 @@ class PharmacyService implements PharmacyServiceInterface
         }
         $pharmacy->update();
     }
+
 }

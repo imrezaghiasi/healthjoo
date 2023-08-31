@@ -81,7 +81,7 @@ const Create = ({auth, errors}) => {
                                         type="submit"
                                         className="px-6 py-2 font-bold text-white bg-green-500 rounded"
                                     >
-                                        ایجاد
+                                        افزایش
                                     </button>
                                 </div>
                             </form>

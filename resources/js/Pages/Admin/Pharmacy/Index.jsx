@@ -73,7 +73,7 @@ const Index = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {pharmacy.data.map(({id, medicine,quantity,in_stock, deleted_at}) => (
+                                {pharmacy.data.map(({id, medicine, quantity, in_stock, deleted_at}) => (
                                     <tr key={id} className="border text-center dark:border-gray-700 dark:text-gray-300">
                                         <td className="px-4 py-2">{id}</td>
                                         <td className="px-4 py-2">{medicine.title}</td>
@@ -98,6 +98,7 @@ const Index = (props) => {
                                                 >
                                                     ویرایش
                                                 </Link>
+
                                                 {quantity > 0 && (
                                                     <Link
                                                         tabIndex="1"
@@ -107,6 +108,7 @@ const Index = (props) => {
                                                         کاهش موجودی
                                                     </Link>
                                                 )}
+
                                                 <Link
                                                     tabIndex="1"
                                                     className="px-4 py-2 text-sm text-white bg-green-500 dark:bg-green-700 rounded"
@@ -124,6 +126,14 @@ const Index = (props) => {
                                                 >
                                                     {deleted_at == null ? "حذف" : "برگرداندن"}
                                                 </button>
+
+                                                <Link
+                                                    tabIndex="1"
+                                                    className="px-4 py-2 text-sm text-white bg-blue-600 dark:bg-blue-800 rounded"
+                                                    href={route("admin.pharmacy.get_operation", id)}
+                                                >
+                                                    گردش انبار
+                                                </Link>
                                             </div>
                                         </td>
                                     </tr>
