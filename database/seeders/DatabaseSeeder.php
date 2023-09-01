@@ -23,11 +23,11 @@ class DatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             PatientSeeder::class,
             DoctorSeeder::class,
-            MedicineSeeder::class,
             DepartmentSeeder::class,
             RoomSeeder::class,
-//            HospitalizationSeeder::class
            BedSeeder::class
+//            MedicineSeeder::class,
+//            HospitalizationSeeder::class
         ]);
     }
 }

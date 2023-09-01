@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pharmacy', function (Blueprint $table) {
             $table->id();
             $table->foreignId('medicine_id')->references('id')->on('medicines')->cascadeOnDelete();
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0);
             $table->boolean('in_stock')->default(0);
             $table->softDeletes();
             $table->timestamps();

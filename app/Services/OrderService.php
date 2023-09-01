@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\OrderRequest;
+use App\Models\Medicine;
 use App\Models\Order;
 use App\Services\Interfaces\OrderServiceInterface;
 
@@ -19,24 +20,29 @@ class OrderService implements OrderServiceInterface
     public function store(OrderRequest $request)
     {
         $totalAmount = 0;
-        foreach ($request->selected_medicines as $selected_medicine) {
-            $totalAmount += $selected_medicine['price'] * $selected_medicine['count'];
-        }
-
-        $order = $this->order->create([
-            'patient_id' => $request->patient_id,
-            'pay_amount' => $totalAmount,
-            'is_paid' => 1
-        ]);
 
         foreach ($request->selected_medicines as $selected_medicine) {
-            $order->order_items()->create([
-                'medicine_id' => $selected_medicine['medicine_id'],
-                'count' => $selected_medicine['count'],
-            ]);
-        }
+            $medicine = Medicine::find($selected_medicine['medicine_id']);
 
-        $order->save();
+            if ($medicine->pharmacy->quantity >= $selected_medicine['count']) {
+
+                $totalAmount += $selected_medicine['price'] * $selected_medicine['count'];
+                $order = $this->order->create([
+                    'patient_id' => $request->patient_id,
+                    'pay_amount' => $totalAmount,
+                    'is_paid' => $request->is_paid,
+                ]);
+
+                $medicine->pharmacy->quantity -= $selected_medicine['count'];
+                if ($medicine->pharmacy->quantity == 0)
+                    $medicine->pharmacy->in_stock = 0;
+                $medicine->pharmacy->update();
+                $order->order_items()->create([
+                    'medicine_id' => $selected_medicine['medicine_id'],
+                    'count' => $selected_medicine['count'],
+                ]);
+            }
+        }
     }
 
     public function update(OrderRequest $request, Order $order)

@@ -1,15 +1,18 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {Link, Head, useForm, usePage} from "@inertiajs/react";
-import React from "react";
+import React, {useState} from "react";
 
-function Create({auth, errors}) {
+function Create({auth, errors, error_count}) {
 
     const {patients, medicines} = usePage().props;
 
+    const [error, setError] = useState(null)
+
     const {data, setData, post} = useForm({
         patient_id: "",
+        is_paid: 1,
         selected_medicines: []
-    })
+    });
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -71,6 +74,18 @@ function Create({auth, errors}) {
                                             {errors.patient_id}
                                         </span>
                                     </div>
+                                    <div className="mb-4 w-1/3">
+                                        <label className="">وضعیت پرداخت<span
+                                            className="text-red-600 mr-2">*</span></label>
+                                        <select className="text-center w-full px-4 py-2 dark:bg-gray-600"
+                                                onChange={(e) => setData("is_paid", e.target.value)}>
+                                            <option value="1">پرداخت شده</option>
+                                            <option value="0">پرداخت نشده</option>
+                                        </select>
+                                        <span className="text-red-600">
+                                            {errors.is_paid}
+                                        </span>
+                                    </div>
                                 </div>
                                 <div className="flex flex-row justify-center gap-5 mb-5">
                                     <label className="ml-5 mb-4 w-1/2">نام دارو<span
@@ -100,17 +115,27 @@ function Create({auth, errors}) {
                                             </div>
                                             <div className="mb-4 w-1/2">
                                                 <input
+                                                    onChange={(e) => {
+                                                        if (e.target.value > medicine.pharmacy.quantity) {
+                                                            setError('تعداد وارد شده بیش از موجودی انبار است ')
+                                                        } else {
+                                                            setError('')
+                                                        }
+                                                    }}
                                                     id={medicine.id}
                                                     type="text"
                                                     className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                                 />
+                                                <span className="text-red-500">
+                                                     {error}
+                                                </span>
                                             </div>
                                             <div className="mb-4 w-1/2">
                                                 <input
                                                     type="text"
                                                     readOnly
                                                     className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                                    value={medicine.price}
+                                                    value={medicine.pharmacy.quantity}
                                                 />
                                             </div>
                                             <div className="mb-4 w-1/2">

@@ -39,7 +39,7 @@ const Operations = (props) => {
                                 </thead>
                                 <tbody>
                                 {operations.data.map(({id, count, description , operation,created_at}) => (
-                                    <tr key={id} className={`${operation == 1 ? 'bg-green-200' : 'bg-red-200'} border text-center dark:border-gray-700 dark:text-gray-300`}>
+                                    <tr key={id} className={`${operation == 1 ? 'bg-green-200' : 'bg-red-200'} border text-center border-gray-800 text-gray-800`}>
                                         <td className="px-4 py-2">{id}</td>
                                         <td className="px-4 py-2">{count}</td>
                                         <td className="px-4 py-2">{description}</td>

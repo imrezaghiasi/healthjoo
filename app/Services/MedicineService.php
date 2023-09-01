@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\MedicineRequest;
 use App\Models\Medicine;
+use App\Models\Pharmacy;
 use App\Services\Interfaces\MedicineServiceInterface;
 
 class MedicineService implements MedicineServiceInterface
@@ -16,11 +17,15 @@ class MedicineService implements MedicineServiceInterface
 
     public function store(MedicineRequest $request)
     {
-        return $this->medicine->create([
+        $medicine = $this->medicine->create([
             'title' => $request->title,
             'price' => $request->price,
             'code' => $request->code
         ]);
+
+        $pharmacy = new Pharmacy();
+
+        $medicine->pharmacy()->save($pharmacy);
     }
 
     public function update(MedicineRequest $request, Medicine $medicine)
