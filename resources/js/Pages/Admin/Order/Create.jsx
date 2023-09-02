@@ -5,14 +5,54 @@ import React, {useState} from "react";
 function Create({auth, errors, error_count}) {
 
     const {patients, medicines} = usePage().props;
-
+    console.log(medicines)
     const [error, setError] = useState(null)
+    const [formErrors, setFormErrors] = useState([]);
 
     const {data, setData, post} = useForm({
         patient_id: "",
         is_paid: 1,
         selected_medicines: []
     });
+
+    function renderError(values, name) {
+        const errorIndex = formErrors.findIndex(err=>err.name === name);
+        console.log('render ', errorIndex);
+        if (errorIndex > -1) {
+            return formErrors[errorIndex].message;
+        }
+
+        return '';
+    }
+
+    function showError(name, message) {
+        if (formErrors.findIndex(err=>err.name === name) > -1) {
+            return false;
+        }
+
+        let values = [...formErrors];
+
+        values.push({
+            name: name,
+            message: message,
+        });
+
+        console.log('show',values)
+
+        setFormErrors(values);
+    }
+
+    function hideError(name) {
+        if (formErrors.findIndex(err=>err.name === name) === -1) {
+            return false;
+        }
+
+        let values = [...formErrors];
+        values = values.filter(err => err.name !== name).flat();
+        setFormErrors(values)
+
+        console.log('hide : ', values);
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -117,9 +157,9 @@ function Create({auth, errors, error_count}) {
                                                 <input
                                                     onChange={(e) => {
                                                         if (e.target.value > medicine.pharmacy.quantity) {
-                                                            setError('تعداد وارد شده بیش از موجودی انبار است ')
+                                                            showError(medicine.id, 'تعداد وارد شده بیش از موجودی انبار است ');
                                                         } else {
-                                                            setError('')
+                                                            hideError(medicine.id);
                                                         }
                                                     }}
                                                     id={medicine.id}
@@ -127,7 +167,7 @@ function Create({auth, errors, error_count}) {
                                                     className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                                 />
                                                 <span className="text-red-500">
-                                                     {error}
+                                                     {renderError(formErrors, medicine.id)}
                                                 </span>
                                             </div>
                                             <div className="mb-4 w-1/2">
