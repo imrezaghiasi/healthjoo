@@ -12,20 +12,50 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create([
+
+        User::create([
             'name' => 'رضا غیاثی',
             'email' => 'imrezaghiasi@gmail.com',
+            'email_verified_at' => now(),
             'password' => bcrypt('reza12345678')
-        ]);
+        ])->assignRole('super_admin');
 
+        User::create([
+            'name' => 'رضا غیاثی یوزر',
+            'email' => 'user@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('reza12345678')
+        ])->assignRole('user');
+
+        User::create([
+            'name' => 'رضا غیاثی پذیرش',
+            'email' => 'reception@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('reza12345678')
+        ])->assignRole('reception');
+
+        User::create([
+            'name' => 'رضا غیاثی داروخانه',
+            'email' => 'pharmacy@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('reza12345678')
+        ])->assignRole('pharmacy_reception');
+
+        User::create([
+            'name' => 'رضا غیاثی آزمایشگاه',
+            'email' => 'laboratory@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('reza12345678')
+        ])->assignRole('laboratory_reception');
         $this->call([
-            JobSeeder::class,
-            EmployeeSeeder::class,
-            PatientSeeder::class,
-            DoctorSeeder::class,
-            DepartmentSeeder::class,
-            RoomSeeder::class,
-           BedSeeder::class
+//            RoleSeeder::class,
+//            JobSeeder::class,
+//            EmployeeSeeder::class,
+//            PatientSeeder::class,
+//            DoctorSeeder::class,
+//            DepartmentSeeder::class,
+//            RoomSeeder::class,
+//           BedSeeder::class
 //            MedicineSeeder::class,
 //            HospitalizationSeeder::class
         ]);

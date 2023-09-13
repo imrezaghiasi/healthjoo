@@ -22,7 +22,11 @@ export default function Authenticated({auth, header, children}) {
             <Context.Provider
                 value={{showingNavigationDropdown, setShowingNavigationDropdown, dropdown, openSidebar, auth}}>
                 <Navbar/>
-                <Sidebar/>
+
+                {auth.user.roles.some(role => role.name != 'user') ? (
+                    <Sidebar/>
+                ) : (<div></div>)}
+
             </Context.Provider>
             <div className="main p-1 mt-10">
                 <div className="p-1 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
