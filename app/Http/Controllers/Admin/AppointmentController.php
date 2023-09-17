@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AppointmentRequest;
+use App\Models\Appointment;
+use App\Repositories\Interfaces\AppointmentRepositoryInterface;
+use App\Services\Interfaces\AppointmentServiceInterface;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class AppointmentController extends Controller
+{
+    private string $redirectRoute = 'admin.appointments.index';
+
+    private readonly AppointmentRepositoryInterface $appointmentRepository;
+    private readonly AppointmentServiceInterface $appointmentService;
+
+    public function __construct(AppointmentRepositoryInterface $appointmentRepository, AppointmentServiceInterface $appointmentService)
+    {
+        $this->appointmentRepository = $appointmentRepository;
+        $this->appointmentService = $appointmentService;
+    }
+    public function index()
+    {
+        $appointments = $this->appointmentRepository->getWithTrashedLatest()->paginate(10);
+        return Inertia::render('Admin/Appointment/Index',compact('appointments'));
+    }
+
+    public function create()
+    {
+        $doctors = $this->appointmentRepository->getDoctorsForAppointments();
+        return Inertia::render('Admin/Appointment/Create',compact('doctors'));
+    }
+
+    public function store(AppointmentRequest $request)
+    {
+        $this->appointmentService->store($request);
+        return redirect()->route($this->redirectRoute);
+    }
+
+    public function show(Appointment $appointment)
+    {
+        //
+    }
+
+    public function edit(Appointment $appointment)
+    {
+        $doctors = $this->appointmentRepository->getDoctorsForAppointments();
+        return Inertia::render('Admin/Appointment/Edit',compact('appointment','doctors'));
+    }
+
+    public function update(AppointmentRequest $request, Appointment $appointment)
+    {
+        $this->appointmentService->update($request, $appointment);
+        return redirect()->route($this->redirectRoute);
+    }
+
+    public function destroy(Appointment $appointment)
+    {
+        $this->appointmentService->destroy($appointment);
+    }
+
+    public function restore(string $id)
+    {
+        $this->appointmentService->restore($id);
+    }
+}
