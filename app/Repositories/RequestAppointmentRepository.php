@@ -17,10 +17,8 @@ class RequestAppointmentRepository implements RequestAppointmentRepositoryInterf
 
     public function getWithTrashedLatest(Request $request = null)
     {
-        return $this->query()->with(['appointment' => function($q){
-            $q->withTrashed();
-        },'user' => function($q){
-            $q->withTrashed();
+        return $this->query()->with(['user','appointment' => function($q){
+            $q->with('doctor')->latest();
         }])->withTrashed()->latest();
     }
 

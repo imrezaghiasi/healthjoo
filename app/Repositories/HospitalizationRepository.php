@@ -20,7 +20,7 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
 
     public function getWithTrashedLatest(Request $request = null)
     {
-        $query = $this->query()->with(['patient' => function ($q) {
+        return $this->query()->with(['patient' => function ($q) {
             $q->withTrashed();
         }, 'room' => function ($q) {
             $q->withTrashed();
@@ -29,8 +29,6 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
         }, 'bed' => function ($q) {
             $q->withTrashed();
         }])->withTrashed()->latest();
-
-        return $query;
     }
 
     public function getPatientForHospitalization()

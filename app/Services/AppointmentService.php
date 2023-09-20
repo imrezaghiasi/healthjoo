@@ -27,6 +27,7 @@ class AppointmentService implements AppointmentServiceInterface
     {
         $appointment->doctor_id = $request->doctor_id;
         $appointment->started_at = Carbon::parse("$request->date_started_at $request->time_started_at");
+        $appointment->update();
     }
 
     public function destroy(Appointment $appointment)

@@ -7,6 +7,7 @@ use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
 use App\Repositories\Interfaces\AppointmentRepositoryInterface;
 use App\Services\Interfaces\AppointmentServiceInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -36,6 +37,8 @@ class AppointmentController extends Controller
 
     public function store(AppointmentRequest $request)
     {
+        if (Appointment::where([['doctor_id',$request->doctor_id],['started_at',Carbon::parse("$request->date_started_at $request->time_started_at")]])->exists())
+            return back()->with('failed','قبلا این نوبت ثبت شده است');
         $this->appointmentService->store($request);
         return redirect()->route($this->redirectRoute);
     }

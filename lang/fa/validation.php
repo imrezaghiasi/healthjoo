@@ -188,6 +188,9 @@ return [
         "photo" => "فایل",
         "room_type" => "نوع اتاق",
         "room_number" => "شماره اتاق",
-        "department_id" => "بخش"
+        "department_id" => "بخش",
+        "date_started_at" => "تاریخ",
+        "time_started_at" => "زمان",
+        "disease" => "بیماری"
     ],
 ];

@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
          return Auth::user()->roles()->get();
     }
+
+    public function requestAppointment()
+    {
+        return $this->hasMany(RequestAppointment::class);
+    }
 }

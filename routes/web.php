@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\BedController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DoctorController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\PharmacyController;
+use App\Http\Controllers\Admin\RequestAppointmentController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\ProfileController;
@@ -39,9 +41,7 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[RequestAppointmentController::class,'getAppointmentsForUser'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -69,6 +69,10 @@ Route::middleware('auth')->group(function () {
             Route::get('hospitalizations/{hospitalization}/edit_finished_at', [HospitalizationController::class, 'edit_finished_at'])->name('hospitalizations.edit_finished_at');
             Route::patch('hospitalizations/update_finished_at/{hospitalization}', [HospitalizationController::class, 'update_finished_at'])->name('hospitalizations.update_finished_at');
             Route::resource('hospitalizations', HospitalizationController::class);
+            Route::get('appointments/restore/{appointment}', [AppointmentController::class, 'restore'])->name('appointments.restore');
+            Route::resource('appointments', AppointmentController::class);
+            Route::get('requestAppointments/restore/{requestAppointment}', [RequestAppointmentController::class, 'restore'])->name('requestAppointments.restore');
+            Route::resource('requestAppointments', RequestAppointmentController::class);
         });
 
         Route::middleware('role:super_admin|laboratory_reception')->group(function () {
@@ -94,6 +98,9 @@ Route::middleware('auth')->group(function () {
             Route::resource('orders', OrderController::class);
         });
     });
+    Route::get('requestAppointments/doctors/{type}', [RequestAppointmentController::class, 'doctors'])->name('requestAppointments.doctors');
+    Route::get('requestAppointments/appointments/{doctor}', [RequestAppointmentController::class, 'appointments'])->name('requestAppointments.appointments');
+    Route::post('requestAppointments', [RequestAppointmentController::class, 'storeAppointment'])->name('requestAppointment.storeAppointment');
 });
 
 require __DIR__ . '/auth.php';

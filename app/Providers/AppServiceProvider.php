@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Repositories\AppointmentRepository;
 use App\Repositories\BedRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\DoctorRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\HospitalizationRepository;
+use App\Repositories\Interfaces\AppointmentRepositoryInterface;
 use App\Repositories\Interfaces\BedRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Repositories\Interfaces\DoctorRepositoryInterface;
@@ -19,6 +21,7 @@ use App\Repositories\Interfaces\MedicineRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\PatientRepositoryInterface;
 use App\Repositories\Interfaces\PharmacyRepositoryInterface;
+use App\Repositories\Interfaces\RequestAppointmentRepositoryInterface;
 use App\Repositories\Interfaces\RoomRepositoryInterface;
 use App\Repositories\Interfaces\TestRepositoryInterface;
 use App\Repositories\JobRepository;
@@ -28,14 +31,17 @@ use App\Repositories\MedicineRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\PatientRepository;
 use App\Repositories\PharmacyRepository;
+use App\Repositories\RequestAppointmentRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\TestRepository;
+use App\Services\AppointmentService;
 use App\Services\BedService;
 use App\Services\DepartmentService;
 use App\Services\DoctorService;
 use App\Services\EmployeeService;
 use App\Services\HospitalizationService;
 use App\Services\ImageUploaderService;
+use App\Services\Interfaces\AppointmentServiceInterface;
 use App\Services\Interfaces\BedServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\DoctorServiceInterface;
@@ -49,6 +55,7 @@ use App\Services\Interfaces\MedicineServiceInterface;
 use App\Services\Interfaces\OrderServiceInterface;
 use App\Services\Interfaces\PatientServiceInterface;
 use App\Services\Interfaces\PharmacyServiceInterface;
+use App\Services\Interfaces\RequestAppointmentServiceInterface;
 use App\Services\Interfaces\RoomServiceInterface;
 use App\Services\Interfaces\TestServiceInterface;
 use App\Services\JobService;
@@ -58,6 +65,7 @@ use App\Services\MedicineService;
 use App\Services\OrderService;
 use App\Services\PatientService;
 use App\Services\PharmacyService;
+use App\Services\RequestAppointmentService;
 use App\Services\RoomService;
 use App\Services\TestService;
 use Illuminate\Pagination\Paginator;
@@ -98,6 +106,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LaboratoryTestRepositoryInterface::class,LaboratoryTestRepository::class);
         $this->app->bind(PharmacyRepositoryInterface::class,PharmacyRepository::class);
         $this->app->bind(OrderRepositoryInterface::class,OrderRepository::class);
+        $this->app->bind(AppointmentRepositoryInterface::class,AppointmentRepository::class);
+        $this->app->bind(RequestAppointmentRepositoryInterface::class,RequestAppointmentRepository::class);
     }
 
     public function bindService()
@@ -117,5 +127,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LaboratoryTestServiceInterface::class,LaboratoryTestService::class);
         $this->app->bind(PharmacyServiceInterface::class,PharmacyService::class);
         $this->app->bind(OrderServiceInterface::class,OrderService::class);
+        $this->app->bind(AppointmentServiceInterface::class,AppointmentService::class);
+        $this->app->bind(RequestAppointmentServiceInterface::class,RequestAppointmentService::class);
     }
 }

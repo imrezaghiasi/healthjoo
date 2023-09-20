@@ -1,14 +1,7 @@
 import React, {useState} from 'react';
-import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
+import {Head, Link, router, usePage} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import Modal from "@/Components/Modal";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
-import InputError from "@/Components/InputError";
-import SecondaryButton from "@/Components/SecondaryButton";
-import DangerButton from "@/Components/DangerButton";
-import {DatePicker} from "zaman";
 
 const Index = (props) => {
 

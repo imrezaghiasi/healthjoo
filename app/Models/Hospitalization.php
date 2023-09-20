@@ -41,7 +41,7 @@ class Hospitalization extends Model
     }
     public function getTimeStartedAtAttribute(){
         $timestamp = $this->started_at;
-        return Carbon::createFromTimestamp($timestamp)->format('H:i:s');
+        return Carbon::parse($timestamp)->format('H:i:s');
     }
 
 }

@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestAppointmentRequest;
+use App\Models\Appointment;
+use App\Models\Doctor;
 use App\Models\RequestAppointment;
 use App\Repositories\Interfaces\RequestAppointmentRepositoryInterface;
 use App\Repositories\RequestAppointmentRepository;
 use App\Services\Interfaces\RequestAppointmentServiceInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class RequestAppointmentController extends Controller
@@ -23,16 +27,17 @@ class RequestAppointmentController extends Controller
         $this->requestAppointmentRepository = $requestAppointmentRepository;
         $this->requestAppointmentService = $requestAppointmentService;
     }
+
     public function index()
     {
         $requestAppointments = $this->requestAppointmentRepository->getWithTrashedLatest()->paginate(10);
-        return Inertia::render('Admin/RequestAppointment/Index',compact('requestAppointments'));
+        return Inertia::render('Admin/RequestAppointment/Index', compact('requestAppointments'));
     }
 
     public function create()
     {
         $appointments = $this->requestAppointmentRepository->getAppointmentForRequestAppointments();
-        return Inertia::render('Admin/RequestAppointment/Create',compact('appointments'));
+        return Inertia::render('Admin/RequestAppointment/Create', compact('appointments'));
     }
 
     public function store(RequestAppointmentRequest $request)
@@ -49,7 +54,7 @@ class RequestAppointmentController extends Controller
     public function edit(RequestAppointment $requestAppointment)
     {
         $appointments = $this->requestAppointmentRepository->getAppointmentForRequestAppointments();
-        return Inertia::render('Admin/RequestAppointment/Edit',compact('requestAppointment','appointments'));
+        return Inertia::render('Admin/RequestAppointment/Edit', compact('requestAppointment', 'appointments'));
     }
 
     public function update(RequestAppointmentRequest $request, RequestAppointment $requestAppointment)
@@ -58,9 +63,6 @@ class RequestAppointmentController extends Controller
         return redirect()->route($this->redirectRoute);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(RequestAppointment $requestAppointment)
     {
         $this->requestAppointmentService->destroy($requestAppointment);
@@ -70,4 +72,52 @@ class RequestAppointmentController extends Controller
     {
         $this->requestAppointmentService->restore($id);
     }
+
+    public function doctors(string $type)
+    {
+        if ($type == 'all')
+            $doctors = Doctor::all();
+        elseif ($type == 'dentists')
+            $doctors = Doctor::where('specialization', 'دندانپزشک')->get();
+        elseif ($type == 'cardiologist')
+            $doctors = Doctor::where('specialization', 'قلب و عروق')->get();
+        elseif ($type == 'internist')
+            $doctors = Doctor::where('specialization', 'داخلی')->get();
+        elseif ($type == 'neurologist')
+            $doctors = Doctor::where('specialization', 'مغز و اعصاب')->get();
+        return Inertia::render('Doctors', compact('doctors'));
+    }
+
+    public function appointments(Doctor $doctor)
+    {
+        $appointments = $doctor->appointments()->where('is_reserved',0)->get();
+        $similarDoctors = Doctor::where('specialization', $doctor->specialization)->where('id','!=',$doctor->id)->get();
+        return Inertia::render('Appointment', compact('doctor', 'appointments', 'similarDoctors'));
+    }
+
+    public function storeAppointment(RequestAppointmentRequest $request)
+    {
+        $appointment = Appointment::where('started_at', Carbon::parse("$request->date_started_at $request->time_started_at"))->first();
+        if (RequestAppointment::where([['user_id',$request->user_id] , ['appointment_id',$appointment->id]])->exists())
+            return back()->with('failed', 'قبلا در این زمان نوبت برای شما رزرو شده است');
+        $requestAppointment = RequestAppointment::create(
+            [
+                'user_id' => $request->user_id,
+                'appointment_id' => $appointment->id,
+                'disease' => $request->disease
+            ]
+        );
+        $requestAppointment->appointment->is_reserved = 1;
+        $requestAppointment->appointment->save();
+        return back()->with('success', 'نوبت شما با موفقیت رزرو شد');
+    }
+
+    public function getAppointmentsForUser()
+    {
+        $requestAppointments = RequestAppointment::with(['appointment' => function($q) {
+            $q->with('doctor')->latest();
+        }])->where('user_id',Auth::user()->id)->latest()->paginate(4);
+        return Inertia::render('Dashboard',compact('requestAppointments'));
+    }
 }
+

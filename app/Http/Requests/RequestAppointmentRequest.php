@@ -23,7 +23,8 @@ class RequestAppointmentRequest extends FormRequest
     {
         return [
             'user_id' => ['required','exists:users,id'],
-            'appointment_id' => ['required','exists:appointments,id'],
+            'date_started_at' => ['required'],
+            'time_started_at' => ['required'],
             'disease' => ['required']
         ];
     }
