@@ -1,17 +1,39 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {Link, Head, useForm, usePage, router} from "@inertiajs/react";
+import Swal from 'sweetalert2'
 
-const Edit = ({auth,errors}) => {
+const Edit = ({auth, errors}) => {
 
     const {job} = usePage().props;
-    const {data, setData,put} = useForm({
-        id : job.id || '',
+    const {data, setData, put} = useForm({
+        id: job.id || '',
         name: job.name || '',
     })
 
     function handleSubmit(e) {
         e.preventDefault()
-        put(route('admin.jobs.update',job.id));
+        Swal.fire({
+            title: 'آیا از اعمال تغییرات مطمئن هستید؟',
+            showDenyButton: true,
+            showCancelButton: true,
+            cancelButtonText: 'لغو',
+            confirmButtonText: 'ویرایش',
+            denyButtonText: `لفو ویرایش`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                put(route('admin.jobs.update', job.id), {
+                    onSuccess: () => {
+                        Swal.fire('تغییرات اعمال شد', '', 'success')
+                    }
+                });
+            } else if (result.isDenied) {
+                router.get(route('admin.jobs.index'), {}, {
+                    onSuccess: () => {
+                        Swal.fire('تغییری ایجاد نشد', '', 'info')
+                    }
+                })
+            }
+        })
     }
 
     return (
@@ -45,8 +67,8 @@ const Edit = ({auth,errors}) => {
                                             type="text"
                                             className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
                                             value={data.name}
-                                            onChange={(e) =>{
-                                                setData('name',e.target.value)
+                                            onChange={(e) => {
+                                                setData('name', e.target.value)
                                             }}
                                         />
                                         <span className="text-red-600">

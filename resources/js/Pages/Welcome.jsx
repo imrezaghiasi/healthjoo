@@ -27,8 +27,7 @@ export default function Welcome({auth, laravelVersion, phpVersion}) {
                                 <h1 className="text-white text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">ما
                                     ضامن
                                     سلامتی شما هستیم</h1>
-                                <p className="text-white md:text-2xl leading-snug mt-10">به بیمارستان افضلی
-                                    پور خوش آمدید. </p>
+                                <p className="text-white md:text-2xl leading-snug mt-10">به بیمارستان سلامت خوش آمدید. </p>
                                 <a href={route("requestAppointments.doctors", 'all')}
                                    className="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold">رزرو
                                     نوبت</a>

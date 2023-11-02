@@ -18,7 +18,7 @@ const ClientLayout = ({auth, children}) => {
                                                 d="M12,2C7.589,2,4,5.589,4,9.995C3.971,16.44,11.696,21.784,12,22c0,0,8.029-5.56,8-12C20,5.589,16.411,2,12,2z M12,14 c-2.21,0-4-1.79-4-4s1.79-4,4-4s4,1.79,4,4S14.21,14,12,14z"/>
                                         </svg>
 
-                                        <span className="ml-2">کرمان، بیمارستان افضلی پور، </span>
+                                        <span className="ml-2">کرمان، بیمارستان سلامت، </span>
                                     </div>
                                 </li>
                                 <li className="ml-6">
@@ -38,7 +38,7 @@ const ClientLayout = ({auth, children}) => {
                         <div className="flex flex-wrap items-center justify-between py-6">
                             <div className="w-1/2 md:w-auto">
                                 <Link href={route("welcome")} className="text-gray-700 font-bold text-2xl">
-                                    بیمارستان افضلی پور
+                                    بیمارستان سلامت
                                 </Link>
                             </div>
 
@@ -110,7 +110,7 @@ const ClientLayout = ({auth, children}) => {
                         className="bg-gray-900 text-white px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 py-12 lg:py-24">
                         <div className="flex flex-col md:flex-row">
                             <div className="w-full lg:w-2/6 lg:mx-4 lg:pr-8">
-                                <h3 className="font-bold text-2xl">بیمارستان افضلی پور</h3>
+                                <h3 className="font-bold text-2xl">بیمارستان سلامت</h3>
                                 <p className="text-gray-400">لورم ایپسوم متن ساختگی با تولید سادگی</p>
 
                                 <form className="flex items-center mt-6">

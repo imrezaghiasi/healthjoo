@@ -1,5 +1,6 @@
 import React from 'react';
 import {Head, Link, usePage, router, useForm} from "@inertiajs/react";
+import Swal from 'sweetalert2'
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import Pagination from "@/Components/Pagination";
 
@@ -12,16 +13,58 @@ const Index = (props) => {
     })
 
     function destroy(e) {
-        if (confirm("آیا از حذف این مورد مطمئن هستید؟")) {
-            router.delete(route("admin.jobs.destroy", e.currentTarget.id));
-        }
+        Swal.fire({
+            title: 'آیا از حذف این مورد مطمئن هستد؟',
+            text: "این عمل قابل برگشت نیست !",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'لغو',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'بله . مطمئنم!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.delete(route("admin.jobs.destroy", e.target.id), {
+                    onSuccess: () => {
+                        Swal.fire({
+                                title: 'حذف شد!',
+                                text: 'با موفقیت حذف شد!',
+                                icon: 'success'
+                            }
+                        )
+                    }
+                });
+
+            }
+        })
     }
 
 
     function restore(e) {
-        if (confirm("آیا از برگرداندن این مورد مطمئن هستید؟")) {
-            router.get(route("admin.jobs.restore", e.currentTarget.id));
-        }
+        Swal.fire({
+            title: 'آیا از برگرداندن این مورد مطمئن هستد؟',
+            text: "این عمل قابل برگشت نیست !",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'لغو',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'بله . مطمئنم!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.get(route("admin.jobs.restore", e.target.id), {
+                    onSuccess: () => {
+                        Swal.fire({
+                                title: 'برگردانده شد!',
+                                text: 'با موفقیت برگردانده شد!',
+                                icon: 'success'
+                            }
+                        )
+                    }
+                });
+
+            }
+        })
     }
 
     function handleSearch(e) {

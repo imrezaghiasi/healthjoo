@@ -1,15 +1,24 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {Link, Head, useForm} from "@inertiajs/react";
+import Swal from 'sweetalert2'
 
-function Create({auth,errors}) {
+function Create({auth, errors}) {
 
-    const {data,setData,post} = useForm({
-        name : "",
+    const {data, setData, post} = useForm({
+        name: "",
     })
 
     function handleSubmit(e) {
         e.preventDefault();
-        post(route("admin.jobs.store"));
+        post(route("admin.jobs.store"),{
+            onSuccess: () => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'موفقیت آمیز!',
+                    text: 'ثبت با موفقیت انجام شد',
+                });
+            },
+        });
     }
 
     return (
