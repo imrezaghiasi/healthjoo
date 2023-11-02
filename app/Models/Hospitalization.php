@@ -20,6 +20,10 @@ class Hospitalization extends Model
     {
         return $this->belongsTo(Patient::class);
     }
+    public function disease(): BelongsTo
+    {
+        return $this->belongsTo(Disease::class);
+    }
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);

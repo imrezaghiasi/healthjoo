@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\BloodGroup;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientRequest;
 use App\Models\Patient;
@@ -32,7 +33,8 @@ class PatientController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Patient/Create');
+        $blood_groups = BloodGroup::cases();
+        return Inertia::render('Admin/Patient/Create',compact('blood_groups'));
     }
 
     public function store(PatientRequest $request)
@@ -49,7 +51,8 @@ class PatientController extends Controller
 
     public function edit(Patient $patient)
     {
-        return Inertia::render('Admin/Patient/Edit',compact('patient'));
+        $blood_groups = BloodGroup::cases();
+        return Inertia::render('Admin/Patient/Edit',compact('patient','blood_groups'));
     }
 
     public function update(PatientRequest $request, Patient $patient)

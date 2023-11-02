@@ -22,4 +22,9 @@ class RequestAppointment extends Model
     {
         return $this->belongsTo(Appointment::class);
     }
+
+    public function disease(): BelongsTo
+    {
+        return $this->belongsTo(Disease::class);
+    }
 }

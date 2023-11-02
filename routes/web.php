@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\BedController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\DiseaseController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\HospitalizationController;
@@ -73,6 +74,8 @@ Route::middleware('auth')->group(function () {
             Route::resource('appointments', AppointmentController::class);
             Route::get('requestAppointments/restore/{requestAppointment}', [RequestAppointmentController::class, 'restore'])->name('requestAppointments.restore');
             Route::resource('requestAppointments', RequestAppointmentController::class);
+            Route::get('diseases/restore/{disease}', [DiseaseController::class, 'restore'])->name('diseases.restore');
+            Route::resource('diseases', DiseaseController::class);
         });
 
         Route::middleware('role:super_admin|laboratory_reception')->group(function () {

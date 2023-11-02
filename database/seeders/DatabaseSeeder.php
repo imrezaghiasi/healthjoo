@@ -12,6 +12,17 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->call([
+            RoleSeeder::class,
+            JobSeeder::class,
+            EmployeeSeeder::class,
+            PatientSeeder::class,
+            DoctorSeeder::class,
+            DepartmentSeeder::class,
+            RoomSeeder::class,
+            BedSeeder::class,
+            MedicineSeeder::class,
+        ]);
 
         User::create([
             'name' => 'رضا غیاثی',
@@ -47,17 +58,6 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('reza12345678')
         ])->assignRole('laboratory_reception');
-        $this->call([
-//            RoleSeeder::class,
-//            JobSeeder::class,
-//            EmployeeSeeder::class,
-//            PatientSeeder::class,
-//            DoctorSeeder::class,
-//            DepartmentSeeder::class,
-//            RoomSeeder::class,
-//           BedSeeder::class
-//            MedicineSeeder::class,
-//            HospitalizationSeeder::class
-        ]);
+
     }
 }

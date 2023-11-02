@@ -5,6 +5,7 @@ import {DatePicker} from "zaman";
 
 function Create({auth, errors}) {
 
+    const {blood_groups} = usePage().props
     const {data, setData, post, progress} = useForm({
         first_name: "",
         last_name: "",
@@ -16,7 +17,6 @@ function Create({auth, errors}) {
         photo: null,
         address: '',
     })
-
     const changeDatePicker = (e) => {
         const date = new Date(e.value);
         const year = date.getFullYear();
@@ -160,13 +160,17 @@ function Create({auth, errors}) {
                                     <div className="mb-4 w-1/3">
                                         <label className="">گروه خونی<span
                                             className="text-red-600 mr-2">*</span></label>
-                                        <input
-                                            type="text"
-                                            className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            onChange={(e) =>
-                                                setData("blood_group", e.target.value)
+                                        <select
+                                            className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            value={data.blood_group}
+                                            onChange={(e) => setData("blood_group", e.target.value)}>
+                                            <option value="">گروه خونی را انتخاب کنید</option>
+                                            {blood_groups.map(blood_group => (
+                                                <option key={blood_group.id}
+                                                        value={blood_group}>{blood_group}</option>
+                                            ))
                                             }
-                                        />
+                                        </select>
                                         <span className="text-red-600">
                                             {errors.blood_group}
                                         </span>

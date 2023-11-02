@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('room_id')->references('id')->on('rooms')->noActionOnDelete();
             $table->foreignId('doctor_id')->references('id')->on('doctors')->noActionOnDelete();
             $table->foreignId('bed_id')->references('id')->on('beds')->noActionOnDelete();
-            $table->string('disease');
+            $table->foreignId('disease_id')->references('id')->on('diseases')->noActionOnDelete();
             $table->timestamp('started_at');
             $table->timestamp('finished_at')->nullable();
             $table->softDeletes();
