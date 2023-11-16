@@ -28,35 +28,40 @@ class DatabaseSeeder extends Seeder
             'name' => 'رضا غیاثی',
             'email' => 'imrezaghiasi@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('reza12345678')
+            'password' => bcrypt('reza12345678'),
+            'patient_id' => 1
         ])->assignRole('super_admin');
 
         User::create([
             'name' => 'رضا غیاثی یوزر',
             'email' => 'user@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('reza12345678')
+            'password' => bcrypt('reza12345678'),
+            'patient_id' => 1,
         ])->assignRole('user');
 
         User::create([
             'name' => 'رضا غیاثی پذیرش',
             'email' => 'reception@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('reza12345678')
+            'password' => bcrypt('reza12345678'),
+            'patient_id' => 1
         ])->assignRole('reception');
 
         User::create([
             'name' => 'رضا غیاثی داروخانه',
             'email' => 'pharmacy@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('reza12345678')
+            'password' => bcrypt('reza12345678'),
+            'patient_id' => 1
         ])->assignRole('pharmacy_reception');
 
         User::create([
             'name' => 'رضا غیاثی آزمایشگاه',
             'email' => 'laboratory@gmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('reza12345678')
+            'password' => bcrypt('reza12345678'),
+            'patient_id' => 1
         ])->assignRole('laboratory_reception');
 
     }

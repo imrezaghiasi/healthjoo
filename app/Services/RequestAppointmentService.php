@@ -18,7 +18,7 @@ class RequestAppointmentService implements RequestAppointmentServiceInterface
     {
         $this->requestAppointment->doctor_id = $request->doctor_id;
         $this->requestAppointment->user_id = $request->user_id;
-        $this->requestAppointment->disease = $request->disease;
+        $this->requestAppointment->disease_id = $request->disease_id;
         $this->requestAppointment->save();
     }
 
@@ -26,7 +26,7 @@ class RequestAppointmentService implements RequestAppointmentServiceInterface
     {
         $requestAppointment->doctor_id = $request->doctor_id;
         $requestAppointment->user_id = $request->user_id;
-        $requestAppointment->disease = $request->disease;
+        $requestAppointment->disease_id = $request->disease_id;
         $requestAppointment->update();
     }
 

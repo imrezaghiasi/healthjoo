@@ -33,7 +33,7 @@ class HospitalizationRequest extends FormRequest
                 'room_id' => ['required','exists:rooms,id'],
                 'doctor_id' => ['required','exists:doctors,id'],
                 'bed_id' => ['required','exists:beds,id'],
-                'disease' => ['required'],
+                'disease_id' => ['required'],
                 'date_started_at' => ['required'],
                 'time_started_at' => ['required'],
             ];

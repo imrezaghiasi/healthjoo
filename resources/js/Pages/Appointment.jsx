@@ -5,7 +5,7 @@ import {DatePicker} from "zaman";
 
 function Appointment({auth, errors}) {
 
-    const {doctor, appointments, similarDoctors,flash} = usePage().props
+    const {doctor, appointments,diseases, similarDoctors,flash} = usePage().props
 
     const [filteredAppointments, setFilteredAppointments] = useState(appointments.filter((item) => item.date_started_at == new Date().toJSON().slice(0, 10)))
 
@@ -13,7 +13,7 @@ function Appointment({auth, errors}) {
         user_id: auth.user.id,
         date_started_at: new Date().toJSON().slice(0, 10),
         time_started_at: "",
-        disease: ""
+        disease_id: ""
     })
 
     function handleRadio(e) {
@@ -141,18 +141,22 @@ function Appointment({auth, errors}) {
                                 <form onSubmit={handleSubmit}>
                                     <div className="flex justify-around">
                                         <div className="w-1/3">
-                                            <p className="mb-2 text-xl font-bold text-blue-900">بیماری</p>
-                                            <input
-                                                type="text"
-                                                className="w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                                value={data.disease}
-                                                onChange={(e) =>
-                                                    setData("disease", e.target.value)
+                                            <label className="ml-5">نام بیماری<span
+                                                className="text-red-600 mr-2">*</span></label>
+                                            <select
+                                                className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                                value={data.disease_id}
+                                                onChange={(e) => setData("disease_id", e.target.value)}>
+                                                <option value="">بیماری را انتخاب کنید</option>
+                                                {diseases.map(disease => (
+                                                    <option key={disease.id}
+                                                            value={disease.id}>{disease.name}</option>
+                                                ))
                                                 }
-                                            />
+                                            </select>
                                             <span className="text-red-600">
-                                                {errors.disease}
-                                            </span>
+                                            {errors.disease_id}
+                                        </span>
                                         </div>
                                         <div className="w-1/3 mr-3">
                                             <p className="mb-2 text-xl font-bold text-blue-900">انتخاب تاریخ</p>

@@ -5,7 +5,7 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 
 const Create = ({auth, errors}) => {
 
-    const {patients, rooms, doctors, beds} = usePage().props
+    const {patients, rooms, doctors, beds,diseases} = usePage().props
 
     const [bedsFiltered, setBedsFiltered] = useState(beds);
 
@@ -14,10 +14,12 @@ const Create = ({auth, errors}) => {
         room_id: "",
         doctor_id: '',
         bed_id: '',
-        disease: '',
+        disease_id: '',
         date_started_at: '',
         time_started_at: '',
     })
+
+    console.log(data)
 
     const changeDatePicker = (e) => {
         const date = new Date(e.value);
@@ -168,16 +170,21 @@ const Create = ({auth, errors}) => {
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
-                                        <label className="">بیماری</label>
-                                        <input
-                                            type="text"
-                                            className="w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            onChange={(e) =>
-                                                setData("disease", e.target.value)
+                                        <label className="ml-5">نام بیماری<span
+                                            className="text-red-600 mr-2">*</span></label>
+                                        <select
+                                            className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
+                                            value={data.disease_id}
+                                            onChange={(e) => setData("disease_id", e.target.value)}>
+                                            <option value="">بیماری را انتخاب کنید</option>
+                                            {diseases.map(disease => (
+                                                <option key={disease.id}
+                                                        value={disease.id}>{disease.name}</option>
+                                            ))
                                             }
-                                        />
+                                        </select>
                                         <span className="text-red-600">
-                                            {errors.disease}
+                                            {errors.disease_id}
                                         </span>
                                     </div>
                                 </div>

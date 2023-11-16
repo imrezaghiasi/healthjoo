@@ -13,7 +13,7 @@ use Inertia\Inertia;
 class DiseaseController extends Controller
 {
 
-    private string $redirectRoute = 'admin.disease.index';
+    private string $redirectRoute = 'admin.diseases.index';
 
     private DiseaseServiceInterface $diseaseService;
     private DiseaseRepositoryInterface $diseaseRepository;
@@ -26,8 +26,8 @@ class DiseaseController extends Controller
 
     public function index(Request $request)
     {
-        $disease = $this->diseaseRepository->getWithTrashedLatest($request)->paginate(10);
-        return Inertia::render('Admin/Disease/Index',compact('disease'));
+        $diseases = $this->diseaseRepository->getWithTrashedLatest($request)->paginate(10);
+        return Inertia::render('Admin/Disease/Index',compact('diseases'));
     }
 
     public function create()

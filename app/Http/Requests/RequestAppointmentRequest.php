@@ -25,7 +25,7 @@ class RequestAppointmentRequest extends FormRequest
             'user_id' => ['required','exists:users,id'],
             'date_started_at' => ['required'],
             'time_started_at' => ['required'],
-            'disease' => ['required']
+            'disease_id' => ['required']
         ];
     }
 }

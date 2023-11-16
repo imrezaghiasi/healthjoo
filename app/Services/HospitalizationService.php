@@ -24,7 +24,7 @@ class HospitalizationService implements HospitalizationServiceInterface
         $this->hospitalization->room_id = $request->room_id;
         $this->hospitalization->doctor_id = $request->doctor_id;
         $this->hospitalization->bed_id = $request->bed_id;
-        $this->hospitalization->disease = $request->disease;
+        $this->hospitalization->disease_id = $request->disease_id;
         $this->hospitalization->started_at = Carbon::parse("$request->date_started_at $request->time_started_at");
 
         $this->hospitalization->save();
@@ -62,7 +62,7 @@ class HospitalizationService implements HospitalizationServiceInterface
         }
 
         $hospitalization->bed_id = $request->bed_id;
-        $hospitalization->disease = $request->disease;
+        $hospitalization->disease_id = $request->disease_id;
         $hospitalization->started_at = Carbon::parse("$request->date_started_at $request->time_started_at");
 
         $hospitalization->update();

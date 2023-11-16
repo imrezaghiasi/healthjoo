@@ -11,7 +11,7 @@ class RequestAppointment extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['user_id','appointment_id','disease'];
+    protected $fillable = ['user_id','appointment_id','disease_id'];
 
     public function user(): BelongsTo
     {

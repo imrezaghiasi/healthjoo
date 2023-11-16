@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Bed;
+use App\Models\Disease;
 use App\Models\Doctor;
 use App\Models\Hospitalization;
 use App\Models\Patient;
@@ -28,6 +29,8 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
             $q->withTrashed();
         }, 'bed' => function ($q) {
             $q->withTrashed();
+        },'disease' => function($q){
+            $q->withTrashed();
         }])->withTrashed()->latest();
     }
 
@@ -49,5 +52,10 @@ class HospitalizationRepository implements HospitalizationRepositoryInterface
     public function getBedForHospitalization()
     {
         return Bed::select('id', 'bed_number','room_id')->where('available', 1)->get();
+    }
+
+    public function getDiseaseForHospitalization()
+    {
+        return Disease::select('id', 'name')->get();
     }
 }

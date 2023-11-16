@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestAppointmentRequest;
 use App\Models\Appointment;
+use App\Models\Disease;
 use App\Models\Doctor;
 use App\Models\RequestAppointment;
 use App\Repositories\Interfaces\RequestAppointmentRepositoryInterface;
@@ -92,7 +93,8 @@ class RequestAppointmentController extends Controller
     {
         $appointments = $doctor->appointments()->where('is_reserved',0)->get();
         $similarDoctors = Doctor::where('specialization', $doctor->specialization)->where('id','!=',$doctor->id)->get();
-        return Inertia::render('Appointment', compact('doctor', 'appointments', 'similarDoctors'));
+        $diseases = Disease::select('id','name')->get();
+        return Inertia::render('Appointment', compact('doctor', 'appointments', 'similarDoctors','diseases'));
     }
 
     public function storeAppointment(RequestAppointmentRequest $request)
@@ -104,7 +106,7 @@ class RequestAppointmentController extends Controller
             [
                 'user_id' => $request->user_id,
                 'appointment_id' => $appointment->id,
-                'disease' => $request->disease
+                'disease_id' => $request->disease_id
             ]
         );
         $requestAppointment->appointment->is_reserved = 1;

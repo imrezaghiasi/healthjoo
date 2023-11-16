@@ -37,7 +37,8 @@ class HospitalizationController extends Controller
         $rooms = $this->hospitalizationRepository->getRoomForHospitalization();
         $doctors = $this->hospitalizationRepository->getDoctorForHospitalization();
         $beds = $this->hospitalizationRepository->getBedForHospitalization();
-        return Inertia::render('Admin/Hospitalization/Create', compact('patients', 'rooms', 'doctors','beds'));
+        $diseases = $this->hospitalizationRepository->getDiseaseForHospitalization();
+        return Inertia::render('Admin/Hospitalization/Create', compact('patients', 'rooms', 'doctors','beds','diseases'));
     }
 
 
@@ -60,7 +61,8 @@ class HospitalizationController extends Controller
         $rooms = $this->hospitalizationRepository->getRoomForHospitalization();
         $doctors = $this->hospitalizationRepository->getDoctorForHospitalization();
         $beds = $this->hospitalizationRepository->getBedForHospitalization();
-        return Inertia::render('Admin/Hospitalization/Edit', compact('hospitalization', 'patients', 'rooms', 'doctors','beds'));
+        $diseases = $this->hospitalizationRepository->getDiseaseForHospitalization();
+        return Inertia::render('Admin/Hospitalization/Edit', compact('hospitalization', 'patients', 'rooms', 'doctors','diseases','beds'));
     }
 
     public function update(HospitalizationRequest $request, Hospitalization $hospitalization)

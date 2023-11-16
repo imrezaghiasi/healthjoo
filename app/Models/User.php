@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'patient_id'
     ];
 
     /**
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function requestAppointment()
     {
         return $this->hasMany(RequestAppointment::class);
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
     }
 }

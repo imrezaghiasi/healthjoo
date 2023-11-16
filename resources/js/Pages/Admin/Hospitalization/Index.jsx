@@ -77,7 +77,7 @@ const Index = (props) => {
                                         <td className="px-4 py-2">{bed.bed_number}</td>
                                         <td className="px-4 py-2">{doctor.first_name + ' ' + doctor.last_name}</td>
                                         <td className="px-4 py-2">{patient.national_code}</td>
-                                        <td className="px-4 py-2">{disease}</td>
+                                        <td className="px-4 py-2">{disease.name}</td>
                                         <td className="px-4 py-2">{started_at}</td>
                                         <td className="px-4 py-2">{finished_at}</td>
                                         <td className="px-4 py-2">

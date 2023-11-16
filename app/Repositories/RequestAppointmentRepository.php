@@ -19,6 +19,8 @@ class RequestAppointmentRepository implements RequestAppointmentRepositoryInterf
     {
         return $this->query()->with(['user','appointment' => function($q){
             $q->with('doctor')->latest();
+        },'disease' => function($q){
+            $q->withTrashed();
         }])->withTrashed()->latest();
     }
 
