@@ -13,6 +13,17 @@ class PatientSeeder extends Seeder
      */
     public function run(): void
     {
+        Patient::create([
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'mobile' => '09921221500',
+            'national_code' => '5150206520',
+            'gender' => 1,
+            'date_of_birth' => now(),
+            'address' => 'شیراز',
+            'blood_group' => 'B+',
+            'photo_path' => ''
+        ]);
         Patient::factory(20)->create();
     }
 }

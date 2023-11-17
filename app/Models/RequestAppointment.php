@@ -11,11 +11,16 @@ class RequestAppointment extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['user_id','appointment_id','disease_id'];
+    protected $fillable = ['patient_id','user_id','appointment_id','disease_id'];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(Patient::class);
     }
 
     public function appointment(): BelongsTo

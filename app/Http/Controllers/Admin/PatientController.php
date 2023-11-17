@@ -51,6 +51,7 @@ class PatientController extends Controller
 
     public function edit(Patient $patient)
     {
+        $request = $this->patientRepository->getRequestAppointment($patient);
         $blood_groups = BloodGroup::cases();
         return Inertia::render('Admin/Patient/Edit',compact('patient','blood_groups'));
     }
@@ -69,5 +70,11 @@ class PatientController extends Controller
     public function restore(string $id)
     {
         $this->patientService->restore($id);
+    }
+
+    public function getBookedAppointments(Patient $patient)
+    {
+        $bookedAppointments = $this->patientRepository->getRequestAppointment($patient)->paginate(10);
+        return Inertia::render('Admin/Patient/BookedAppointments',compact('bookedAppointments'));
     }
 }

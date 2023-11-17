@@ -105,6 +105,7 @@ class RequestAppointmentController extends Controller
         $requestAppointment = RequestAppointment::create(
             [
                 'user_id' => $request->user_id,
+                'patient_id' => $request->patient_id,
                 'appointment_id' => $appointment->id,
                 'disease_id' => $request->disease_id
             ]

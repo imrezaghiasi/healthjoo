@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
         });
         Route::middleware('role:super_admin|reception')->group(function () {
             Route::get('patients/restore/{patient}', [PatientController::class, 'restore'])->name('patients.restore');
+            Route::get('patients/getBookedAppointments/{patient}', [PatientController::class, 'getBookedAppointments'])->name('patients.bookedAppointments');
             Route::resource('patients', PatientController::class);
             Route::get('hospitalizations/restore/{hospitalization}', [HospitalizationController::class, 'restore'])->name('hospitalizations.restore');
             Route::get('hospitalizations/{hospitalization}/edit_finished_at', [HospitalizationController::class, 'edit_finished_at'])->name('hospitalizations.edit_finished_at');

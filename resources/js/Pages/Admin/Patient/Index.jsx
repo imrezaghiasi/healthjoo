@@ -97,6 +97,14 @@ export default function Index(props) {
                                                     ویرایش
                                                 </Link>
 
+                                                <Link
+                                                    tabIndex="1"
+                                                    className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
+                                                    href={route("admin.patients.bookedAppointments", id)}
+                                                >
+                                                    نوبت های رزرو شده
+                                                </Link>
+
                                                 <button
                                                     onClick={deleted_at==null ? destroy : restore}
                                                     id={id}

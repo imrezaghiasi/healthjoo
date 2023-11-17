@@ -13,6 +13,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         email: user.email,
     });
 
+
     const submit = (e) => {
         e.preventDefault();
 
@@ -25,7 +26,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">اطلاعات پروفایل</h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    ویرایش اطلاعات پروفایل
+                     ویرایش اطلاعات پروفایل (نام بیمار {user.patient[0].first_name + ' ' + user.patient[0].last_name})
                 </p>
             </header>
 

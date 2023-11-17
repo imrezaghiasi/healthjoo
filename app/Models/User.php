@@ -45,11 +45,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['roles'];
+    protected $appends = ['roles','patient'];
 
     public function getRolesAttribute()
     {
          return Auth::user()->roles()->get();
+    }
+
+    public function getPatientAttribute()
+    {
+        return Auth::user()->patient()->get();
     }
 
     public function requestAppointment()

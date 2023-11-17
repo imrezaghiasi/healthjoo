@@ -13,8 +13,6 @@ const Index = (props) => {
         }
     }
 
-    console.log(requestAppointments);
-
     function restore(e) {
         if (confirm("آیا از برگرداندن این مورد مطمئن هستید؟")) {
             router.get(route("admin.requestAppointments.restore", e.currentTarget.id));
@@ -41,21 +39,21 @@ const Index = (props) => {
                                     <th className="px-4 py-2 w-20">نام بیمار</th>
                                     <th className="px-4 py-2 w-20">نام پزشک</th>
                                     <th className="px-4 py-2">شروع نوبت</th>
-                                    <th className="px-4 py-2">بیماری</th>
+                                    <th className="px-4 py-2">نام بیماری</th>
                                     <th className="px-4 py-2">عملیات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {requestAppointments.data.map(({
                                                                    id,
-                                                                   user,
+                                                                   patient,
                                                                    appointment,
                                                                    disease,
                                                                    deleted_at
                                                                }) => (
                                     <tr key={id} className="text-center border dark:border-gray-700 dark:text-gray-300">
                                         <td className="px-4 py-2">{id}</td>
-                                        <td className="px-4 py-2">{user.name}</td>
+                                        <td className="px-4 py-2">{patient.first_name + ' ' + patient.last_name}</td>
                                         <td className="px-4 py-2">{appointment.doctor.first_name + ' ' + appointment.doctor.last_name}</td>
                                         <td className="px-4 py-2">{appointment.started_at}</td>
                                         <td className="px-4 py-2">{disease.name}</td>

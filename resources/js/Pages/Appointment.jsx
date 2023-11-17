@@ -11,10 +11,12 @@ function Appointment({auth, errors}) {
 
     const {data, setData, post} = useForm({
         user_id: auth.user.id,
+        patient_id: auth.user.patient[0].id,
         date_started_at: new Date().toJSON().slice(0, 10),
         time_started_at: "",
         disease_id: ""
     })
+
 
     function handleRadio(e) {
         setData("time_started_at", e.target.value)
