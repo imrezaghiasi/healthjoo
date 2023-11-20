@@ -15,7 +15,7 @@ class Hospitalization extends Model
 
     protected $fillable = ['patient_id','room_id','doctor_id','bed_id','disease_id','started_at','finished_at'];
 
-    protected $appends = ['date_started_at','time_started_at'];
+    protected $appends = ['date_started_at','time_started_at','date_finished_at','time_finished_at'];
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);
@@ -48,4 +48,13 @@ class Hospitalization extends Model
         return Carbon::parse($timestamp)->format('H:i:s');
     }
 
+    public function getDateFinishedAtAttribute()
+    {
+        $timestamp = $this->finished_at;
+        return Carbon::parse($timestamp)->toDateString();
+    }
+    public function getTimeFinishedAtAttribute(){
+        $timestamp = $this->finished_at;
+        return Carbon::parse($timestamp)->format('H:i:s');
+    }
 }

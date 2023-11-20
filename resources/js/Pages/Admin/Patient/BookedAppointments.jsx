@@ -23,7 +23,7 @@ const BookedAppointments = (props) => {
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
-                                    href={route("admin.pharmacy.index")}
+                                    href={route("admin.patients.index")}
                                 >
                                     برگشت
                                 </Link>
@@ -39,13 +39,13 @@ const BookedAppointments = (props) => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {bookedAppointments.data.map(({id, patient, appointment , disease,created_at}) => (
+                                {bookedAppointments.data.map(({id, patient, appointment , disease}) => (
                                     <tr key={id}>
                                         <td className="px-4 py-2">{id}</td>
                                         <td className="px-4 py-2">{patient.first_name + ' ' + patient.last_name}</td>
                                         <td className="px-4 py-2">{appointment.doctor.first_name + ' ' + appointment.doctor.last_name}</td>
                                         <td className="px-4 py-2">{disease.name}</td>
-                                        <td className="px-4 py-2">{created_at}</td>
+                                        <td className="px-4 py-2">{new Date(appointment.date_started_at).toLocaleDateString('fa-IR') + ' - ' + appointment.time_started_at}</td>
                                     </tr>
                                 ))}
 

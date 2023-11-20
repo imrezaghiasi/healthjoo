@@ -55,7 +55,7 @@ const Index = (props) => {
                                         <td className="px-4 py-2">{id}</td>
                                         <td className="px-4 py-2">{patient.first_name + ' ' + patient.last_name}</td>
                                         <td className="px-4 py-2">{appointment.doctor.first_name + ' ' + appointment.doctor.last_name}</td>
-                                        <td className="px-4 py-2">{appointment.started_at}</td>
+                                        <td className="px-4 py-2">{new Date(appointment.date_started_at).toLocaleDateString('fa-IR') + ' - ' + appointment.time_started_at}</td>
                                         <td className="px-4 py-2">{disease.name}</td>
                                         <td className="px-4 py-2">
                                             <div className="flex flex-row justify-center">

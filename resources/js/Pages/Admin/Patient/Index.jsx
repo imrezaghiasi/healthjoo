@@ -87,28 +87,25 @@ export default function Index(props) {
                                         <td className="px-4 py-2">{ mobile }</td>
                                         <td className="px-4 py-2">{ blood_group }</td>
                                         <td className="px-4 py-2">{ address }</td>
-                                        <td className="px-4 py-2">
-                                            <div className="flex flex-row">
+                                        <td className="px-6 py-4">
+                                            <div className="flex flex-row items-center justify-between gap-1">
                                                 <Link
-                                                    tabIndex="1"
+                                                    className="w-36 px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
+                                                    href={route("admin.patients.bookedAppointments", id)}
+                                                >
+                                                    نوبت های رزرو شده
+                                                </Link>
+
+                                                <Link
                                                     className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
                                                     href={route("admin.patients.edit", id)}
                                                 >
                                                     ویرایش
                                                 </Link>
 
-                                                <Link
-                                                    tabIndex="1"
-                                                    className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
-                                                    href={route("admin.patients.bookedAppointments", id)}
-                                                >
-                                                    نوبت های رزرو شده
-                                                </Link>
-
                                                 <button
                                                     onClick={deleted_at==null ? destroy : restore}
                                                     id={id}
-                                                    tabIndex="-1"
                                                     type="button"
                                                     className={`${deleted_at==null ? 'bg-red-500 dark:bg-red-700' : 'bg-green-500 dark:bg-green-700'} mx-1 px-4 py-2 text-sm text-white rounded`}
                                                 >

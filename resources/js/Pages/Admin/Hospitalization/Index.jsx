@@ -66,7 +66,10 @@ const Index = (props) => {
                                                                 doctor,
                                                                 bed,
                                                                 disease,
-                                                                started_at,
+                                                                date_started_at,
+                                                                time_started_at,
+                                                                date_finished_at,
+                                                                time_finished_at,
                                                                 finished_at,
                                                                 deleted_at
                                                             }) => (
@@ -78,8 +81,8 @@ const Index = (props) => {
                                         <td className="px-4 py-2">{doctor.first_name + ' ' + doctor.last_name}</td>
                                         <td className="px-4 py-2">{patient.national_code}</td>
                                         <td className="px-4 py-2">{disease.name}</td>
-                                        <td className="px-4 py-2">{started_at}</td>
-                                        <td className="px-4 py-2">{finished_at}</td>
+                                        <td className="px-4 py-2">{new Date(date_started_at).toLocaleDateString('fa-IR') + ' - ' + time_started_at}</td>
+                                        <td className="px-4 py-2">{new Date(date_finished_at).toLocaleDateString('fa-IR') + ' - ' + time_finished_at}</td>
                                         <td className="px-4 py-2">
                                             <div className="flex flex-row justify-center">
 

@@ -77,12 +77,15 @@ const Index = (props) => {
                                         وضعیت پرداخت
                                     </th>
                                     <th scope="col" className="px-6 py-3">
+                                    تاریخ ثبت سفارش
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
                                         عملیات
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {orders.data.map(({id, patient, pay_amount, is_paid, deleted_at}) => (
+                                {orders.data.map(({id, patient, pay_amount, is_paid,created_at, deleted_at}) => (
                                     <tr key={id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -105,6 +108,9 @@ const Index = (props) => {
                                                         className="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">پرداخت نشده</span>
                                                 )
                                         }</td>
+                                        <td className="px-6 py-4">
+                                            {new Date(created_at).toLocaleDateString('fa-IR')}
+                                        </td>
                                         <td className="px-6 py-4">
                                             <Link
                                                 tabIndex="1"

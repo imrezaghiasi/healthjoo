@@ -58,7 +58,8 @@ const Index = (props) => {
                                                             id,
                                                             doctor,
                                                             is_reserved,
-                                                            started_at,
+                                                            date_started_at,
+                                                            time_started_at,
                                                             deleted_at
                                                         }) => (
                                     <tr key={id} className="text-center border dark:border-gray-700 dark:text-gray-300">
@@ -75,7 +76,7 @@ const Index = (props) => {
                                                         className="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">رزرو شده</span>
                                                 )
                                         }</td>
-                                        <td className="px-4 py-2">{started_at}</td>
+                                        <td className="px-4 py-2">{new Date(date_started_at).toLocaleDateString('fa-IR') + ' - ' + time_started_at}</td>
                                         <td className="px-4 py-2">
                                             <div className="flex flex-row justify-center">
                                                 <Link
