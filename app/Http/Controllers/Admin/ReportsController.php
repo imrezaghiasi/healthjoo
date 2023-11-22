@@ -24,15 +24,22 @@ class ReportsController extends Controller
         return Inertia::render('Admin/Report/RequestAppointmentReport',compact('requestAppointments'));
     }
 
-    public function getHospitalization(Request $request)
+    public function getRequestAppointmentsAccordingGender()
     {
     }
 
-    public function getLaboratoryTests(Request $request)
+    public function getHospitalizationsAccordingIllness()
     {
     }
 
-    public function getOrders(Request $request)
+    public function getHospitalizationsAccordingGender()
     {
+    }
+
+    public function getLaboratoryTestsAccordingDate(Request $request){
+
+    }
+    public function getOrdersAccordingDate(Request $request){
+
     }
 }

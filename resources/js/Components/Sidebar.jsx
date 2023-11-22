@@ -40,12 +40,25 @@ const Sidebar = () => {
                     <i className="bi bi-person-workspace ml-4"></i>
                     <p>داشبورد</p>
                 </Link>
-                <Link
-                    href={route('admin.reports.requestAppointmentsAccordingIllness')}
-                    className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
-                    <i className="bi bi-heart-pulse-fill ml-4"></i>
-                    <p>گزارش</p>
-                </Link>
+                <div onClick={dropdown}
+                     className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-400 dark:hover:bg-blue-600 dark:text-white">
+                    <i className="bi bi-file-medical"></i>
+                    <div className="flex justify-between w-full items-center">
+                        <span className="text-[15px] mr-4 dark:text-gray-200">گزارشات</span>
+                        <span className="text-sm rotate-180" id="arrow">
+                            <i className="bi bi-chevron-down"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div className="hidden text-right text-sm font-thin mt-2 w-4/5 mx-auto dark:text-gray-200" id="submenu">
+                    <Link
+                        href={route('admin.reports.requestAppointmentsAccordingIllness')}
+                        className="text-[14px] dark:text-gray-200 p-1 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                        <i className="bi bi-heart-pulse-fill ml-4"></i>
+                        <p>نوبت ها - بیماری</p>
+                    </Link>
+                </div>
                 <Link
                     href={route('admin.patients.index')}
                     className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
@@ -155,32 +168,6 @@ const Sidebar = () => {
                 </Link>
 
                 <hr className="my-2 text-gray-600"/>
-
-                <div onClick={dropdown}
-                     className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
-                    <i className="bi bi-file-medical"></i>
-                    <div className="flex justify-between w-full items-center">
-                        <span className="text-[15px] mr-4 dark:text-gray-200">مدیریت داروخانه</span>
-                        <span className="text-sm rotate-180" id="arrow">
-                            <i className="bi bi-chevron-down"></i>
-                        </span>
-                    </div>
-                </div>
-
-                <div className="text-right text-sm font-thin mt-2 w-4/5 mx-auto dark:text-gray-200" id="submenu">
-                    <Link
-                        href={route('admin.jobs.index')}
-                        className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
-                        <i className="bi bi-person-check ml-4"></i>
-                        <p>داروسازان</p>
-                    </Link>
-                    <Link
-                        href={route('admin.jobs.index')}
-                        className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
-                        <i className="bi bi-journal-medical ml-4"></i>
-                        <p>داروها</p>
-                    </Link>
-                </div>
 
                 <form onSubmit={handleLogout}
                     className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">

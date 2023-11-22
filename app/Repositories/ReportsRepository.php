@@ -34,17 +34,17 @@ class ReportsRepository implements ReportsRepositoryInterface
         return $results;
     }
 
-    public function getRequestAppointmentsAccordingGender(Request $request)
+    public function getRequestAppointmentsAccordingGender()
     {
         // TODO: Implement getRequestAppointmentsAccordingGender() method.
     }
 
-    public function getHospitalizationsAccordingIllness(Request $request)
+    public function getHospitalizationsAccordingIllness()
     {
         // TODO: Implement getHospitalizationsAccordingIllness() method.
     }
 
-    public function getHospitalizationsAccordingGender(Request $request)
+    public function getHospitalizationsAccordingGender()
     {
         // TODO: Implement getHospitalizationsAccordingGender() method.
     }
