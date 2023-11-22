@@ -1,11 +1,21 @@
 import React, {useState} from 'react';
-import {Head, Link, router, usePage} from "@inertiajs/react";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 
 const Index = (props) => {
 
     const {requestAppointments} = usePage().props;
+
+    const {data,setData,get} = useForm({
+        term:'',
+        count:requestAppointments.data.length
+    })
+
+    function handleSearch(e) {
+        e.preventDefault()
+        get(route("admin.requestAppointments.index"))
+    }
 
     function destroy(e) {
         if (confirm("آیا از حذف این مورد مطمئن هستید؟")) {
@@ -32,11 +42,26 @@ const Index = (props) => {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm ">
                         <div className="p-3 bg-white dark:bg-gray-800 dark:shadow-xl">
+                            <div className="flex items-center justify-between mb-6">
+                                <form method="GET" onSubmit={handleSearch}>
+                                    <input type={"text"} maxLength={10} className={"rounded"} placeholder={"جست و جوی کد ملی بیمار..."} value={data.term} onChange={(e)=>{
+                                        setData("term",e.target.value)
+                                    }}/>
+                                    <button type={"submit"}
+                                            className={"rounded-lg px-6 py-2 focus:outline bg-yellow-300 mr-3 hover:bg-yellow-200 duration-300"}>جست
+                                        و جو
+                                    </button>
+                                </form>
+                                <div className={"dark:text-gray-100"}>
+                                    <h1>تعداد نتایج جست و جو : {data.count}</h1>
+                                </div>
+                            </div>
                             <table className="w-full dark:bg-gray-800 table-auto text-xs">
                                 <thead>
                                 <tr className="bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                     <th className="px-4 py-2 w-20">ردیف</th>
                                     <th className="px-4 py-2 w-20">نام بیمار</th>
+                                    <th className="px-4 py-2 w-20">کد ملی بیمار</th>
                                     <th className="px-4 py-2 w-20">نام پزشک</th>
                                     <th className="px-4 py-2">شروع نوبت</th>
                                     <th className="px-4 py-2">نام بیماری</th>
@@ -54,8 +79,9 @@ const Index = (props) => {
                                     <tr key={id} className="text-center border dark:border-gray-700 dark:text-gray-300">
                                         <td className="px-4 py-2">{id}</td>
                                         <td className="px-4 py-2">{patient.first_name + ' ' + patient.last_name}</td>
+                                        <td className="px-4 py-2">{patient.national_code}</td>
                                         <td className="px-4 py-2">{appointment.doctor.first_name + ' ' + appointment.doctor.last_name}</td>
-                                        <td className="px-4 py-2">{new Date(appointment.date_started_at).toLocaleDateString('fa-IR') + ' - ' + appointment.time_started_at}</td>
+                                        <td className="px-4 py-2">{new Date(appointment.date_started_at).toLocaleDateString('fa-IR')  }</td>
                                         <td className="px-4 py-2">{disease.name}</td>
                                         <td className="px-4 py-2">
                                             <div className="flex flex-row justify-center">

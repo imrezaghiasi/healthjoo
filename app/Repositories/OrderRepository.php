@@ -16,11 +16,13 @@ class OrderRepository implements OrderRepositoryInterface
         return Order::query();
     }
 
-    public function getWithTrashedLatest(Request $request = null)
+    public function getWithTrashedLatest(Request $request)
     {
-        return $this->query()->with(['patient' => function($q){
-            $q->withTrashed();
-        }])->withTrashed()->latest();
+        return $this->query()->withWhereHas('patient', function ($query) use ($request) {
+            if ($request->term !== null) {
+                $query->where('national_code', $request->term);
+            }
+        })->withTrashed()->latest();
     }
 
     public function getPatientForOrder()

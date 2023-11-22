@@ -14,11 +14,13 @@ class LaboratoryTestRepository implements LaboratoryTestRepositoryInterface
         return LaboratoryTest::query();
     }
 
-    public function getWithTrashedLatest()
+    public function getWithTrashedLatest(Request $request)
     {
-        return $this->query()->with(['patient' => function($q){
-            $q->withTrashed();
-        }])->withTrashed()->latest();
+        return $this->query()->withWhereHas('patient', function ($query) use ($request) {
+            if ($request->term !== null) {
+                $query->where('national_code', $request->term);
+            }
+        })->withTrashed()->latest();
     }
 
     public function getPatientForLaboratoryTest()

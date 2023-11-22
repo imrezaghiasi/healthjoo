@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\PharmacyController;
+use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\RequestAppointmentController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\TestController;
@@ -62,6 +63,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('rooms', RoomController::class);
             Route::get('beds/restore/{bed}', [BedController::class, 'restore'])->name('beds.restore');
             Route::resource('beds', BedController::class);
+            Route::get('reports/requestAppointmentsAccordingIllness', [ReportsController::class, 'getRequestAppointmentsAccordingIllness'])->name('reports.requestAppointmentsAccordingIllness');
         });
         Route::middleware('role:super_admin|reception')->group(function () {
             Route::get('patients/restore/{patient}', [PatientController::class, 'restore'])->name('patients.restore');

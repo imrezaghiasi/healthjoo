@@ -24,9 +24,9 @@ class HospitalizationController extends Controller
         $this->hospitalizationService = $hospitalizationService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $hospitalizations = $this->hospitalizationRepository->getWithTrashedLatest()->paginate(10);
+        $hospitalizations = $this->hospitalizationRepository->getWithTrashedLatest($request)->paginate(10);
         return Inertia::render('Admin/Hospitalization/Index', compact('hospitalizations'));
     }
 

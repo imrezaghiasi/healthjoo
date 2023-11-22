@@ -6,6 +6,6 @@ use Illuminate\Http\Request;
 
 interface RequestAppointmentRepositoryInterface
 {
-    public function getWithTrashedLatest(Request $request = null);
+    public function getWithTrashedLatest(Request $request);
     public function getAppointmentForRequestAppointments();
 }

@@ -7,9 +7,9 @@ const Index = (props) => {
 
     const {laboratory_tests} = usePage().props;
 
-    console.log(laboratory_tests);
     const {data, setData, get} = useForm({
-        term: ''
+        term: '',
+        count : laboratory_tests.data.length
     })
 
     function destroy(e) {
@@ -52,7 +52,7 @@ const Index = (props) => {
                                     ایجاد آزمایش
                                 </Link>
                                 <form method="GET" onSubmit={handleSearch}>
-                                    <input type={"text"} className={"rounded"} placeholder={"جست و جوی شماره آزمایش ..."}
+                                    <input type={"text"} maxLength={10} className={"rounded"} placeholder={"جست و جوی کد ملی بیمار ..."}
                                            value={data.term} onChange={(e) => {
                                         setData("term", e.target.value)
                                     }}/>
@@ -61,6 +61,9 @@ const Index = (props) => {
                                         و جو
                                     </button>
                                 </form>
+                                <div className={"dark:text-gray-100"}>
+                                    <h1>تعداد نتایج جست و جو : {data.count}</h1>
+                                </div>
                             </div>
 
                             <table className="w-full dark:bg-gray-800 table-auto text-xs">
@@ -68,6 +71,7 @@ const Index = (props) => {
                                 <tr className="bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                     <th className="px-4 py-2 w-20">ردیف</th>
                                     <th className="px-4 py-2 w-20">نام بیمار</th>
+                                    <th className="px-4 py-2 w-20">کد ملی بیمار</th>
                                     <th className="px-4 py-2">نوع آزمایش</th>
                                     <th className="px-4 py-2">مبلغ قابل پرداخت</th>
                                     <th className="px-4 py-2">عملیات</th>
@@ -78,6 +82,7 @@ const Index = (props) => {
                                     <tr key={id} className="border text-center dark:border-gray-700 dark:text-gray-300">
                                         <td className="px-4 py-2">{id}</td>
                                         <td className="px-4 py-2">{patient.first_name + ' ' + patient.last_name}</td>
+                                        <td className="px-4 py-2">{patient.national_code}</td>
                                         <td className="px-4 py-2">{test_type}</td>
                                         <td className="px-4 py-2">{price}</td>
                                         <td className="px-4 py-2">

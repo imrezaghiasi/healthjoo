@@ -29,9 +29,9 @@ class RequestAppointmentController extends Controller
         $this->requestAppointmentService = $requestAppointmentService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $requestAppointments = $this->requestAppointmentRepository->getWithTrashedLatest()->paginate(10);
+        $requestAppointments = $this->requestAppointmentRepository->getWithTrashedLatest($request)->paginate(10);
         return Inertia::render('Admin/RequestAppointment/Index', compact('requestAppointments'));
     }
 
@@ -119,7 +119,7 @@ class RequestAppointmentController extends Controller
     {
         $requestAppointments = RequestAppointment::with(['appointment' => function($q) {
             $q->with('doctor')->latest();
-        }])->where('user_id',Auth::user()->id)->latest()->paginate(4);
+        },'disease'])->where('user_id',Auth::user()->id)->latest()->paginate(4);
         return Inertia::render('Dashboard',compact('requestAppointments'));
     }
 }

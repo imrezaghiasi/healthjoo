@@ -23,9 +23,9 @@ class LaboratoryTestController extends Controller
         $this->laboratoryTestService = $laboratoryTestService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $laboratory_tests = $this->laboratoryTestRepository->getWithTrashedLatest()->paginate(10);
+        $laboratory_tests = $this->laboratoryTestRepository->getWithTrashedLatest($request)->paginate(10);
         return Inertia::render('Admin/Laboratory/Index',compact('laboratory_tests'));
     }
 

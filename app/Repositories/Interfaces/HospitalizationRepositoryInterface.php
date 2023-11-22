@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 interface HospitalizationRepositoryInterface
 {
-    public function getWithTrashedLatest(Request $request = null);
+    public function getWithTrashedLatest(Request $request);
 
     public function getPatientForHospitalization();
 

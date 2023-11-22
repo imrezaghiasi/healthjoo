@@ -1,11 +1,18 @@
 import React, {useState} from 'react';
-import {Head, Link, router, usePage} from "@inertiajs/react";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 
 const Index = (props) => {
 
     const {hospitalizations} = usePage().props;
+
+    const {data, setData, get} = useForm({
+        term: '',
+        count: hospitalizations.data.length
+    })
+
+    console.log(data.count)
 
     function destroy(e) {
         if (confirm("آیا از حذف این مورد مطمئن هستید؟")) {
@@ -18,6 +25,11 @@ const Index = (props) => {
         if (confirm("آیا از برگرداندن این مورد مطمئن هستید؟")) {
             router.get(route("admin.hospitalizations.restore", e.currentTarget.id));
         }
+    }
+
+    function handleSearch(e) {
+        e.preventDefault()
+        get(route("admin.hospitalizations.index"))
     }
 
     return (
@@ -41,6 +53,20 @@ const Index = (props) => {
                                 >
                                     ایجاد بستری
                                 </Link>
+                                <form method="GET" onSubmit={handleSearch}>
+                                    <input type={"text"} maxLength={10} className={"rounded"} placeholder={"جست و جوی کد ملی بیمار..."}
+                                           value={data.term} onChange={(e) => {
+                                        setData("term", e.target.value)
+                                    }}/>
+                                    <button type={"submit"}
+                                            className={"rounded-lg px-6 py-2 focus:outline bg-yellow-300 mr-3 hover:bg-yellow-200 duration-300"}>جست
+                                        و جو
+                                    </button>
+                                </form>
+                                <div className={"dark:text-gray-100"}>
+                                    <h1>تعداد نتایج جست و جو : {data.count}</h1>
+                                </div>
+
                             </div>
 
                             <table className="w-full dark:bg-gray-800 table-auto text-xs">

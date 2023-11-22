@@ -40,7 +40,12 @@ const Sidebar = () => {
                     <i className="bi bi-person-workspace ml-4"></i>
                     <p>داشبورد</p>
                 </Link>
-
+                <Link
+                    href={route('admin.reports.requestAppointmentsAccordingIllness')}
+                    className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                    <i className="bi bi-heart-pulse-fill ml-4"></i>
+                    <p>گزارش</p>
+                </Link>
                 <Link
                     href={route('admin.patients.index')}
                     className="text-[15px] dark:text-gray-200 p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">

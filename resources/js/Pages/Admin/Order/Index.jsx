@@ -8,7 +8,8 @@ const Index = (props) => {
     const {orders} = usePage().props;
 
     const {data,setData,get} = useForm({
-        term:''
+        term:'',
+        count:orders.data.length
     })
 
     function destroy(e) {
@@ -51,7 +52,7 @@ const Index = (props) => {
                                     ایجاد سفارش
                                 </Link>
                                 <form method="GET" onSubmit={handleSearch}>
-                                    <input type={"text"} className={"rounded"} placeholder={"جست و جو کنید..."} value={data.term} onChange={(e)=>{
+                                    <input type={"text"} maxLength={10} className={"rounded"} placeholder={"جست و جو کنید..."} value={data.term} onChange={(e)=>{
                                         setData("term",e.target.value)
                                     }}/>
                                     <button type={"submit"}
@@ -59,6 +60,9 @@ const Index = (props) => {
                                         و جو
                                     </button>
                                 </form>
+                                <div className={"dark:text-gray-100"}>
+                                    <h1>تعداد نتایج جست و جو : {data.count}</h1>
+                                </div>
                             </div>
                             <table className="w-full text-right text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead
@@ -69,6 +73,9 @@ const Index = (props) => {
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         نام و نام خانوادگی بیمار
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                        کد ملی بیمار
                                     </th>
                                     <th scope="col" className="px-6 py-3">
                                         قیمت کل
@@ -93,6 +100,9 @@ const Index = (props) => {
                                         </th>
                                         <td className="px-6 py-4">
                                             {patient.first_name + ' ' + patient.last_name}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {patient.national_code}
                                         </td>
                                         <td className="px-6 py-4">
                                             {pay_amount}

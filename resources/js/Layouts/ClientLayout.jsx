@@ -9,7 +9,7 @@ const ClientLayout = ({auth, children}) => {
                     <header className="px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64">
                         <div className="md:flex justify-between items-center py-2 border-b text-sm py-3">
 
-                            <ul className="flex text-gray-700">
+                            <ul className="flex text-gray-700 dark:text-gray-200">
                                 <li>
                                     <div className="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ const ClientLayout = ({auth, children}) => {
 
                         <div className="flex flex-wrap items-center justify-between py-6">
                             <div className="w-1/2 md:w-auto">
-                                <Link href={route("welcome")} className="text-gray-700 font-bold text-2xl">
+                                <Link href={route("welcome")} className="text-gray-700 dark:text-gray-200 font-bold text-2xl">
                                     بیمارستان سلامت
                                 </Link>
                             </div>
@@ -54,22 +54,22 @@ const ClientLayout = ({auth, children}) => {
 
                             <div className="hidden md:block w-full md:w-auto" id="menu">
                                 <nav
-                                    className="w-full bg-white md:bg-transparent rounded shadow-lg px-6 py-4 mt-4 text-center md:p-0 md:mt-0 md:shadow-none">
-                                    <ul className="md:flex items-center md:text-gray-700">
+                                    className=" w-full bg-white md:bg-transparent rounded shadow-lg px-6 py-4 mt-4 text-center md:p-0 md:mt-0 md:shadow-none">
+                                    <ul className="md:flex items-center md:text-gray-700 ">
                                         <li><a
-                                            className="md:ml-4 py-2 inline-block md:hidden lg:block font-semibold hover:text-gray-500"
+                                            className="md:ml-4 py-2 inline-block md:hidden lg:block font-semibold hover:text-gray-500 dark:text-gray-200"
                                             href="#">درباره ما</a></li>
                                         <li className="md:ml-4"><a
-                                            className="py-2 inline-block md:px-2 font-semibold hover:text-gray-500"
+                                            className="py-2 inline-block md:px-2 font-semibold hover:text-gray-500 dark:text-gray-200"
                                             href="#">درمان ها</a></li>
                                         <li className="md:ml-4"><a
-                                            className="py-2 inline-block md:px-2 font-semibold hover:text-gray-500"
+                                            className="py-2 inline-block md:px-2 font-semibold hover:text-gray-500 dark:text-gray-200"
                                             href="#">گواهینامه ها</a></li>
                                         <li className="md:ml-4 md:hidden lg:block"><a
-                                            className="py-2 inline-block md:px-2 font-semibold hover:text-gray-500"
+                                            className="py-2 inline-block md:px-2 font-semibold hover:text-gray-500 dark:text-gray-200"
                                             href="#">بلاگ</a></li>
                                         <li className="md:ml-4"><a
-                                            className="py-2 inline-block md:px-2 font-semibold hover:text-gray-500"
+                                            className="py-2 inline-block md:px-2 font-semibold hover:text-gray-500 dark:text-gray-200"
                                             href="#">ارتباط با ما</a></li>
                                         <li className="md:ml-6 mt-3 md:mt-0">
                                             <Link

@@ -21,7 +21,7 @@ use App\Repositories\Interfaces\LaboratoryTestItemRepositoryInterface;
 use App\Repositories\Interfaces\LaboratoryTestRepositoryInterface;
 use App\Repositories\Interfaces\MedicineRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
-use App\Repositories\Interfaces\PatientReportsRepositoryInterface;
+use App\Repositories\Interfaces\ReportsRepositoryInterface;
 use App\Repositories\Interfaces\PatientRepositoryInterface;
 use App\Repositories\Interfaces\PharmacyRepositoryInterface;
 use App\Repositories\Interfaces\RequestAppointmentRepositoryInterface;
@@ -32,7 +32,7 @@ use App\Repositories\LaboratoryTestItemRepository;
 use App\Repositories\LaboratoryTestRepository;
 use App\Repositories\MedicineRepository;
 use App\Repositories\OrderRepository;
-use App\Repositories\PatientReportsRepository;
+use App\Repositories\ReportsRepository;
 use App\Repositories\PatientRepository;
 use App\Repositories\PharmacyRepository;
 use App\Repositories\RequestAppointmentRepository;
@@ -115,7 +115,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AppointmentRepositoryInterface::class,AppointmentRepository::class);
         $this->app->bind(RequestAppointmentRepositoryInterface::class,RequestAppointmentRepository::class);
         $this->app->bind(DiseaseRepositoryInterface::class,DiseaseRepository::class);
-        $this->app->bind(PatientReportsRepositoryInterface::class,PatientReportsRepository::class);
+        $this->app->bind(ReportsRepositoryInterface::class,ReportsRepository::class);
     }
 
     public function bindService()
