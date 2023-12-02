@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
             Route::get('beds/restore/{bed}', [BedController::class, 'restore'])->name('beds.restore');
             Route::resource('beds', BedController::class);
             Route::get('reports/requestAppointmentsAccordingIllness', [ReportsController::class, 'getRequestAppointmentsAccordingIllness'])->name('reports.requestAppointmentsAccordingIllness');
+            Route::get('reports/requestAppointmentsAccordingGender', [ReportsController::class, 'getRequestAppointmentsAccordingGender'])->name('reports.requestAppointmentsAccordingGender');
         });
         Route::middleware('role:super_admin|reception')->group(function () {
             Route::get('patients/restore/{patient}', [PatientController::class, 'restore'])->name('patients.restore');

@@ -54,9 +54,15 @@ const Sidebar = () => {
                 <div className="hidden text-right text-sm font-thin mt-2 w-4/5 mx-auto dark:text-gray-200" id="submenu">
                     <Link
                         href={route('admin.reports.requestAppointmentsAccordingIllness')}
-                        className="text-[14px] dark:text-gray-200 p-1 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                        className="text-[14px] dark:text-gray-200 p-1 mb-2 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
                         <i className="bi bi-heart-pulse-fill ml-4"></i>
                         <p>نوبت ها - بیماری</p>
+                    </Link>
+                    <Link
+                        href={route('admin.reports.requestAppointmentsAccordingGender')}
+                        className="text-[14px] dark:text-gray-200 p-1 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 hover:bg-green-400 dark:hover:bg-green-600 dark:text-white">
+                        <i className="bi bi-heart-pulse-fill ml-4"></i>
+                        <p>نوبت ها - جنسیت</p>
                     </Link>
                 </div>
                 <Link

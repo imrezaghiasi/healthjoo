@@ -3,7 +3,7 @@ import {Head, Link, useForm, usePage} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 
-const RequestAppointmentReport = (props) => {
+const RequestAppointmentAccordingIllness = (props) => {
 
     const {requestAppointments} = usePage().props;
 
@@ -96,4 +96,4 @@ const RequestAppointmentReport = (props) => {
     );
 };
 
-export default RequestAppointmentReport;
+export default RequestAppointmentAccordingIllness;

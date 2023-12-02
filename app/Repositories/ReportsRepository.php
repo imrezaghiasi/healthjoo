@@ -36,7 +36,28 @@ class ReportsRepository implements ReportsRepositoryInterface
 
     public function getRequestAppointmentsAccordingGender()
     {
-        // TODO: Implement getRequestAppointmentsAccordingGender() method.
+        $requestAppointments = RequestAppointment::all();
+
+        $results = array();
+
+        $male = new \stdClass();
+        $male->id = 1;
+        $male->name = 'مرد';
+        $male->count = 0;
+        $female = new \stdClass();
+        $female->id = 1;
+        $female->name = 'زن';
+        $female->count = 0;
+        foreach ($requestAppointments as $requestAppointment) {
+            if ($requestAppointment->patient()->get('gender')[0]['gender'] == '1') {
+                $male->count += 1;
+            } else {
+                $female->count += 1;
+            }
+        }
+        $results[] = $male;
+        $results[] = $female;
+        return $results;
     }
 
     public function getHospitalizationsAccordingIllness()

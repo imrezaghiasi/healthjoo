@@ -21,11 +21,13 @@ class ReportsController extends Controller
     public function getRequestAppointmentsAccordingIllness()
     {
         $requestAppointments = $this->reportsRepository->getRequestAppointmentsAccordingIllness();
-        return Inertia::render('Admin/Report/RequestAppointmentReport',compact('requestAppointments'));
+        return Inertia::render('Admin/Report/RequestAppointmentAccordingIllness',compact('requestAppointments'));
     }
 
     public function getRequestAppointmentsAccordingGender()
     {
+        $requestAppointments = $this->reportsRepository->getRequestAppointmentsAccordingGender();
+        return Inertia::render('Admin/Report/RequestAppointmentAccordingGender',compact('requestAppointments'));
     }
 
     public function getHospitalizationsAccordingIllness()
