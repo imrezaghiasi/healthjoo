@@ -100,7 +100,10 @@ class RequestAppointmentController extends Controller
     public function storeAppointment(RequestAppointmentRequest $request)
     {
         $appointment = Appointment::where('started_at', Carbon::parse("$request->date_started_at $request->time_started_at"))->first();
-        if (RequestAppointment::where([['user_id',$request->user_id] , ['appointment_id',$appointment->id]])->exists())
+        $requestAppointment = RequestAppointment::withWhereHas('appointment', function ($query) use ($appointment) {
+            $query->where('doctor_id','!=',$appointment->doctor_id);
+        })->where([['user_id',$request->user_id] , ['appointment_id',$appointment->id]]);
+        if ($requestAppointment->exists())
             return back()->with('failed', 'قبلا در این زمان نوبت برای شما رزرو شده است');
         $requestAppointment = RequestAppointment::create(
             [
@@ -121,6 +124,24 @@ class RequestAppointmentController extends Controller
             $q->with('doctor')->latest();
         },'disease'])->where('user_id',Auth::user()->id)->latest()->paginate(4);
         return Inertia::render('Dashboard',compact('requestAppointments'));
+    }
+
+    public function confirmRequestAppointment(RequestAppointment $requestAppointment)
+    {
+        $requestAppointment->is_referred = 1;
+        $appointment = Appointment::where('id',$requestAppointment->appointment_id)->first();
+        $appointment->is_expired = 1;
+        $appointment->save();
+        $requestAppointment->save();
+    }
+
+    public function cancelRequestAppointment(RequestAppointment $requestAppointment)
+    {
+        $requestAppointment->is_canceled = 1;
+        $appointment = Appointment::where('id',$requestAppointment->appointment_id)->first();
+        $appointment->is_reserved = 0;
+        $appointment->save();
+        $requestAppointment->save();
     }
 }
 

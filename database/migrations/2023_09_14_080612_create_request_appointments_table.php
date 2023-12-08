@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('patient_id')->references('id')->on('patients')->cascadeOnDelete();
             $table->foreignId('appointment_id')->references('id')->on('appointments')->cascadeOnDelete();
             $table->foreignId('disease_id')->references('id')->on('diseases')->cascadeOnDelete();
+            $table->boolean('is_canceled')->default(0);
+            $table->boolean('is_referred')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

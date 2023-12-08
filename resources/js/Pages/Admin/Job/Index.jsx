@@ -14,7 +14,7 @@ const Index = (props) => {
 
     function destroy(e) {
         Swal.fire({
-            title: 'آیا از حذف این مورد مطمئن هستد؟',
+            title: 'آیا از حذف این مورد مطمئن هستید؟',
             text: "این عمل قابل برگشت نیست !",
             icon: 'warning',
             showCancelButton: true,
@@ -42,7 +42,7 @@ const Index = (props) => {
 
     function restore(e) {
         Swal.fire({
-            title: 'آیا از برگرداندن این مورد مطمئن هستد؟',
+            title: 'آیا از برگرداندن این مورد مطمئن هستید؟',
             text: "این عمل قابل برگشت نیست !",
             icon: 'warning',
             showCancelButton: true,

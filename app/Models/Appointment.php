@@ -13,7 +13,7 @@ class Appointment extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['doctor_id','is_reserved','started_at'];
+    protected $fillable = ['doctor_id','is_reserved','is_expired','started_at'];
     protected $appends = ['date_started_at','time_started_at'];
 
     public function getDateStartedAtAttribute()

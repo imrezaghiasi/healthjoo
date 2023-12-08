@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
+import Swal from "sweetalert2";
 
 const Index = (props) => {
 
@@ -27,6 +28,32 @@ const Index = (props) => {
         if (confirm("آیا از برگرداندن این مورد مطمئن هستید؟")) {
             router.get(route("admin.requestAppointments.restore", e.currentTarget.id));
         }
+    }
+
+    function handleConfirm(e) {
+        Swal.fire({
+            title: 'آیا از تایید مراجعه این نوبت مطمئن هستید؟',
+            text: "این عمل قابل برگشت نیست !",
+            icon: 'success',
+            showCancelButton: true,
+            cancelButtonText: 'لغو',
+            confirmButtonColor: '#0b7917',
+            cancelButtonColor: '#ff0101',
+            confirmButtonText: 'بله . مطمئنم!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.put(route("requestAppointment.confirmRequestAppointment", e.target.id), {
+                    onSuccess: () => {
+                        Swal.fire({
+                                title: 'تایید شد!',
+                                text: 'با موفقیت تایید شد!',
+                                icon: 'success'
+                            }
+                        )
+                    }
+                });
+            }
+        })
     }
 
     return (
@@ -65,6 +92,7 @@ const Index = (props) => {
                                     <th className="px-4 py-2 w-20">نام پزشک</th>
                                     <th className="px-4 py-2">شروع نوبت</th>
                                     <th className="px-4 py-2">نام بیماری</th>
+                                    <th className="px-4 py-2">وضعیت</th>
                                     <th className="px-4 py-2">عملیات</th>
                                 </tr>
                                 </thead>
@@ -74,6 +102,8 @@ const Index = (props) => {
                                                                    patient,
                                                                    appointment,
                                                                    disease,
+                                                                   is_referred,
+                                                                   is_canceled,
                                                                    deleted_at
                                                                }) => (
                                     <tr key={id} className="text-center border dark:border-gray-700 dark:text-gray-300">
@@ -83,8 +113,16 @@ const Index = (props) => {
                                         <td className="px-4 py-2">{appointment.doctor.first_name + ' ' + appointment.doctor.last_name}</td>
                                         <td className="px-4 py-2">{new Date(appointment.date_started_at).toLocaleDateString('fa-IR')  }</td>
                                         <td className="px-4 py-2">{disease.name}</td>
+                                        <td className="px-4 py-2">{is_referred ?
+                                            ( <span className={"bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"}>مراجعه شده</span>
+                                        ) : (
+                                                <span className={"bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"}>مراجعه نشده</span>
+                                            )}
+                                            {is_canceled ? (
+                                                    <span className={"bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"}>کنسل شده</span>
+                                                ): ""}</td>
                                         <td className="px-4 py-2">
-                                            <div className="flex flex-row justify-center">
+                                            <div className="flex flex-row justify-center items-center">
                                                 <button
                                                     onClick={deleted_at == null ? destroy : restore}
                                                     id={id}
@@ -94,6 +132,15 @@ const Index = (props) => {
                                                 >
                                                     {deleted_at == null ? "حذف" : "برگرداندن"}
                                                 </button>
+                                                {!is_referred && !is_canceled && (<button
+                                                    onClick={handleConfirm}
+                                                    id={id}
+                                                    tabIndex="-1"
+                                                    type="button"
+                                                    className={'bg-green-500 dark:bg-green-700 mx-1 px-4 py-2 text-sm text-white rounded'}
+                                                >
+                                                    تایید مراجعه
+                                                </button>)}
                                             </div>
                                         </td>
                                     </tr>

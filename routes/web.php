@@ -108,6 +108,8 @@ Route::middleware('auth')->group(function () {
     Route::get('requestAppointments/doctors/{type}', [RequestAppointmentController::class, 'doctors'])->name('requestAppointments.doctors');
     Route::get('requestAppointments/appointments/{doctor}', [RequestAppointmentController::class, 'appointments'])->name('requestAppointments.appointments');
     Route::post('requestAppointments', [RequestAppointmentController::class, 'storeAppointment'])->name('requestAppointment.storeAppointment');
+    Route::put('requestAppointments/confirmRequestAppointment/{requestAppointment}', [RequestAppointmentController::class, 'confirmRequestAppointment'])->name('requestAppointment.confirmRequestAppointment');
+    Route::put('requestAppointments/cancelRequestAppointment/{requestAppointment}', [RequestAppointmentController::class, 'cancelRequestAppointment'])->name('requestAppointment.cancelRequestAppointment');
 });
 
 require __DIR__ . '/auth.php';
