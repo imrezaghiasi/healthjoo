@@ -55,7 +55,7 @@ export default function Dashboard(props) {
                                     <div
                                         className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md dark:bg-gray-900 lg:aspect-none group-hover:opacity-75 lg:h-80">
                                         <img
-                                            src={window.location.origin + '/app/' + requestAppointment.appointment.doctor.photo_path}
+                                            src={window.location.origin + '/app/' + requestAppointment.appointment.clinic.doctor.photo_path}
                                             className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                                         />
                                     </div>
@@ -63,10 +63,10 @@ export default function Dashboard(props) {
                                         <div>
                                             <h3 className="text-sm">
                                                 <div className="font-bold text-blue-950 dark:text-gray-200">
-                                                    {requestAppointment.appointment.doctor.first_name + ' ' + requestAppointment.appointment.doctor.last_name}
+                                                    {requestAppointment.appointment.clinic.doctor.first_name + ' ' + requestAppointment.appointment.clinic.doctor.last_name}
                                                 </div>
                                             </h3>
-                                            <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">{requestAppointment.appointment.doctor.specialization}</p>
+                                            <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">{requestAppointment.appointment.clinic.doctor.specialization}</p>
                                         </div>
                                     </div>
                                     <div className="p-3">

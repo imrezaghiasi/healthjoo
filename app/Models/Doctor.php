@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
@@ -20,8 +21,8 @@ class Doctor extends Model
         return $this->hasMany(Hospitalization::class);
     }
 
-    public function appointments(): HasMany
+    public function clinics(): HasOne
     {
-        return $this->hasMany(Appointment::class);
+        return $this->hasOne(Clinic::class,'doctor_id');
     }
 }

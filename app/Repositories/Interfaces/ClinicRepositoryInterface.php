@@ -4,8 +4,8 @@ namespace App\Repositories\Interfaces;
 
 use Illuminate\Http\Request;
 
-interface AppointmentRepositoryInterface
+interface ClinicRepositoryInterface
 {
     public function getWithTrashedLatest(Request $request = null);
-    public function getClinicForAppointments();
+    public function getDoctorsForAppointment();
 }
