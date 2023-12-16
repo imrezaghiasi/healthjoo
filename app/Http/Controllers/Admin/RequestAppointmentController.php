@@ -91,7 +91,7 @@ class RequestAppointmentController extends Controller
 
     public function appointments(Doctor $doctor)
     {
-        $appointments = $doctor->appointments()->where('is_reserved',0)->get();
+        $appointments = $doctor->clinics->appointments()->where('is_reserved',0)->get();
         $similarDoctors = Doctor::where('specialization', $doctor->specialization)->where('id','!=',$doctor->id)->get();
         $diseases = Disease::select('id','name')->get();
         return Inertia::render('Appointment', compact('doctor', 'appointments', 'similarDoctors','diseases'));
@@ -101,7 +101,7 @@ class RequestAppointmentController extends Controller
     {
         $appointment = Appointment::where('started_at', Carbon::parse("$request->date_started_at $request->time_started_at"))->first();
         $requestAppointment = RequestAppointment::withWhereHas('appointment', function ($query) use ($appointment) {
-            $query->where('doctor_id','!=',$appointment->doctor_id);
+            $query->where('clinic_id','!=',$appointment->clinic_id);
         })->where([['user_id',$request->user_id] , ['appointment_id',$appointment->id]]);
         if ($requestAppointment->exists())
             return back()->with('failed', 'قبلا در این زمان نوبت برای شما رزرو شده است');
@@ -121,7 +121,9 @@ class RequestAppointmentController extends Controller
     public function getAppointmentsForUser()
     {
         $requestAppointments = RequestAppointment::with(['appointment' => function($q) {
-            $q->with('doctor')->latest();
+            $q->with(['clinic' => function($q){
+                $q->with('doctor');
+            }])->latest();
         },'disease'])->where('user_id',Auth::user()->id)->latest()->paginate(4);
         return Inertia::render('Dashboard',compact('requestAppointments'));
     }

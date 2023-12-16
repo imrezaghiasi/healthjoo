@@ -18,14 +18,14 @@ class AppointmentService implements AppointmentServiceInterface
 
     public function store(AppointmentRequest $request)
     {
-        $this->appointment->doctor_id = $request->doctor_id;
+        $this->appointment->clinic_id = $request->clinic_id;
         $this->appointment->started_at = Carbon::parse("$request->date_started_at $request->time_started_at");
         $this->appointment->save();
     }
 
     public function update(AppointmentRequest $request, Appointment $appointment)
     {
-        $appointment->doctor_id = $request->doctor_id;
+        $appointment->clinic_id = $request->clinic_id;
         $appointment->started_at = Carbon::parse("$request->date_started_at $request->time_started_at");
         $appointment->update();
     }

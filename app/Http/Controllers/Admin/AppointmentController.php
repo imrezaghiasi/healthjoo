@@ -31,13 +31,13 @@ class AppointmentController extends Controller
 
     public function create()
     {
-        $doctors = $this->appointmentRepository->getDoctorsForAppointments();
+        $doctors = $this->appointmentRepository->getClinicForAppointments();
         return Inertia::render('Admin/Appointment/Create',compact('doctors'));
     }
 
     public function store(AppointmentRequest $request)
     {
-        if (Appointment::where([['doctor_id',$request->doctor_id],['started_at',Carbon::parse("$request->date_started_at $request->time_started_at")]])->exists())
+        if (Appointment::where([['clinic_id',$request->clinic_id],['started_at',Carbon::parse("$request->date_started_at $request->time_started_at")]])->exists())
             return back()->with('failed','قبلا این نوبت ثبت شده است');
         $this->appointmentService->store($request);
         return redirect()->route($this->redirectRoute);
@@ -50,7 +50,7 @@ class AppointmentController extends Controller
 
     public function edit(Appointment $appointment)
     {
-        $doctors = $this->appointmentRepository->getDoctorsForAppointments();
+        $doctors = $this->appointmentRepository->getClinicForAppointments();
         return Inertia::render('Admin/Appointment/Edit',compact('appointment','doctors'));
     }
 

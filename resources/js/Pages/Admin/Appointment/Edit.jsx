@@ -9,7 +9,7 @@ const Edit = ({auth, errors}) => {
 
 
     const {data, setData} = useForm({
-        doctor_id: appointment.doctor_id || '',
+        clinic_id: appointment.clinic_id || '',
         date_started_at: appointment.date_started_at || '',
         time_started_at: appointment.time_started_at || '',
         _method: 'PUT'
@@ -59,17 +59,17 @@ const Edit = ({auth, errors}) => {
                                             className="text-red-600 mr-2">*</span></label>
                                         <select
                                             className="text-center w-full rounded shadow-sm dark:shadow-gray-900 px-4 py-2 dark:bg-gray-700 dark:border-gray-800"
-                                            value={data.doctor_id}
-                                            onChange={(e) => setData("doctor_id", e.target.value)}>
+                                            value={data.clinic_id}
+                                            onChange={(e) => setData("clinic_id", e.target.value)}>
                                             <option value="">پزشک را انتخاب کنید</option>
                                             {doctors.map(doctor => (
                                                 <option key={doctor.id}
-                                                        value={doctor.id}>{doctor.first_name + ' - ' + doctor.last_name}</option>
+                                                        value={doctor.id}>{doctor.doctor.first_name + ' ' + doctor.doctor.last_name}</option>
                                             ))
                                             }
                                         </select>
                                         <span className="text-red-600">
-                                            {errors.doctor_id}
+                                            {errors.clinic_id}
                                         </span>
                                     </div>
                                 </div>

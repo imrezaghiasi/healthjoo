@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Repositories\AppointmentRepository;
 use App\Repositories\BedRepository;
+use App\Repositories\ClinicRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\DiseaseRepository;
 use App\Repositories\DoctorRepository;
@@ -11,6 +12,7 @@ use App\Repositories\EmployeeRepository;
 use App\Repositories\HospitalizationRepository;
 use App\Repositories\Interfaces\AppointmentRepositoryInterface;
 use App\Repositories\Interfaces\BedRepositoryInterface;
+use App\Repositories\Interfaces\ClinicRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Repositories\Interfaces\DiseaseRepositoryInterface;
 use App\Repositories\Interfaces\DoctorRepositoryInterface;
@@ -40,6 +42,7 @@ use App\Repositories\RoomRepository;
 use App\Repositories\TestRepository;
 use App\Services\AppointmentService;
 use App\Services\BedService;
+use App\Services\ClinicService;
 use App\Services\DepartmentService;
 use App\Services\DiseaseService;
 use App\Services\DoctorService;
@@ -48,6 +51,7 @@ use App\Services\HospitalizationService;
 use App\Services\ImageUploaderService;
 use App\Services\Interfaces\AppointmentServiceInterface;
 use App\Services\Interfaces\BedServiceInterface;
+use App\Services\Interfaces\ClinicServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\DiseaseServiceInterface;
 use App\Services\Interfaces\DoctorServiceInterface;
@@ -116,6 +120,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(RequestAppointmentRepositoryInterface::class,RequestAppointmentRepository::class);
         $this->app->bind(DiseaseRepositoryInterface::class,DiseaseRepository::class);
         $this->app->bind(ReportsRepositoryInterface::class,ReportsRepository::class);
+        $this->app->bind(ClinicRepositoryInterface::class,ClinicRepository::class);
     }
 
     public function bindService()
@@ -138,5 +143,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AppointmentServiceInterface::class,AppointmentService::class);
         $this->app->bind(RequestAppointmentServiceInterface::class,RequestAppointmentService::class);
         $this->app->bind(DiseaseServiceInterface::class,DiseaseService::class);
+        $this->app->bind(ClinicServiceInterface::class,ClinicService::class);
     }
 }

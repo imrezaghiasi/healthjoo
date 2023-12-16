@@ -13,7 +13,7 @@ class Appointment extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['doctor_id','is_reserved','is_expired','started_at'];
+    protected $fillable = ['clinic_id','is_reserved','is_expired','started_at'];
     protected $appends = ['date_started_at','time_started_at'];
 
     public function getDateStartedAtAttribute()
@@ -26,9 +26,9 @@ class Appointment extends Model
         return Carbon::parse($timestamp)->format('H:i:s');
     }
 
-    public function doctor(): BelongsTo
+    public function clinic(): BelongsTo
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(Clinic::class);
     }
 
     public function requestAppointments(): HasMany

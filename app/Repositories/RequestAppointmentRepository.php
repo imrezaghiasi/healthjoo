@@ -22,7 +22,9 @@ class RequestAppointmentRepository implements RequestAppointmentRepositoryInterf
                 $query->where('national_code', $request->term);
             }
         })->with(['user','appointment' => function($q){
-            $q->with('doctor')->latest();
+            $q->with(['clinic' => function($q){
+                $q->with('doctor');
+            }])->latest();
         },'disease' => function($q){
             $q->withTrashed();
         }])->withTrashed()->latest();

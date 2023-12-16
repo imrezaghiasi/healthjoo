@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Appointment;
+use App\Models\Clinic;
 use App\Models\Doctor;
 use App\Repositories\Interfaces\AppointmentRepositoryInterface;
 use Illuminate\Http\Request;
@@ -17,13 +18,13 @@ class AppointmentRepository implements AppointmentRepositoryInterface
 
     public function getWithTrashedLatest(Request $request = null)
     {
-        return $this->query()->with(['doctor' => function($q){
-            $q->withTrashed();
+        return $this->query()->with(['clinic' => function($q){
+            $q->with('doctor')->withTrashed();
         }])->withTrashed()->latest();
     }
 
-    public function getDoctorsForAppointments()
+    public function getClinicForAppointments()
     {
-        return Doctor::select('id', 'first_name','last_name')->get();
+        return Clinic::with('doctor')->get();
     }
 }
