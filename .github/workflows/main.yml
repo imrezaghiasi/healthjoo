@@ -1,4 +1,4 @@
-name: Deploy hms
+name: Deploy Laravel Project on push
 on:
   push:
     branches:
@@ -11,32 +11,14 @@ jobs:
       - name: Get the latest code
         uses: actions/checkout@v2.3.2
       - uses: actions/setup-node@master
-        with:
-          node-version: '20.x'
-      - run: npm install
-      - run: npm run build
       - name: Copy .env
-        run: cp .env.example .env
-      - name: Composer Install Dependencies
-        run: composer install --optimize-autoloader --no-dev
-      - name: Composer Update Dependencies
-        run: composer update --optimize-autoloader
-      - name: Config:Chache
-        run: php artisan config:cache
-      - name: Event:Chache
-        run: php artisan event:cache
-      - name: Route:Chache
-        run: php artisan route:cache
-      - name: View:Chache
-        run: php artisan view:cache
-      - name: Optimize
-        run: php artisan optimize
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Install Dependencies
+        run: composer install
       - name: Generate key
         run: php artisan key:generate
       - name: Generate storage link
         run: php artisan storage:link
-      - name: Config:Clear
-        run: php artisan config:clear
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
       - name: 📂 Sync files
@@ -45,4 +27,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /
+          server-dir: /public_html/
