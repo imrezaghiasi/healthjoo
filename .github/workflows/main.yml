@@ -35,6 +35,8 @@ jobs:
         run: php artisan key:generate
       - name: Generate storage link
         run: php artisan storage:link
+      - name: Config:Clear
+        run: php artisan config:clear
       - name: Run Migrations
         run: php artisan migrate --seed
       - name: Directory Permissions
