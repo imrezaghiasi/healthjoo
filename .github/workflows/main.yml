@@ -17,6 +17,8 @@ jobs:
       - run: npm run build
       - name: Copy .env
         run: cp .env.example .env
+      - name: Package:Discover
+        run: php artisan package:discover --ansi
       - name: Composer Dump-Autoload
         run: composer dump-autoload --optimize
       - name: Composer Install Dependencies
