@@ -15,6 +15,7 @@ jobs:
         run: composer install
       - name: Generate key
         run: php artisan key:generate
+      - run: cp .env.example .env
       - name: Generate storage link
         run: php artisan storage:link
       - name: Directory Permissions
