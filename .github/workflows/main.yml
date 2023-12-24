@@ -16,7 +16,7 @@ jobs:
       - run: npm install
       - run: npm run build --if-present
       - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        run: cp .env.example .env
       - name: Install Dependencies
         run: composer update --ignore-platform-reqs
       - name: Generate key
