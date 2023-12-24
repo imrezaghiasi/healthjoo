@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@master
       - name: Install Dependencies
         run: composer install
-      - run: cp .env.example .env
+      - run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Generate key
         run: php artisan key:generate
       - name: Generate storage link
@@ -22,6 +22,5 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
       - run: npm install
       - run: npm run build
-      - run: php artisan migrate
       - run: php artisan serve
     
