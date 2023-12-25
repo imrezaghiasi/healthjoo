@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\ClinicRequest;
 use App\Models\Clinic;
 use App\Services\Interfaces\ClinicServiceInterface;
+use Illuminate\Http\Request;
 
 class ClinicService implements ClinicServiceInterface
 {

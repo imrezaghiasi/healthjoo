@@ -76,6 +76,8 @@ Route::middleware('auth')->group(function () {
             Route::patch('hospitalizations/update_finished_at/{hospitalization}', [HospitalizationController::class, 'update_finished_at'])->name('hospitalizations.update_finished_at');
             Route::resource('hospitalizations', HospitalizationController::class);
             Route::get('appointments/restore/{appointment}', [AppointmentController::class, 'restore'])->name('appointments.restore');
+            Route::get('appointments/createCumulativeAppointment/{clinic}', [AppointmentController::class, 'createCumulativeAppointment'])->name('appointments.createCumulativeAppointment');
+            Route::post('appointments/storeCumulativeAppointment/{clinic}', [AppointmentController::class, 'storeCumulativeAppointment'])->name('appointments.storeCumulativeAppointment');
             Route::resource('appointments', AppointmentController::class);
             Route::get('requestAppointments/restore/{requestAppointment}', [RequestAppointmentController::class, 'restore'])->name('requestAppointments.restore');
             Route::resource('requestAppointments', RequestAppointmentController::class);

@@ -10,7 +10,7 @@ use App\Repositories\Interfaces\ClinicRepositoryInterface;
 use App\Services\Interfaces\ClinicServiceInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Testing\Assert;
+use Inertia\Response;
 
 class ClinicController extends Controller
 {

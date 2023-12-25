@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
+use App\Models\Clinic;
 use App\Repositories\Interfaces\AppointmentRepositoryInterface;
 use App\Services\Interfaces\AppointmentServiceInterface;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class AppointmentController extends Controller
 {
@@ -23,19 +26,19 @@ class AppointmentController extends Controller
         $this->appointmentRepository = $appointmentRepository;
         $this->appointmentService = $appointmentService;
     }
-    public function index()
+    public function index(): Response
     {
         $appointments = $this->appointmentRepository->getWithTrashedLatest()->paginate(10);
         return Inertia::render('Admin/Appointment/Index',compact('appointments'));
     }
 
-    public function create()
+    public function create(): Response
     {
         $doctors = $this->appointmentRepository->getClinicForAppointments();
         return Inertia::render('Admin/Appointment/Create',compact('doctors'));
     }
 
-    public function store(AppointmentRequest $request)
+    public function store(AppointmentRequest $request): RedirectResponse
     {
         if (Appointment::where([['clinic_id',$request->clinic_id],['started_at',Carbon::parse("$request->date_started_at $request->time_started_at")]])->exists())
             return back()->with('failed','قبلا این نوبت ثبت شده است');
@@ -48,25 +51,37 @@ class AppointmentController extends Controller
         //
     }
 
-    public function edit(Appointment $appointment)
+    public function edit(Appointment $appointment): Response
     {
         $doctors = $this->appointmentRepository->getClinicForAppointments();
         return Inertia::render('Admin/Appointment/Edit',compact('appointment','doctors'));
     }
 
-    public function update(AppointmentRequest $request, Appointment $appointment)
+    public function update(AppointmentRequest $request, Appointment $appointment): RedirectResponse
     {
         $this->appointmentService->update($request, $appointment);
         return redirect()->route($this->redirectRoute);
     }
 
-    public function destroy(Appointment $appointment)
+    public function destroy(Appointment $appointment): void
     {
         $this->appointmentService->destroy($appointment);
     }
 
-    public function restore(string $id)
+    public function restore(string $id): void
     {
         $this->appointmentService->restore($id);
+    }
+
+    public function createCumulativeAppointment(Clinic $clinic): Response
+    {
+        return Inertia::render('Admin/Clinic/CumulativeAppointment',compact('clinic'));
+    }
+
+    public function storeCumulativeAppointment(Request $request, Clinic $clinic): RedirectResponse
+    {
+        $this->appointmentService->storeCumulativeAppointment($request, $clinic);
+
+        return redirect()->route($this->redirectRoute);
     }
 }

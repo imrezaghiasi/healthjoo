@@ -18,9 +18,6 @@ const Create = ({auth, errors}) => {
         date_started_at: '',
         time_started_at: '',
     })
-
-    console.log(data)
-
     const changeDatePicker = (e) => {
         const date = new Date(e.value);
         const year = date.getFullYear();

@@ -4,6 +4,8 @@ namespace App\Services\Interfaces;
 
 use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
+use App\Models\Clinic;
+use Illuminate\Http\Request;
 
 interface AppointmentServiceInterface
 {
@@ -11,4 +13,5 @@ interface AppointmentServiceInterface
     public function update(AppointmentRequest $request, Appointment $appointment);
     public function destroy(Appointment $appointment);
     public function restore(string $id);
+    public function storeCumulativeAppointment(Request $request, Clinic $clinic);
 }

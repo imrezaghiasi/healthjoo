@@ -54,6 +54,7 @@ const Index = (props) => {
                                     <th className="px-4 py-2">تلفن</th>
                                     <th className="px-4 py-2">روزهای کاری</th>
                                     <th className="px-4 py-2">ساعت های کاری</th>
+                                    <th className="px-4 py-2">عملیات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -76,13 +77,20 @@ const Index = (props) => {
                                         <td className="px-4 py-2">{'از ' + start_day + ' تا ' +end_day}</td>
                                         <td className="px-4 py-2">{'از ' + start_hours + ' تا ' +end_hours}</td>
                                         <td className="px-4 py-2">
-                                            <div className="flex flex-row justify-center">
+                                            <div className="flex flex-row gap-2 justify-center">
                                                 <Link
                                                     tabIndex="1"
                                                     className="px-4 py-2 text-sm text-white bg-blue-500 dark:bg-blue-700 rounded"
                                                     href={route("admin.clinics.edit", id)}
                                                 >
                                                     ویرایش
+                                                </Link>
+                                                <Link
+                                                    tabIndex="1"
+                                                    className="px-4 py-2 text-sm text-white bg-green-500 dark:bg-green-700 rounded"
+                                                    href={route("admin.appointments.createCumulativeAppointment", id)}
+                                                >
+                                                    ثبت نوبت تجمعی
                                                 </Link>
                                                 <button
                                                     onClick={deleted_at == null ? destroy : restore}

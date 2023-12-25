@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
+use App\Models\Clinic;
 use App\Services\Interfaces\AppointmentServiceInterface;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class AppointmentService implements AppointmentServiceInterface
 {
@@ -39,5 +41,10 @@ class AppointmentService implements AppointmentServiceInterface
     {
         $appointment = $this->appointment->withTrashed()->FindOrFail($id);
         $appointment->restore();
+    }
+
+    public function storeCumulativeAppointment(Request $request, Clinic $clinic)
+    {
+        dd($request->all());
     }
 }
