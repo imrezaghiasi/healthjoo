@@ -1,50 +1,42 @@
-import React from 'react';
-import {Head, Link, useForm, usePage} from "@inertiajs/react";
+import React, {useEffect, useState} from 'react';
+import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
+import {DatePicker} from "zaman";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import Swal from "sweetalert2";
 
-const Create = ({auth, errors}) => {
+const Edit = ({auth, errors}) => {
 
-    const {doctors,flash} = usePage().props
-    const {data, setData, post} = useForm({
-        doctor_id: '',
-        address: '',
-        phone: '',
-        start_day: '',
-        end_day: '',
-        start_hours: '',
-        end_hours: '',
+    const {clinic,doctors} = usePage().props
+
+    const {data, setData} = useForm({
+        doctor_id: clinic.doctor_id || '',
+        address: clinic.address || '',
+        phone: clinic.phone || '',
+        start_day: clinic.start_day || '',
+        end_day: clinic.end_day || '',
+        start_hours: clinic.start_hours || '',
+        end_hours: clinic.end_hours || '',
+        _method: 'PUT'
     })
-
 
     function handleSubmit(e) {
         e.preventDefault();
-        post(route("admin.clinics.store"),{
-            onSuccess: () => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'موفقیت آمیز!',
-                    text: 'ثبت با موفقیت انجام شد',
-                });
-            },
-        });
+        router.post(route("admin.clinics.update", clinic.id), data);
     }
-
 
     return (
         <Authenticated
             auth={auth}
             errors={errors}
-            header={<h2 className="font-semibold text-xl leading-tight">ایجاد مطب</h2>}
+            header={<h2 className="font-semibold text-xl leading-tight">ویرایش مطب</h2>}
         >
 
-            <Head title="Clinics"/>
+            <Head title="Clinic"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm">
                         <div className="p-6 bg-white dark:bg-gray-800 dark:shadow-xl">
-                            <div className={`${flash.success ? 'bg-green-500' : 'bg-red-500'} w-full text-white text-center p-2 mb-2`}>{flash.success ? flash.success : flash.failed}</div>
+
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
@@ -181,7 +173,7 @@ const Create = ({auth, errors}) => {
                                         type="submit"
                                         className="px-6 py-2 font-bold text-white bg-green-500 rounded"
                                     >
-                                        ایجاد
+                                        ویرایش
                                     </button>
                                 </div>
                             </form>
@@ -196,4 +188,4 @@ const Create = ({auth, errors}) => {
     );
 };
 
-export default Create;
+export default Edit;

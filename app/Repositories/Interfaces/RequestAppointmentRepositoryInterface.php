@@ -8,4 +8,5 @@ interface RequestAppointmentRepositoryInterface
 {
     public function getWithTrashedLatest(Request $request);
     public function getAppointmentForRequestAppointments();
+    public function getAppointmentsForUser();
 }

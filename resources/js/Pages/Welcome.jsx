@@ -28,7 +28,7 @@ export default function Welcome({auth, laravelVersion, phpVersion}) {
                                     ضامن
                                     سلامتی شما هستیم</h1>
                                 <p className="text-white md:text-2xl leading-snug mt-10">به بیمارستان سلامت خوش آمدید. </p>
-                                <a href={route("requestAppointments.doctors", 'all')}
+                                <a href={route("doctors", 'all')}
                                    className="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold">رزرو
                                     نوبت</a>
                             </div>
@@ -126,7 +126,7 @@ export default function Welcome({auth, laravelVersion, phpVersion}) {
 
                                 <h4 className="text-xl font-bold mt-4">دندان پزشکی</h4>
                                 <p className="mt-1">لورم ایپسوم متن ساختگی</p>
-                                <a href={route("requestAppointments.doctors", 'dentists')}
+                                <a href={route("doctors", 'dentists')}
                                    className="block mt-4 border-1 px-4 py-2 border-gray-300 border-2 rounded-md hover:duration-1000 hover:bg-gray-200">رزرو
                                     نوبت</a>
                             </div>
@@ -139,7 +139,7 @@ export default function Welcome({auth, laravelVersion, phpVersion}) {
 
                                 <h4 className="text-xl font-bold mt-4">قلب و عروق</h4>
                                 <p className="mt-1">لورم ایپسوم متن ساختگی</p>
-                                <a href={route("requestAppointments.doctors", 'cardiologist')}
+                                <a href={route("doctors", 'cardiologist')}
                                    className="block mt-4 border-1 px-4 py-2 border-gray-300 border-2 rounded-md hover:duration-1000 hover:bg-gray-200">رزرو
                                     نوبت</a>
                             </div>
@@ -152,7 +152,7 @@ export default function Welcome({auth, laravelVersion, phpVersion}) {
 
                                 <h4 className="text-xl font-bold mt-4">داخلی</h4>
                                 <p className="mt-1">لورم ایپسوم متن ساختگی</p>
-                                <a href={route("requestAppointments.doctors", 'internist')}
+                                <a href={route("doctors", 'internist')}
                                    className="block mt-4  border-1 px-4 py-2 border-gray-300 border-2 rounded-md hover:duration-1000 hover:bg-gray-200">رزرو
                                     نوبت</a>
                             </div>
@@ -165,7 +165,7 @@ export default function Welcome({auth, laravelVersion, phpVersion}) {
 
                                 <h4 className="text-xl font-bold mt-4">مغز واعصاب</h4>
                                 <p className="mt-1">لورم ایپسوم متن ساختگی</p>
-                                <a href={route("requestAppointments.doctors", 'neurologist')}
+                                <a href={route("doctors", 'neurologist')}
                                    className="block mt-4 border-1 px-4 py-2 border-gray-300 border-2 rounded-md hover:translate-y-1 hover:scale-100 hover:duration-1000 hover:bg-gray-200">رزرو
                                     نوبت</a>
                             </div>
@@ -178,7 +178,7 @@ export default function Welcome({auth, laravelVersion, phpVersion}) {
                         <h2 className="text-xl font-bold dark:text-white">برای رزرو نوبت کلیک کنید | تماس با ما :
                             3433222250+
                         </h2>
-                        <a href={route("requestAppointments.doctors", 'all')}
+                        <a href={route("doctors", 'all')}
                            className="px-8 py-4 bg-teal-300 text-gray-700 rounded inline-block font-semibold md:mr-8 mt-4 md:mt-0 hover:scale-105 hover:duration-1000 hover:bg-teal-200">رزرو
                             نوبت</a>
                     </div>

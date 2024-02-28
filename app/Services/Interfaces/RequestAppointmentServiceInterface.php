@@ -11,4 +11,6 @@ interface RequestAppointmentServiceInterface
     public function update(RequestAppointmentRequest $request, RequestAppointment $requestAppointment);
     public function destroy(RequestAppointment $requestAppointment);
     public function restore(string $id);
+    public function confirmRequestAppointment(RequestAppointment $requestAppointment);
+    public function cancelRequestAppointment(RequestAppointment $requestAppointment);
 }

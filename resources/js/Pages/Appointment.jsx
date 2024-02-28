@@ -7,6 +7,7 @@ function Appointment({auth, errors}) {
 
     const {doctor, appointments,diseases, similarDoctors,flash} = usePage().props
 
+
     const [filteredAppointments, setFilteredAppointments] = useState(appointments.filter((item) => item.date_started_at == new Date().toJSON().slice(0, 10)))
 
     const {data, setData, post} = useForm({
@@ -34,7 +35,7 @@ function Appointment({auth, errors}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        post(route("requestAppointment.storeAppointment"));
+        post(route("admin.requestAppointments.store"));
     }
 
     var typeFlash;
@@ -83,7 +84,7 @@ function Appointment({auth, errors}) {
                                                  src={window.location.origin + '/app/' + doctor.photo_path}
                                                  alt=""/>
                                             <Link
-                                                href={route("requestAppointments.appointments", doctor.id)}>{doctor.first_name + ' ' + doctor.last_name}</Link>
+                                                href={route("appointments", doctor.id)}>{doctor.first_name + ' ' + doctor.last_name}</Link>
                                         </div>
                                     ))}
 

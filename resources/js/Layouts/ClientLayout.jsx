@@ -74,7 +74,7 @@ const ClientLayout = ({auth, children}) => {
                                         <li className="md:ml-6 mt-3 md:mt-0">
                                             <Link
                                                 className="inline-block font-semibold px-4 py-2 md:text-gray-200 bg-teal-600 rounded duration-1000 hover:bg-teal-500"
-                                                href={route("requestAppointments.doctors", 'all')}>رزرو نوبت</Link>
+                                                href={route("doctors", 'all')}>رزرو نوبت</Link>
                                         </li>
                                         {auth.user ? (
                                             <Link
