@@ -72,16 +72,4 @@ class AppointmentController extends Controller
     {
         $this->appointmentService->restore($id);
     }
-
-    public function createCumulativeAppointment(Clinic $clinic): Response
-    {
-        return Inertia::render('Admin/Clinic/CumulativeAppointment',compact('clinic'));
-    }
-
-    public function storeCumulativeAppointment(Request $request, Clinic $clinic): RedirectResponse
-    {
-        $this->appointmentService->storeCumulativeAppointment($request, $clinic);
-
-        return redirect()->route($this->redirectRoute);
-    }
 }

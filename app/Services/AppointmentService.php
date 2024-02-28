@@ -42,9 +42,4 @@ class AppointmentService implements AppointmentServiceInterface
         $appointment = $this->appointment->withTrashed()->FindOrFail($id);
         $appointment->restore();
     }
-
-    public function storeCumulativeAppointment(Request $request, Clinic $clinic)
-    {
-        dd($request->all());
-    }
 }

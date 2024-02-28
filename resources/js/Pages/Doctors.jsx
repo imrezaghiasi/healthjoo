@@ -18,7 +18,7 @@ function Doctors({auth}) {
                                 {doctors.map((doctor) => (
                                     <div key={doctor.id}
                                          className="bg-white shadow-gray-300 shadow-xl rounded-md hover:translate-y-1 hover:scale-100 hover:duration-1000 hover:shadow-teal-500">
-                                        <Link href={route("requestAppointments.appointments", doctor.id)}>
+                                        <Link href={route("appointments", doctor.id)}>
                                             <div
                                                 className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                                                 <img

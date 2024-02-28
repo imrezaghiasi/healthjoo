@@ -11,25 +11,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Clinic extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable  = ['doctor_id', 'address','phone','start_day','end_day','start_hours','end_hours',];
+    protected $fillable = ['doctor_id', 'address', 'phone', 'start_day', 'end_day', 'start_hours', 'end_hours'];
 
-    protected $casts = [
-        'start_day' => 'integer',
-        'end_day' => 'integer',
+    protected $appends = [
+        'start_day_name',
+        'end_day_name',
     ];
 
-    // Accessor for start_day
-    public function getStartDayAttribute($value)
+    public function getStartDayNameAttribute()
     {
-        return Weekday::from($value)->getDescription();
+        return Weekday::from($this->start_day)->getDescription();
     }
 
-    // Accessor for end_day
-    public function getEndDayAttribute($value)
+    public function getEndDayNameAttribute()
     {
-        return Weekday::from($value)->getDescription();
+        return Weekday::from($this->end_day)->getDescription();
     }
 
     public function doctor(): BelongsTo

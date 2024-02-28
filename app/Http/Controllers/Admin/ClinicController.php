@@ -8,6 +8,7 @@ use App\Http\Requests\ClinicRequest;
 use App\Models\Clinic;
 use App\Repositories\Interfaces\ClinicRepositoryInterface;
 use App\Services\Interfaces\ClinicServiceInterface;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -82,5 +83,16 @@ class ClinicController extends Controller
     public function restore(string $id)
     {
         $this->clinicService->restore($id);
+    }
+
+    public function createMultiAppointmentForClinic(Clinic $clinic): Response
+    {
+        return Inertia::render('Admin/Clinic/CreateMultiAppointment',compact('clinic'));
+    }
+
+    public function storeMultiAppointmentForClinic(Request $request, Clinic $clinic): RedirectResponse
+    {
+        $this->clinicService->storeMultiAppointmentForClinic($request, $clinic);
+        return redirect()->route($this->redirectRoute);
     }
 }

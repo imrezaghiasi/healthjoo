@@ -5,7 +5,12 @@ namespace App\Repositories;
 use App\Models\Appointment;
 use App\Models\RequestAppointment;
 use App\Repositories\Interfaces\RequestAppointmentRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class RequestAppointmentRepository implements RequestAppointmentRepositoryInterface
 {
@@ -33,5 +38,14 @@ class RequestAppointmentRepository implements RequestAppointmentRepositoryInterf
     public function getAppointmentForRequestAppointments()
     {
         return Appointment::select('id', 'started_at')->with('doctor')->get();
+    }
+
+    public function getAppointmentsForUser(): Builder
+    {
+        return RequestAppointment::with(['appointment' => function($q) {
+            $q->with(['clinic' => function($q){
+                $q->with('doctor');
+            }])->latest();
+        },'disease'])->where('user_id',Auth::user()->id)->latest();
     }
 }

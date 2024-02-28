@@ -35,6 +35,4 @@ class Appointment extends Model
     {
         return $this->hasMany(RequestAppointment::class);
     }
-
-
 }

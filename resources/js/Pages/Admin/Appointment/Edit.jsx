@@ -36,7 +36,7 @@ const Edit = ({auth, errors}) => {
             header={<h2 className="font-semibold text-xl leading-tight">ویرایش نوبت</h2>}
         >
 
-            <Head title="Doctors"/>
+            <Head title="Appointment"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -4,11 +4,11 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import Swal from "sweetalert2";
 import {DatePicker} from "zaman";
 
-const CumulativeAppointment = ({auth, errors}) => {
+const CreateMultiAppointment = ({auth, errors}) => {
 
     const {clinic, flash} = usePage().props
     const {data, setData, post} = useForm({
-        minute_steps: 0,
+        time_interval: 0,
         end_date: ''
     })
 
@@ -23,7 +23,7 @@ const CumulativeAppointment = ({auth, errors}) => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        post(route("admin.appointments.storeCumulativeAppointment", clinic), {
+        post(route("admin.clinics.storeMultiAppointmentForClinic", clinic), {
             onSuccess: () => {
                 Swal.fire({
                     icon: 'success',
@@ -42,7 +42,7 @@ const CumulativeAppointment = ({auth, errors}) => {
             header={<h2 className="font-semibold text-xl leading-tight">ایجاد نوبت</h2>}
         >
 
-            <Head title="Appointments"/>
+            <Head title="Clinic"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -53,7 +53,7 @@ const CumulativeAppointment = ({auth, errors}) => {
                             <div className="flex items-center justify-between mb-6">
                                 <Link
                                     className="px-6 py-2 text-white bg-blue-900 rounded-md focus:outline-none"
-                                    href={route("admin.appointments.index")}
+                                    href={route("admin.clinics.index")}
                                 >
                                     برگشت
                                 </Link>
@@ -63,7 +63,7 @@ const CumulativeAppointment = ({auth, errors}) => {
                                 <div className="flex flex-row justify-center gap-5">
                                     <div className="mb-4 w-1/3">
                                         <label htmlFor={"address"} className="">روزهای کاری</label>
-                                        <h2 className={"mt-3"}>{clinic.start_day + ' - ' + clinic.end_day}</h2>
+                                        <h2 className={"mt-3"}>{clinic.start_day_name + ' - ' + clinic.end_day_name}</h2>
                                     </div>
                                     <div className="mb-4 w-1/3">
                                         <label htmlFor={"address"} className="">ساعت های کاری</label>
@@ -78,10 +78,10 @@ const CumulativeAppointment = ({auth, errors}) => {
                                                max={'60'}
                                                min={"0"}
                                                className={"w-full px-4 py-2 dark:bg-gray-700 dark:border-gray-800"}
-                                               value={data.minute_steps}
-                                               onChange={(e) => setData('minute_steps', e.target.value)}/>
+                                               value={data.time_interval}
+                                               onChange={(e) => setData('time_interval', e.target.value)}/>
                                         <span className="text-red-600">
-                                            {errors.minute_steps}
+                                            {errors.time_interval}
                                         </span>
                                     </div>
                                     <div className="mb-4 w-1/3">
@@ -121,4 +121,4 @@ const CumulativeAppointment = ({auth, errors}) => {
     );
 };
 
-export default CumulativeAppointment;
+export default CreateMultiAppointment;

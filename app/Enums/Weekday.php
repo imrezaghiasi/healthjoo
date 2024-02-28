@@ -4,13 +4,13 @@ namespace App\Enums;
 
 enum Weekday: int
 {
-    case Saturday = 0;
-    case Sunday = 1;
-    case Monday = 2;
-    case Tuesday = 3;
-    case Wednesday = 4;
-    case Thursday = 5;
-    case Friday = 6;
+    case Saturday = 1;
+    case Sunday = 2;
+    case Monday = 3;
+    case Tuesday = 4;
+    case Wednesday = 5;
+    case Thursday = 6;
+    case Friday = 7;
 
     public function getDescription(): string
     {

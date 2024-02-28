@@ -7,8 +7,6 @@ const Index = (props) => {
 
     const {clinics} = usePage().props;
 
-    console.log(clinics)
-
     function destroy(e) {
         if (confirm("آیا از حذف این مورد مطمئن هستید؟")) {
             router.delete(route("admin.clinics.destroy", e.currentTarget.id));
@@ -63,8 +61,8 @@ const Index = (props) => {
                                                        doctor,
                                                        address,
                                                        phone,
-                                                       start_day,
-                                                       end_day,
+                                                       start_day_name,
+                                                       end_day_name,
                                                        start_hours,
                                                        end_hours,
                                                        deleted_at
@@ -74,7 +72,7 @@ const Index = (props) => {
                                         <td className="px-4 py-2">{doctor.first_name + ' ' + doctor.last_name}</td>
                                         <td className="px-4 py-2">{address}</td>
                                         <td className="px-4 py-2">{phone}</td>
-                                        <td className="px-4 py-2">{'از ' + start_day + ' تا ' +end_day}</td>
+                                        <td className="px-4 py-2">{'از ' + start_day_name + ' تا ' + end_day_name}</td>
                                         <td className="px-4 py-2">{'از ' + start_hours + ' تا ' +end_hours}</td>
                                         <td className="px-4 py-2">
                                             <div className="flex flex-row gap-2 justify-center">
@@ -88,7 +86,7 @@ const Index = (props) => {
                                                 <Link
                                                     tabIndex="1"
                                                     className="px-4 py-2 text-sm text-white bg-green-500 dark:bg-green-700 rounded"
-                                                    href={route("admin.appointments.createCumulativeAppointment", id)}
+                                                    href={route("admin.clinics.createMultiAppointmentForClinic", id)}
                                                 >
                                                     ثبت نوبت تجمعی
                                                 </Link>

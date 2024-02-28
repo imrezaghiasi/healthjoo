@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\RequestAppointmentController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\TestController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -76,14 +77,14 @@ Route::middleware('auth')->group(function () {
             Route::patch('hospitalizations/update_finished_at/{hospitalization}', [HospitalizationController::class, 'update_finished_at'])->name('hospitalizations.update_finished_at');
             Route::resource('hospitalizations', HospitalizationController::class);
             Route::get('appointments/restore/{appointment}', [AppointmentController::class, 'restore'])->name('appointments.restore');
-            Route::get('appointments/createCumulativeAppointment/{clinic}', [AppointmentController::class, 'createCumulativeAppointment'])->name('appointments.createCumulativeAppointment');
-            Route::post('appointments/storeCumulativeAppointment/{clinic}', [AppointmentController::class, 'storeCumulativeAppointment'])->name('appointments.storeCumulativeAppointment');
             Route::resource('appointments', AppointmentController::class);
             Route::get('requestAppointments/restore/{requestAppointment}', [RequestAppointmentController::class, 'restore'])->name('requestAppointments.restore');
             Route::resource('requestAppointments', RequestAppointmentController::class);
             Route::get('diseases/restore/{disease}', [DiseaseController::class, 'restore'])->name('diseases.restore');
             Route::resource('diseases', DiseaseController::class);
             Route::get('clinics/restore/{clinic}', [ClinicController::class, 'restore'])->name('clinics.restore');
+            Route::get('clinics/createMultiAppointmentForClinic/{clinic}', [ClinicController::class, 'createMultiAppointmentForClinic'])->name('clinics.createMultiAppointmentForClinic');
+            Route::post('clinics/storeMultiAppointmentForClinic/{clinic}', [ClinicController::class, 'storeMultiAppointmentForClinic'])->name('clinics.storeMultiAppointmentForClinic');
             Route::resource('clinics', ClinicController::class);
         });
 
@@ -110,9 +111,8 @@ Route::middleware('auth')->group(function () {
             Route::resource('orders', OrderController::class);
         });
     });
-    Route::get('requestAppointments/doctors/{type}', [RequestAppointmentController::class, 'doctors'])->name('requestAppointments.doctors');
-    Route::get('requestAppointments/appointments/{doctor}', [RequestAppointmentController::class, 'appointments'])->name('requestAppointments.appointments');
-    Route::post('requestAppointments', [RequestAppointmentController::class, 'storeAppointment'])->name('requestAppointment.storeAppointment');
+    Route::get('/doctors/{type}', [HomeController::class, 'doctors'])->name('doctors');
+    Route::get('/appointments/{doctor}', [HomeController::class, 'appointments'])->name('appointments');
     Route::put('requestAppointments/confirmRequestAppointment/{requestAppointment}', [RequestAppointmentController::class, 'confirmRequestAppointment'])->name('requestAppointment.confirmRequestAppointment');
     Route::put('requestAppointments/cancelRequestAppointment/{requestAppointment}', [RequestAppointmentController::class, 'cancelRequestAppointment'])->name('requestAppointment.cancelRequestAppointment');
 });
