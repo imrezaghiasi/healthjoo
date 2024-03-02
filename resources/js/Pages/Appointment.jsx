@@ -7,7 +7,6 @@ function Appointment({auth, errors}) {
 
     const {doctor, appointments,diseases, similarDoctors,flash} = usePage().props
 
-
     const [filteredAppointments, setFilteredAppointments] = useState(appointments.filter((item) => item.date_started_at == new Date().toJSON().slice(0, 10)))
 
     const {data, setData, post} = useForm({
@@ -216,6 +215,6 @@ function Appointment({auth, errors}) {
 
         </>
     );
-};
+}
 
 export default Appointment;
