@@ -21,7 +21,7 @@ class Doctor extends Model
         return $this->hasMany(Hospitalization::class);
     }
 
-    public function clinics(): HasOne
+    public function clinic(): HasOne
     {
         return $this->hasOne(Clinic::class,'doctor_id');
     }

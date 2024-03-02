@@ -25,7 +25,9 @@ class PatientRepository implements PatientRepositoryInterface
     public function getRequestAppointment(Patient $patient): Builder
     {
         return RequestAppointment::with(['patient', 'disease', 'appointment' => function ($q) {
-            $q->with('doctor')->latest();
+            $q->with(['clinic'  => function($query){
+                $query->with('doctor');
+            }]);
         }])->where('patient_id', $patient->id)->latest();
     }
 }
