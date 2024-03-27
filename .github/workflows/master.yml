@@ -16,4 +16,4 @@ jobs:
       with:
         server: ftp.healthjoo.com
         username: healthjoo@healthjoo.com
-        password: ${{ secrets.ftp_password }}
+        password: ${{ secrets.FTP_PASSWORD }}
