@@ -80,6 +80,7 @@ use App\Services\RoomService;
 use App\Services\TestService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -97,52 +98,53 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Schema::defaultStringLength(191);
         Paginator::useTailwind();
     }
 
     public function bindRepository()
     {
-        $this->app->bind(JobRepositoryInterface::class,JobRepository::class);
-        $this->app->bind(EmployeeRepositoryInterface::class,EmployeeRepository::class);
-        $this->app->bind(PatientRepositoryInterface::class,PatientRepository::class);
-        $this->app->bind(DoctorRepositoryInterface::class,DoctorRepository::class);
-        $this->app->bind(MedicineRepositoryInterface::class,MedicineRepository::class);
-        $this->app->bind(DepartmentRepositoryInterface::class,DepartmentRepository::class);
-        $this->app->bind(RoomRepositoryInterface::class,RoomRepository::class);
-        $this->app->bind(HospitalizationRepositoryInterface::class,HospitalizationRepository::class);
-        $this->app->bind(BedRepositoryInterface::class,BedRepository::class);
-        $this->app->bind(TestRepositoryInterface::class,TestRepository::class);
-        $this->app->bind(LaboratoryTestItemRepositoryInterface::class,LaboratoryTestItemRepository::class);
-        $this->app->bind(LaboratoryTestRepositoryInterface::class,LaboratoryTestRepository::class);
-        $this->app->bind(PharmacyRepositoryInterface::class,PharmacyRepository::class);
-        $this->app->bind(OrderRepositoryInterface::class,OrderRepository::class);
-        $this->app->bind(AppointmentRepositoryInterface::class,AppointmentRepository::class);
-        $this->app->bind(RequestAppointmentRepositoryInterface::class,RequestAppointmentRepository::class);
-        $this->app->bind(DiseaseRepositoryInterface::class,DiseaseRepository::class);
-        $this->app->bind(ReportsRepositoryInterface::class,ReportsRepository::class);
-        $this->app->bind(ClinicRepositoryInterface::class,ClinicRepository::class);
+        $this->app->bind(JobRepositoryInterface::class, JobRepository::class);
+        $this->app->bind(EmployeeRepositoryInterface::class, EmployeeRepository::class);
+        $this->app->bind(PatientRepositoryInterface::class, PatientRepository::class);
+        $this->app->bind(DoctorRepositoryInterface::class, DoctorRepository::class);
+        $this->app->bind(MedicineRepositoryInterface::class, MedicineRepository::class);
+        $this->app->bind(DepartmentRepositoryInterface::class, DepartmentRepository::class);
+        $this->app->bind(RoomRepositoryInterface::class, RoomRepository::class);
+        $this->app->bind(HospitalizationRepositoryInterface::class, HospitalizationRepository::class);
+        $this->app->bind(BedRepositoryInterface::class, BedRepository::class);
+        $this->app->bind(TestRepositoryInterface::class, TestRepository::class);
+        $this->app->bind(LaboratoryTestItemRepositoryInterface::class, LaboratoryTestItemRepository::class);
+        $this->app->bind(LaboratoryTestRepositoryInterface::class, LaboratoryTestRepository::class);
+        $this->app->bind(PharmacyRepositoryInterface::class, PharmacyRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(AppointmentRepositoryInterface::class, AppointmentRepository::class);
+        $this->app->bind(RequestAppointmentRepositoryInterface::class, RequestAppointmentRepository::class);
+        $this->app->bind(DiseaseRepositoryInterface::class, DiseaseRepository::class);
+        $this->app->bind(ReportsRepositoryInterface::class, ReportsRepository::class);
+        $this->app->bind(ClinicRepositoryInterface::class, ClinicRepository::class);
     }
 
     public function bindService()
     {
-        $this->app->bind(JobServiceInterface::class,JobService::class);
-        $this->app->bind(EmployeeServiceInterface::class,EmployeeService::class);
-        $this->app->bind(ImageUploaderServiceInterface::class,ImageUploaderService::class);
-        $this->app->bind(PatientServiceInterface::class,PatientService::class);
-        $this->app->bind(DoctorServiceInterface::class,DoctorService::class);
-        $this->app->bind(MedicineServiceInterface::class,MedicineService::class);
-        $this->app->bind(DepartmentServiceInterface::class,DepartmentService::class);
-        $this->app->bind(RoomServiceInterface::class,RoomService::class);
-        $this->app->bind(HospitalizationServiceInterface::class,HospitalizationService::class);
-        $this->app->bind(BedServiceInterface::class,BedService::class);
-        $this->app->bind(TestServiceInterface::class,TestService::class);
-        $this->app->bind(LaboratoryTestItemServiceInterface::class,LaboratoryTestItemService::class);
-        $this->app->bind(LaboratoryTestServiceInterface::class,LaboratoryTestService::class);
-        $this->app->bind(PharmacyServiceInterface::class,PharmacyService::class);
-        $this->app->bind(OrderServiceInterface::class,OrderService::class);
-        $this->app->bind(AppointmentServiceInterface::class,AppointmentService::class);
-        $this->app->bind(RequestAppointmentServiceInterface::class,RequestAppointmentService::class);
-        $this->app->bind(DiseaseServiceInterface::class,DiseaseService::class);
-        $this->app->bind(ClinicServiceInterface::class,ClinicService::class);
+        $this->app->bind(JobServiceInterface::class, JobService::class);
+        $this->app->bind(EmployeeServiceInterface::class, EmployeeService::class);
+        $this->app->bind(ImageUploaderServiceInterface::class, ImageUploaderService::class);
+        $this->app->bind(PatientServiceInterface::class, PatientService::class);
+        $this->app->bind(DoctorServiceInterface::class, DoctorService::class);
+        $this->app->bind(MedicineServiceInterface::class, MedicineService::class);
+        $this->app->bind(DepartmentServiceInterface::class, DepartmentService::class);
+        $this->app->bind(RoomServiceInterface::class, RoomService::class);
+        $this->app->bind(HospitalizationServiceInterface::class, HospitalizationService::class);
+        $this->app->bind(BedServiceInterface::class, BedService::class);
+        $this->app->bind(TestServiceInterface::class, TestService::class);
+        $this->app->bind(LaboratoryTestItemServiceInterface::class, LaboratoryTestItemService::class);
+        $this->app->bind(LaboratoryTestServiceInterface::class, LaboratoryTestService::class);
+        $this->app->bind(PharmacyServiceInterface::class, PharmacyService::class);
+        $this->app->bind(OrderServiceInterface::class, OrderService::class);
+        $this->app->bind(AppointmentServiceInterface::class, AppointmentService::class);
+        $this->app->bind(RequestAppointmentServiceInterface::class, RequestAppointmentService::class);
+        $this->app->bind(DiseaseServiceInterface::class, DiseaseService::class);
+        $this->app->bind(ClinicServiceInterface::class, ClinicService::class);
     }
 }
