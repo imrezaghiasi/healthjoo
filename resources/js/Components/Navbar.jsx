@@ -22,8 +22,8 @@ const Navbar = () => {
                         <div className="flex items-center">
                             <Link href={route('welcome')} className="flex ml-2 md:mr-24">
                                 <svg className="mb-3" fill="#08781e" version="1.1" id="Capa_1"
-                                     xmlns="http://www.w3.org/2000/svg"
-                                     xmlnsXlink="http://www.w3.org/1999/xlink" width="42px" height="42px"
+                                     xmlns="https://www.w3.org/2000/svg"
+                                     xmlnsXlink="https://www.w3.org/1999/xlink" width="42px" height="42px"
                                      viewBox="0 0 441.344 441.343" xmlSpace="preserve">
                                     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                                     <g id="SVGRepo_tracerCarrier" strokeLinecap="round"
@@ -56,7 +56,7 @@ const Navbar = () => {
 
                                                 <svg
                                                     className="mr-2 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns="https://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
                                                 >
