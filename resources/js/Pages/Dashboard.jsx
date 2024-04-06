@@ -43,7 +43,7 @@ export default function Dashboard(props) {
         >
             <Head title="Dashboard"/>
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="bg-gray-800 max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-slate-100 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <h2 className="text-2xl font-bold tracking-tight text-center text-blue-900 dark:text-blue-500 mt-5">نوبت
                             های ثبت شده توسط شما</h2>
@@ -101,7 +101,7 @@ export default function Dashboard(props) {
                         {
                             requestAppointments.data.length == 0 && (
                                 <div
-                                    className={"bg-slate-100 px-6 py-4 text-gray-600 border-t dark:text-white text-center"}>نوبتی
+                                    className={"bg-slate-100 px-6 py-4 text-gray-600 border-t dark:bg-slate-800 dark:text-white text-center"}>نوبتی
                                     تا به حال برای شما ثبت نشده است</div>
                             )
                         }

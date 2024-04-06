@@ -12,6 +12,10 @@ class HomeController extends Controller
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    public function welcome()
+    {
+        return view('welcome');
+    }
     public function doctors(string $type)
     {
         if ($type == 'all')
